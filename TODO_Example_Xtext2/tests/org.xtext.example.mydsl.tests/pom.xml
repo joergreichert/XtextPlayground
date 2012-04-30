@@ -39,8 +39,9 @@
 						<configuration>
 							<argLine>-Xms256m -Xmx512m -XX:MaxPermSize=256M ${coverageAgent}</argLine>
 							<testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
-							<excludes>
-							</excludes>
+							<includes>
+								<include>**/*Test.java</include>
+							</includes>
 						</configuration>
 						<goals>
 							<goal>test</goal>
