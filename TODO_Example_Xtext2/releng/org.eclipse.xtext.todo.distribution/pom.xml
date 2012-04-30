@@ -25,7 +25,7 @@
 				<module>../../plugins/org.xtext.example.mydsl</module>
 				<module>../../plugins/org.xtext.example.mydsl.ui</module>
 				<module>../../tests/org.xtext.example.mydsl.tests</module>
-				<module>../../tests/org.xtext.example.mydsl.ui.tests</module>
+				<module>../../tests/org.eclipse.xtext.todo.ui.tests</module>
 			</modules>
 		</profile>
 		<profile>
