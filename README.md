@@ -1,0 +1,4 @@
+XtextPlayground
+===============
+
+Playground for Xtext
