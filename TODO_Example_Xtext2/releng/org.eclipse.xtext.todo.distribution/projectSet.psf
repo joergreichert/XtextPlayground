@@ -8,6 +8,7 @@
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.repository.parent"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.targetplatform"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/tests/org.xtext.example.mydsl.tests"/>
+<project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/tests/org.eclipse.xtext.todo.ui.tests"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/features/org.eclipse.xtext.todo.updatesite"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/plugins/org.xtext.example.mydsl"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/plugins/org.xtext.example.mydsl.ui"/>
@@ -31,5 +32,6 @@
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1335773261340_4" label="Xtext TODOs tests" name="Xtext TODOs tests">
 <item elementID="=org.eclipse.xtext.todo.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=org.eclipse.xtext.todo.ui.tests" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSets>
 </psf>
