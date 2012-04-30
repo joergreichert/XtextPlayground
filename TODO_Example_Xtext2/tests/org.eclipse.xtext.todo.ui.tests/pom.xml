@@ -20,10 +20,9 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-					<skip>false</skip>
 					<argLine>-Xms256m -Xmx512m -XX:MaxPermSize=256M ${coverageAgent}</argLine>
 					<useUIHarness>true</useUIHarness>
-					<useUIThread>true</useUIThread>
+					<useUIThread>false</useUIThread>
 					<application>org.eclipse.ui.ide.workbench</application>
 					<dependencies>
 						<dependency>
