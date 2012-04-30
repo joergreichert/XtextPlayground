@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
-	<classpathentry kind="src" path="xtend-gen"/>
+	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.1/junit-4.8.1.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/com.google.inject/3.0.0.no_aop/com.google.inject-3.0.0.no_aop.jar"/>
@@ -134,6 +134,7 @@
 	<classpathentry kind="lib" path="C:/_maven_repo/org/eclipse/xtext/todo/org.eclipse.xtext.todo.ui/0.1.0-SNAPSHOT/org.eclipse.xtext.todo.ui-0.1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.ui.junit/2.2.1.v201112130541/org.eclipse.xtext.ui.junit-2.2.1.v201112130541.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.junit4/4.8.1.v20100525/org.junit4-4.8.1.v20100525.jar"/>
+	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipselabs.xtext.utils.unittesting/0.9.3.201204261440/org.eclipselabs.xtext.utils.unittesting-0.9.3.201204261440.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.ui.shared/2.2.1.v201112130541/org.eclipse.xtext.ui.shared-2.2.1.v201112130541.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.ui.codetemplates.ui/2.2.1.v201112130541/org.eclipse.xtext.ui.codetemplates.ui-2.2.1.v201112130541.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.ui.codetemplates/2.2.1.v201112130541/org.eclipse.xtext.ui.codetemplates-2.2.1.v201112130541.jar"/>
