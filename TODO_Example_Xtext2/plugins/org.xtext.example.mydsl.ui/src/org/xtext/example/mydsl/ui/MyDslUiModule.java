@@ -9,10 +9,10 @@ import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfigurati
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.xtext.example.mydsl.ui.highlighting.MyDslHighlightingConfiguration;
 import org.xtext.example.mydsl.ui.highlighting.MyDslSemanticHighlightingCalculator;
-import org.xtext.example.mydsl.ui.outline.tasks.ITaskElementChecker;
-import org.xtext.example.mydsl.ui.outline.tasks.MyDslTaskElementChecker;
-import org.xtext.example.mydsl.ui.outline.tasks.TaskConstants;
-import org.xtext.example.mydsl.ui.outline.tasks.XtextTaskCalculator;
+import org.xtext.example.mydsl.ui.tasks.ITaskElementChecker;
+import org.xtext.example.mydsl.ui.tasks.MyDslTaskElementChecker;
+import org.xtext.example.mydsl.ui.tasks.TaskConstants;
+import org.xtext.example.mydsl.ui.tasks.XtextTaskCalculator;
 
 import com.google.inject.name.Names;
 

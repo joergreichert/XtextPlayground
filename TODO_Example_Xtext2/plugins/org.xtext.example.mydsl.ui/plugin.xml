@@ -289,8 +289,8 @@
    <extension
          point="org.eclipse.ui.editors.annotationTypes">
       <type
-            markerType="de.itemis.red.ucdsl.ui.Xtask"
-            name="de.itemis.red.ucdsl.ui.XtaskAnnotation"
+            markerType="org.eclipse.xtext.todo.ui.Xtask"
+            name="org.xtext.example.mydsl.ui.XtaskAnnotation"
             super="org.eclipse.ui.workbench.texteditor.task">
       </type>
    </extension>

@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Xtext TODOs UI Tests
+Bundle-SymbolicName: org.eclipse.xtext.todo.ui.tests
+Bundle-Version: 0.1.0.qualifier
+Bundle-Vendor: Joerg Reichert
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.7.0",
+ org.eclipse.ui;bundle-version="3.7.0",
+ org.junit4;bundle-version="4.8.1",
+ org.eclipse.swtbot.go;bundle-version="2.0.5",
+ org.eclipse.jdt.core;bundle-version="3.7.0",
+ org.eclipse.core.resources;bundle-version="3.7.100",
+ org.eclipse.jdt.launching;bundle-version="3.6.0",
+ org.eclipse.jdt.junit4.runtime;bundle-version="1.1.200",
+ org.eclipse.pde.core;bundle-version="3.7.1",
+ org.eclipse.pde.ui;bundle-version="3.6.100",
+ org.eclipse.xtext.todo;bundle-version="0.1.0",
+ org.eclipse.xtext.todo.ui;bundle-version="0.1.0",
+ org.eclipse.swtbot.eclipse.junit4.headless;bundle-version="2.0.5",
+ org.eclipse.swtbot.eclipse.ui;bundle-version="2.0.5",
+ org.eclipse.swtbot.forms.finder;bundle-version="2.0.5"

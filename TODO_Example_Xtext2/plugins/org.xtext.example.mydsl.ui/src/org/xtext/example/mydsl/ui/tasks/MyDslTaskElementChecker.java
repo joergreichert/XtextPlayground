@@ -1,4 +1,4 @@
-package org.xtext.example.mydsl.ui.outline.tasks;
+package org.xtext.example.mydsl.ui.tasks;
 
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;

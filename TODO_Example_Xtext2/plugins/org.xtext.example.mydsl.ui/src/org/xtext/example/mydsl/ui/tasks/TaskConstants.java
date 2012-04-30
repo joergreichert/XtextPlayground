@@ -1,4 +1,4 @@
-package org.xtext.example.mydsl.ui.outline.tasks;
+package org.xtext.example.mydsl.ui.tasks;
 
 public class TaskConstants {
 	public static final String XTEXT_TASKS = "XtextTasks";

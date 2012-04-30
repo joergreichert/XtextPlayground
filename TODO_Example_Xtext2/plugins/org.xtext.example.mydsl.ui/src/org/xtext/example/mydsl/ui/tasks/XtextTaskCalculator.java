@@ -1,4 +1,4 @@
-package org.xtext.example.mydsl.ui.outline.tasks;
+package org.xtext.example.mydsl.ui.tasks;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -36,7 +36,7 @@ public class XtextTaskCalculator extends IXtextEditorCallback.NullImpl {
 	public void afterCreatePartControl(XtextEditor editor) {
 		updateTaskMarkers(editor);
 	}
-	
+
 	// update markers after a save
 	@Override
 	public void afterSave(XtextEditor argEditor) {
@@ -146,7 +146,7 @@ public class XtextTaskCalculator extends IXtextEditorCallback.NullImpl {
 				IMarker varMarker = argRresource.createMarker(getMarkerType());
 				String text = argNode.getText();
 				int index = text.indexOf(varIgnorePrefix);
-				if(index > 0) {
+				if (index > 0) {
 					text = text.substring(index + varIgnorePrefix.length());
 				}
 				varMarker.setAttribute(IMarker.MESSAGE, text.trim());
@@ -168,10 +168,13 @@ public class XtextTaskCalculator extends IXtextEditorCallback.NullImpl {
 							"org.eclipse.ui.editors.annotationTypes");
 			String markerType = null;
 			for (IConfigurationElement e : config) {
-				markerType = e.getAttribute("markerType");
-				if (markerType.endsWith(TaskConstants.XTEXT_MARKER_SIMPLE_NAME)) {
-					foundMarkerType = markerType;
-					break;
+				if (e != null) {
+					markerType = e.getAttribute("markerType");
+					if (markerType != null && markerType
+							.endsWith(TaskConstants.XTEXT_MARKER_SIMPLE_NAME)) {
+						foundMarkerType = markerType;
+						break;
+					}
 				}
 			}
 			return foundMarkerType;

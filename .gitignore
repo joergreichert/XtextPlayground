@@ -7,3 +7,4 @@
 /TODO_Example_Xtext2/plugins/org.xtext.example.mydsl.ui/plugin.xml_gen
 /TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.repository/target
 /TODO_Example_Xtext2/tests/org.xtext.example.mydsl.tests/target
+/TODO_Example_Xtext2/tests/org.eclipse.xtext.todo.ui.tests/target

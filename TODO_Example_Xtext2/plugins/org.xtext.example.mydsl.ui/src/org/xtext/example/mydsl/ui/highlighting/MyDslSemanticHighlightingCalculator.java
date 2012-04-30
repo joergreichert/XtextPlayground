@@ -12,7 +12,7 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
-import org.xtext.example.mydsl.ui.outline.tasks.ITaskElementChecker;
+import org.xtext.example.mydsl.ui.tasks.ITaskElementChecker;
 
 import com.google.inject.Inject;
 
