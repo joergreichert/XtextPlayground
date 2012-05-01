@@ -287,6 +287,17 @@
 			</properties> 
 		</profile>
 		<profile>
+			<id>noCodeCoverage</id>
+			<activation>
+				<property>
+					<name>!codeCoverage</name>
+				</property>
+			</activation>
+			<properties>
+				<coverageAgent></coverageAgent>
+			</properties>
+		</profile>		
+		<profile>
 			<id>codeCoverage</id>
 			<properties>
 				<jacoco.version>0.5.6.201201232323</jacoco.version>

@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
 	<classpathentry kind="src" path="res"/>
+	<classpathentry kind="src" path="xtend-gen"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.1/junit-4.8.1.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/com.google.inject/3.0.0.no_aop/com.google.inject-3.0.0.no_aop.jar"/>
