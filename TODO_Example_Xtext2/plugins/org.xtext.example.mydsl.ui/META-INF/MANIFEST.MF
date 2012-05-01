@@ -19,7 +19,7 @@ Require-Bundle: org.eclipse.xtext.todo;visibility:=reexport,
  org.apache.commons.lang;bundle-version="2.4.0"
 Import-Package: org.apache.log4j,
  org.apache.commons.logging
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.xtext.example.mydsl.ui.contentassist.antlr,
  org.xtext.example.mydsl.ui.internal,
  org.xtext.example.mydsl.ui.contentassist

@@ -20,6 +20,7 @@ public class XtextTodoTest extends AbstractUITest {
 	public void testCreateSimpleDsl() {
 		String sourceFolder = "model";
 		String dslFile = "test.mydsl";
+		getBot().perspectiveByLabel("Java").activate();
 		createNewProject();
 		selectFolderNode(getProjectName()).select();
 		createFolder(getProjectName(), sourceFolder);
