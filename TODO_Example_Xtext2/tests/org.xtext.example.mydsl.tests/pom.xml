@@ -37,10 +37,11 @@
 						<id>test</id>
 						<phase>test</phase>
 						<configuration>
+							<skip>false</skip>
 							<argLine>-Xms256m -Xmx512m -XX:MaxPermSize=256M ${coverageAgent}</argLine>
 							<testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
 							<includes>
-								<include>**/*Test.java</include>
+								<include>**/*Test*</include>
 							</includes>
 						</configuration>
 						<goals>
