@@ -11,7 +11,8 @@
 	</parent>
 
 	<artifactId>org.eclipse.xtext.todo.tests</artifactId>
-	<packaging>eclipse-test-plugin</packaging>
+	<packaging>eclipse-plugin</packaging>
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -21,27 +22,21 @@
 	</dependencies>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
+		<plugins>		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>${coverageAgent}</argLine>
+				</configuration>
 				<executions>
 					<execution>
 						<id>test</id>
 						<phase>test</phase>
 						<configuration>
-							<skip>false</skip>
-							<argLine>-Xms256m -Xmx512m -XX:MaxPermSize=256M ${coverageAgent}</argLine>
 							<testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
 							<includes>
-								<include>**/*Test*</include>
+								<include>**/*Test.java</include>
 							</includes>
 						</configuration>
 						<goals>

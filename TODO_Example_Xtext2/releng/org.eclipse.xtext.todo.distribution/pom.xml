@@ -84,44 +84,5 @@
 				<sonar.jacoco.itReportPath>${basedir}/target/code-coverage/jacoco_it.exec</sonar.jacoco.itReportPath>
 			</properties> 
 		</profile>
-		<profile>
-			<id>codeCoverage</id>
-			<properties>
-				<jacoco.version>0.5.6.201201232323</jacoco.version>
-
-				<jacoco.propertyName>coverageAgent</jacoco.propertyName>
-				<jacoco.destFile>${basedir}/target/code-coverage/jacoco.exec</jacoco.destFile>
-				<jacoco.it.destFile>${basedir}/target/code-coverage/jacoco_it.exec</jacoco.it.destFile>
-				<jacoco.append>true</jacoco.append>
-				<jacoco.includes>*</jacoco.includes>
-				<jacoco.excludes>BusinessDomainDsl:org.eclipse.*:*.internal.*:*.antlr*:*.parseTree*:*SetupGenerated*:*Abstract*:*GrammarAccess*:*.mm.*:org.eclipselabs.spray.shapes.shapes.*:org.eclipselabs.spray.styles.styles.*:*com.google*</jacoco.excludes>
-				<jacoco.exclClassLoaders>sun.reflect.DelegatingClassLoader:org.powermock.core.classloader.MockClassLoader</jacoco.exclClassLoaders>
-				<!--jacoco.sessionId>junit4runnerSession</jacoco.sessionId-->
-				<!--jacoco.dumpOnExit>true</jacoco.dumpOnExit-->
-				<!--jacoco.output>file</jacoco.output-->
-				<!--jacoco.address>localhost</jacoco.address-->
-				<!--jacoco.port>9999</jacoco.port-->
-
-				<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
-				<sonar.jacoco.reportPath>${jacoco.destFile}</sonar.jacoco.reportPath>
-				<sonar.jacoco.itReportPath>${jacoco.it.destFile}</sonar.jacoco.itReportPath>
-			</properties> 
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
-						<version>${jacoco.version}</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>prepare-agent</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>		
 	</profiles>
 </project>
