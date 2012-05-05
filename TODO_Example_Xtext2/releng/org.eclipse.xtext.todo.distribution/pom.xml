@@ -63,9 +63,6 @@
 				<sonar.java.source>1.6</sonar.java.source>
 				<sonar.java.target>1.6</sonar.java.target>				
 				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-				<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
-				<sonar.jacoco.reportPath>${basedir}/code-coverage/jacoco.exec</sonar.jacoco.reportPath>
-				<sonar.jacoco.itReportPath>${basedir}/target/code-coverage/jacoco_it.exec</sonar.jacoco.itReportPath>
 			</properties> 
 		</profile>
 		<profile>
@@ -79,9 +76,6 @@
 				<sonar.java.source>1.6</sonar.java.source>
 				<sonar.java.target>1.6</sonar.java.target>				
 				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-				<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
-				<sonar.jacoco.reportPath>${basedir}/code-coverage/jacoco.exec</sonar.jacoco.reportPath>
-				<sonar.jacoco.itReportPath>${basedir}/target/code-coverage/jacoco_it.exec</sonar.jacoco.itReportPath>
 			</properties> 
 		</profile>
 	</profiles>
