@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.eclipse.xtext.todo</groupId>
 		<artifactId>org.eclipse.xtext.todo.parent</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>0.1.1-SNAPSHOT</version>
 		<relativePath>../org.eclipse.xtext.todo.parent/pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipse.xtext.todo</groupId>
 	<artifactId>org.eclipse.xtext.todo.feature</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>eclipse-feature</packaging>
 </project>

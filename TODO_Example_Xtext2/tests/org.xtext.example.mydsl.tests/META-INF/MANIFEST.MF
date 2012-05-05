@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipse.xtext.todo.tests
 Bundle-Vendor: Joerg Reichert
-Bundle-Version: 0.1.0.qualifier
+Bundle-Version: 0.1.1.qualifier
 Bundle-SymbolicName: org.eclipse.xtext.todo.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext.todo,
+Require-Bundle: org.eclipse.xtext.todo;bundle-version="0.1.1",
  org.eclipse.xtext.todo.ui,
  org.eclipse.core.runtime,
  org.eclipse.xtext,
