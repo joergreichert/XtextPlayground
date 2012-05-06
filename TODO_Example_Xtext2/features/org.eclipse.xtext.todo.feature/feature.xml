@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.xtext.todo.feature"
       label="Xtext TODO Feature"
-      version="0.1.0.qualifier"
+      version="0.1.1.qualifier"
       provider-name="Joerg Reichert">
 
    <description url="http://www.example.com/description">
