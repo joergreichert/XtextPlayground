@@ -13,6 +13,7 @@
 	<name>Xtext2 TODO</name>
 	<modules>
 		<module>../../releng/org.eclipse.xtext.todo.targetplatform</module>
+		<module>../../releng/org.eclipse.xtext.todo.repository.parent</module>
 		<module>../../releng/org.eclipse.xtext.todo.parent</module>
 	</modules>
 	<profiles>
@@ -36,7 +37,6 @@
 				</property>
 			</activation>
 			<modules>
-				<module>../../releng/org.eclipse.xtext.todo.repository.parent</module>
 				<module>../../releng/org.eclipse.xtext.todo.repository</module>
 			</modules>
 		</profile>
