@@ -44,8 +44,9 @@ public class FirstContextMenuFinder extends ContextMenuFinder {
 		LinkedHashSet<MenuItem> result = new LinkedHashSet<MenuItem>();
 		for (Shell shell : shells)  {
 			result.addAll(findMenus(shell, matcher, recursive));
-			if (!result.isEmpty())
+			if (!result.isEmpty()) {
 				break;
+			}
 		}	
 		return new ArrayList<MenuItem>(result);
 	}
@@ -86,8 +87,9 @@ public class FirstContextMenuFinder extends ContextMenuFinder {
 				}
 				if (recursive) {
 					result.addAll(findMenuInternal(menuItem.getMenu(), matcher, recursive));
-					if (!result.isEmpty())
+					if (!result.isEmpty()) {
 						break;
+					}
 				}
 					
 			}

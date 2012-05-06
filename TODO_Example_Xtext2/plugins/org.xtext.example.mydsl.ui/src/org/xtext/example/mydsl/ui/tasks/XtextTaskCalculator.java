@@ -27,7 +27,7 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import com.google.inject.Inject;
 
 public class XtextTaskCalculator extends IXtextEditorCallback.NullImpl {
-	public static String TASK_MARKER_TYPE = "";
+	private static final String TASK_MARKER_TYPE = "";
 
 	@Inject
 	private UpdateTaskMarkerJob objTaskMarkJob;
@@ -111,15 +111,18 @@ public class XtextTaskCalculator extends IXtextEditorCallback.NullImpl {
 			argEditor.getDocument().readOnly(
 					new IUnitOfWork<Void, XtextResource>() {
 						@Override
-						public java.lang.Void exec(XtextResource argState)
-								throws Exception {
+						public java.lang.Void exec(XtextResource argState) {
 							if (argState != null
 									&& !argState.getContents().isEmpty()) {
 								EObject varModel = argState.getContents()
 										.get(0);
 								ICompositeNode varRoot = NodeModelUtils
 										.getNode(varModel);
-								visit(varRoot, varResource, argMonitor);
+								try {
+									visit(varRoot, varResource, argMonitor);
+								} catch (CoreException e) {
+									e.printStackTrace();
+								}
 							}
 							return null;
 						}

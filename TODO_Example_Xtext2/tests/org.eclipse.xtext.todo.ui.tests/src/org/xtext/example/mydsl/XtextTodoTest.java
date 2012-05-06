@@ -11,15 +11,16 @@ import org.xtext.example.mydsl.testutils.AbstractUITest;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class XtextTodoTest extends AbstractUITest {
-	final String projectName = "Test";
+	private static final String projectName = "Test";
 
 	@Test
 	public void testCreateSimpleDsl() {
 		String sourceFolder = "model";
 		String dslFile = "test.mydsl";
 		openPerspective("Java");
+		createNewProject();
 		selectFolderNode(getProjectName()).select();
-		createFolder(getProjectName(), sourceFolder);
+		createFolder(sourceFolder);
 		createFirstXtextFile(getProjectName(), sourceFolder, dslFile);
 		SWTBotEclipseEditor dslEditor = getBot().activeEditor().toTextEditor();
 		dslEditor.setText("// TODO change name!\nHello Joerg!");

@@ -20,7 +20,7 @@ public class MyDslSemanticHighlightingCalculator implements
 		ISemanticHighlightingCalculator {
 
 	@Inject
-	ITaskElementChecker objElementChecker;
+	private ITaskElementChecker objElementChecker;
 
 	public void provideHighlightingFor(XtextResource resource,
 			IHighlightedPositionAcceptor acceptor) {

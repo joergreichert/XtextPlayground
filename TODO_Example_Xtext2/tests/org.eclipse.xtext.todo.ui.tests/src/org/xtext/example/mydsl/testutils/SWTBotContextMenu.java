@@ -67,7 +67,7 @@ public class SWTBotContextMenu {
                 return "Could not find context menu with text: " + text; //$NON-NLS-1$
             }
 
-            public boolean test() throws Exception {
+            public boolean test() {
                 items.addAll(menuFinder.findMenus(matcher));
                 return !items.isEmpty();
             }
