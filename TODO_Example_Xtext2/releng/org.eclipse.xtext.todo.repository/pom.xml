@@ -7,7 +7,7 @@
 		<groupId>org.eclipse.xtext.todo</groupId>
 		<artifactId>org.eclipse.xtext.todo.repository.parent</artifactId>
 		<version>0.1.1-SNAPSHOT</version>
-		<relativePath>../../releng/org.eclipse.xtext.todo.repository/parent/pom.xml</relativePath>
+		<relativePath>../../releng/org.eclipse.xtext.todo.repository.parent/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>org.eclipse.xtext.todo.repository</artifactId>
