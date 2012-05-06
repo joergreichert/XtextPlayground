@@ -2,6 +2,7 @@ package org.xtext.example.mydsl.testutils;
 
 import java.util.Arrays;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.eclipse.finder.SWTBotEclipseTestCase;
@@ -93,15 +94,23 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 	protected SWTBotShell startCreateNewProject(String... path) {
 		SWTWorkbenchBot bot = (SWTWorkbenchBot) getBot().activeShell().bot();
 		SWTBotMenu fileMenu = bot.menu(FILE_MENU);
-		Assert.assertNotNull("fileMenu", fileMenu);
-		SWTBotMenu newMenu = fileMenu.menu("Project...");
-		Assert.assertNotNull("newMenu", newMenu);
-		SWTBotMenu projectMenu = newMenu.menu(FILE_MENU);
-		Assert.assertNotNull("projectMenu", projectMenu);
-		projectMenu.click();
-		bot.waitUntil(Conditions.shellIsActive("New Project"));
-		SWTBotShell shell = bot.shell("New Project");
-		shell.activate();
+		SWTBotShell shell = null;
+		if(fileMenu == null) {
+			getBot().activeShell().pressShortcut(SWT.CTRL, 'N');
+			bot.waitUntil(Conditions.shellIsActive("New"));
+			shell = bot.shell("New");
+			shell.activate();
+		} else {
+			Assert.assertNotNull("fileMenu", fileMenu);
+			SWTBotMenu newMenu = fileMenu.menu("Project...");
+			Assert.assertNotNull("newMenu", newMenu);
+			SWTBotMenu projectMenu = newMenu.menu(FILE_MENU);
+			Assert.assertNotNull("projectMenu", projectMenu);
+			projectMenu.click();
+			bot.waitUntil(Conditions.shellIsActive("New Project"));
+			shell = bot.shell("New Project");
+			shell.activate();
+		}
 		bot.tree().expandNode(path).select();
 		// press "Next >"
 		bot.button(1).click();
@@ -170,6 +179,9 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 
 	private void createFolder(String folder, String folderLabel) {
 		SWTBotMenu newMenu = getBot().menu(FILE_MENU).menu("New");
+		if(newMenu == null) {
+			getBot().activeShell().pressShortcut(SWT.ALT | SWT.SHIFT, 'R');
+		}
 		SWTBotMenu folderMenu = newMenu.menu(folderLabel);
 		folderMenu.click();
 		getBot().waitUntil(Conditions.shellIsActive("New " + folderLabel));
