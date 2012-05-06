@@ -6,11 +6,12 @@
 	<parent>
 		<groupId>org.eclipse.xtext.todo</groupId>
 		<artifactId>org.eclipse.xtext.todo.repository.parent</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
-		<relativePath>../org.eclipse.xtext.todo.repository.parent/pom.xml</relativePath>
+		<version>0.1.1-SNAPSHOT</version>
+		<relativePath>../../releng/org.eclipse.xtext.todo.repository/parent/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>org.eclipse.xtext.todo.repository</artifactId>
+	<version>0.1.1-SNAPSHOT</version>
 	<packaging>eclipse-repository</packaging>
 	
 	<build>
