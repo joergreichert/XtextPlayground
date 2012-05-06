@@ -33,6 +33,7 @@ import org.junit.Assert;
 import org.junit.Before;
 
 public abstract class AbstractUITest extends SWTBotEclipseTestCase {
+	private static final String NEW = "New";
 	private static final String FILE_MENU = "File";
 	private static final int ONE_SECOND = 1000;
 	private static final int TWO_MINUTES = 120 * ONE_SECOND;
@@ -110,12 +111,12 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 		SWTBotShell shell = null;
 		if(fileMenu == null) {
 			getBot().activeShell().pressShortcut(SWT.CTRL, 'N');
-			bot.waitUntil(Conditions.shellIsActive("New"));
-			shell = bot.shell("New");
+			bot.waitUntil(Conditions.shellIsActive(NEW));
+			shell = bot.shell(NEW);
 			shell.activate();
 		} else {
 			Assert.assertNotNull("fileMenu", fileMenu);
-			SWTBotMenu newMenu = fileMenu.menu("New");
+			SWTBotMenu newMenu = fileMenu.menu(NEW);
 			Assert.assertNotNull("newMenu", newMenu);
 			SWTBotMenu projectMenu = newMenu.menu("Project...");
 			Assert.assertNotNull("projectMenu", projectMenu);
@@ -192,7 +193,7 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 	}
 
 	private void createFolder(String folder, String folderLabel) {
-		SWTBotMenu newMenu = getBot().menu(FILE_MENU).menu("New");
+		SWTBotMenu newMenu = getBot().menu(FILE_MENU).menu(NEW);
 		if(newMenu == null) {
 			getBot().activeShell().pressShortcut(SWT.ALT | SWT.SHIFT, 'R');
 		}
@@ -213,7 +214,7 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 		System.arraycopy(segments, 0, pathSegements, 0, count);
 		String fileSegment = segments[count];
 		selectFolderNode(pathSegements);
-		getBot().menu("New").menu(FILE_MENU).click();
+		getBot().menu(NEW).menu(FILE_MENU).click();
 		getBot().waitUntil(Conditions.shellIsActive("New File"));
 		getWizardTestHelper().setText(1, fileSegment);
 		getBot().button("Finish").click();
