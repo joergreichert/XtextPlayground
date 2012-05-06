@@ -11,7 +11,7 @@ import org.xtext.example.mydsl.testutils.AbstractUITest;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
 public class XtextTodoTest extends AbstractUITest {
-	private static final String projectName = "Test";
+	private static final String PROJECT_NAME = "Test";
 
 	@Test
 	public void testCreateSimpleDsl() {
@@ -37,6 +37,6 @@ public class XtextTodoTest extends AbstractUITest {
 
 	@Override
 	protected String getProjectName() {
-		return projectName;
+		return PROJECT_NAME;
 	}
 }

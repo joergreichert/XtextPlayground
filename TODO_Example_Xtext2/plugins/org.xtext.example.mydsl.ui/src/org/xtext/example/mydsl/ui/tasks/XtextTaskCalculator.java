@@ -23,6 +23,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.IXtextEditorCallback;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.xtext.example.mydsl.ui.internal.MyDslActivator;
 
 import com.google.inject.Inject;
 
@@ -59,7 +60,7 @@ public class XtextTaskCalculator extends IXtextEditorCallback.NullImpl {
 	public static class UpdateTaskMarkerJob extends Job {
 		@Inject
 		private ITaskElementChecker objElementChecker;
-		XtextEditor objEditor;
+		private XtextEditor objEditor;
 
 		public UpdateTaskMarkerJob() {
 			super("Xtext-Task-Marker-Update-Job");
@@ -121,7 +122,14 @@ public class XtextTaskCalculator extends IXtextEditorCallback.NullImpl {
 								try {
 									visit(varRoot, varResource, argMonitor);
 								} catch (CoreException e) {
-									e.printStackTrace();
+									MyDslActivator
+											.getInstance()
+											.getLog()
+											.log(new Status(
+													IStatus.ERROR,
+													MyDslActivator.ORG_XTEXT_EXAMPLE_MYDSL_MYDSL,
+													"Could not create marker",
+													e));
 								}
 							}
 							return null;
@@ -173,8 +181,9 @@ public class XtextTaskCalculator extends IXtextEditorCallback.NullImpl {
 			for (IConfigurationElement e : config) {
 				if (e != null) {
 					markerType = e.getAttribute("markerType");
-					if (markerType != null && markerType
-							.endsWith(TaskConstants.XTEXT_MARKER_SIMPLE_NAME)) {
+					if (markerType != null
+							&& markerType
+									.endsWith(TaskConstants.XTEXT_MARKER_SIMPLE_NAME)) {
 						foundMarkerType = markerType;
 						break;
 					}

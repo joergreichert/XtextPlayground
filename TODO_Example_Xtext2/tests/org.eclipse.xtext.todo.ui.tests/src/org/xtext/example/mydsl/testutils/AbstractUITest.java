@@ -31,6 +31,7 @@ import org.junit.Assert;
 import org.junit.Before;
 
 public abstract class AbstractUITest extends SWTBotEclipseTestCase {
+	private static final String FILE_MENU = "File";
 	private static final int ONE_SECOND = 1000;
 	private static final int TWO_MINUTES = 120 * ONE_SECOND;
 	private SimpleProjectWizardTestHelper wizardTestHelper = null;
@@ -90,19 +91,20 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 	}
 
 	protected SWTBotShell startCreateNewProject(String... path) {
-		SWTBotMenu fileMenu = getBot().menu("File");
+		SWTWorkbenchBot bot = (SWTWorkbenchBot) getBot().activeShell().bot();
+		SWTBotMenu fileMenu = bot.menu(FILE_MENU);
 		Assert.assertNotNull("fileMenu", fileMenu);
 		SWTBotMenu newMenu = fileMenu.menu("Project...");
 		Assert.assertNotNull("newMenu", newMenu);
-		SWTBotMenu projectMenu = newMenu.menu("File");
+		SWTBotMenu projectMenu = newMenu.menu(FILE_MENU);
 		Assert.assertNotNull("projectMenu", projectMenu);
 		projectMenu.click();
-		getBot().waitUntil(Conditions.shellIsActive("New Project"));
-		SWTBotShell shell = getBot().shell("New Project");
+		bot.waitUntil(Conditions.shellIsActive("New Project"));
+		SWTBotShell shell = bot.shell("New Project");
 		shell.activate();
-		getBot().tree().expandNode(path).select();
+		bot.tree().expandNode(path).select();
 		// press "Next >"
-		getBot().button(1).click();
+		bot.button(1).click();
 		return shell;
 	}
 
@@ -167,7 +169,7 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 	}
 
 	private void createFolder(String folder, String folderLabel) {
-		SWTBotMenu newMenu = getBot().menu("File").menu("New");
+		SWTBotMenu newMenu = getBot().menu(FILE_MENU).menu("New");
 		SWTBotMenu folderMenu = newMenu.menu(folderLabel);
 		folderMenu.click();
 		getBot().waitUntil(Conditions.shellIsActive("New " + folderLabel));
@@ -185,7 +187,7 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 		System.arraycopy(segments, 0, pathSegements, 0, count);
 		String fileSegment = segments[count];
 		selectFolderNode(pathSegements);
-		getBot().menu("New").menu("File").click();
+		getBot().menu("New").menu(FILE_MENU).click();
 		getBot().waitUntil(Conditions.shellIsActive("New File"));
 		getWizardTestHelper().setText(1, fileSegment);
 		getBot().button("Finish").click();
