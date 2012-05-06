@@ -8,9 +8,11 @@ import org.eclipse.swtbot.eclipse.finder.SWTBotEclipseTestCase;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.matchers.WithPartName;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotPerspective;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
+import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotMenu;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
@@ -25,6 +27,7 @@ import org.eclipse.ui.WorkbenchException;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 
 public abstract class AbstractUITest extends SWTBotEclipseTestCase {
@@ -54,6 +57,24 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 		executeProjectWizard(shell);
 		finishWizard(shell);
 	}
+	
+	protected void openPerspective(final String perspectiveLabel) {
+		final SWTBotPerspective perspective = getBot().perspectiveByLabel(perspectiveLabel);
+		Assert.assertNotNull(perspectiveLabel + "Perspective", perspective);
+		perspective.activate();
+		getBot().waitUntil(new DefaultCondition() {
+
+			@Override
+			public boolean test() throws Exception {
+				return perspective.isActive();
+			}
+
+			@Override
+			public String getFailureMessage() {
+				return "Perspective '" + perspectiveLabel +  "' was not activated";
+			}
+		});
+	}	
 
 	protected void executeProjectWizard(SWTBotShell shell) {
 		getWizardTestHelper().setText(0, getProjectName());
@@ -65,7 +86,13 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 	}
 
 	protected SWTBotShell startCreateNewProject(String... path) {
-		getBot().menu("File").menu("New").menu("Project...").click();
+		SWTBotMenu fileMenu = getBot().menu("File");
+		Assert.assertNotNull("fileMenu", fileMenu);
+		SWTBotMenu newMenu = fileMenu.menu("Project...");
+		Assert.assertNotNull("newMenu", newMenu);
+		SWTBotMenu projectMenu = newMenu.menu("File");
+		Assert.assertNotNull("projectMenu", projectMenu);
+		projectMenu.click();
 		getBot().waitUntil(Conditions.shellIsActive("New Project"));
 		SWTBotShell shell = getBot().shell("New Project");
 		shell.activate();
