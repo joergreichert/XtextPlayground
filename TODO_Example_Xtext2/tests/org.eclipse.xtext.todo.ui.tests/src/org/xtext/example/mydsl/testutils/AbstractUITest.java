@@ -11,6 +11,7 @@ import org.eclipse.swtbot.eclipse.finder.matchers.WithPartName;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotPerspective;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
+import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.results.VoidResult;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
@@ -80,6 +81,18 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 						+ "' was not activated";
 			}
 		});
+		getBot().waitUntil(new DefaultCondition() {
+			
+			@Override
+			public boolean test() throws Exception {
+				return getBot().activeShell() != null;
+			}
+			
+			@Override
+			public String getFailureMessage() {
+				return "No active shell not found";
+			}
+		});
 	}
 
 	protected void executeProjectWizard(SWTBotShell shell) {
@@ -92,7 +105,7 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 	}
 
 	protected SWTBotShell startCreateNewProject(String... path) {
-		SWTWorkbenchBot bot = (SWTWorkbenchBot) getBot().activeShell().bot();
+		SWTBot bot = (SWTBot) getBot().activeShell().bot();
 		SWTBotMenu fileMenu = bot.menu(FILE_MENU);
 		SWTBotShell shell = null;
 		if(fileMenu == null) {
@@ -102,15 +115,16 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 			shell.activate();
 		} else {
 			Assert.assertNotNull("fileMenu", fileMenu);
-			SWTBotMenu newMenu = fileMenu.menu("Project...");
+			SWTBotMenu newMenu = fileMenu.menu("New");
 			Assert.assertNotNull("newMenu", newMenu);
-			SWTBotMenu projectMenu = newMenu.menu(FILE_MENU);
+			SWTBotMenu projectMenu = newMenu.menu("Project...");
 			Assert.assertNotNull("projectMenu", projectMenu);
 			projectMenu.click();
 			bot.waitUntil(Conditions.shellIsActive("New Project"));
 			shell = bot.shell("New Project");
 			shell.activate();
 		}
+		bot = shell.bot();
 		bot.tree().expandNode(path).select();
 		// press "Next >"
 		bot.button(1).click();
