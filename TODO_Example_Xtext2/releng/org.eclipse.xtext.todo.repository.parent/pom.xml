@@ -295,6 +295,7 @@
 			</activation>
 			<properties>
 				<coverageAgent></coverageAgent>
+				<it.coverage.argLine></it.coverage.argLine>
 			</properties>
 		</profile>		
 		<profile>
