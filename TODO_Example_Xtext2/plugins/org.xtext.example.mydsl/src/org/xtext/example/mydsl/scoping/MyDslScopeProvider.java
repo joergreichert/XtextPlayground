@@ -3,7 +3,16 @@
  */
 package org.xtext.example.mydsl.scoping;
 
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.xtext.example.mydsl.myDsl.Entity;
+import org.xtext.example.mydsl.myDsl.FeatureReference;
+import org.xtext.example.mydsl.myDsl.Referencable;
+import org.xtext.example.mydsl.myDsl.Reference;
+import org.xtext.example.mydsl.myDsl.ReferenceChain;
+import org.xtext.example.mydsl.myDsl.ReferenceExpression;
 
 /**
  * This class contains custom scoping description.
@@ -13,5 +22,30 @@ import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
  *
  */
 public class MyDslScopeProvider extends AbstractDeclarativeScopeProvider {
+
+	public IScope scope_ReferenceChain_target(ReferenceChain chain, EReference ref) {
+		ReferenceExpression source = chain.getSource();
+		Referencable previous = null; 
+		if(source instanceof ReferenceChain) {
+			ReferenceChain referenceChain = (ReferenceChain) source;
+			previous = referenceChain.getTarget();
+		} else if (source instanceof Reference) {
+			Reference reference = (Reference) source;
+			previous = reference.getElement();
+		}
+		IScope scope = IScope.NULLSCOPE;
+		if(previous instanceof Entity) {
+			Entity entity = (Entity) previous;
+			scope = Scopes.scopeFor(entity.getFeatures());	
+		} else if(previous instanceof FeatureReference) {
+			FeatureReference featureReference = (FeatureReference) previous;
+			Referencable type = featureReference.getType();
+			if(type instanceof Entity) {
+				Entity entity = (Entity) type;
+				scope = Scopes.scopeFor(entity.getFeatures());
+			}
+		}
+		return scope;
+	}
 
 }

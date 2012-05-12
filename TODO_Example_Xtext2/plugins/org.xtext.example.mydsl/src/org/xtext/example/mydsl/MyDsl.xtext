@@ -2,8 +2,44 @@ grammar org.xtext.example.mydsl.MyDsl with org.eclipse.xtext.common.Terminals
 
 generate myDsl "http://www.xtext.org/example/mydsl/MyDsl"
 
-Model:
-	greetings+=Greeting*;
+Model: {Model}
+	greetings+=Greeting*
+	entities+=Entity*	
+	('properties' '{'
+		reference+=ReferenceChain (',' reference+=ReferenceChain)*
+	'}')?	
+;
+
+ReferenceChain returns ReferenceExpression:
+	Reference ({ReferenceChain.source=current} => '.' (target=[Referencable|ID]))*
+;
+
+Reference returns ReferenceExpression:
+	{Reference}
+	element=[Referencable|ID]
+;
+
+Referencable : 
+	Entity | Feature
+;
+
+Entity :
+	'entity' name=ID '{'
+		features+=Feature*
+	'}'
+;
+
+Feature :
+	Attribute | FeatureReference
+;
+
+Attribute :
+	name=ID '=' value=STRING
+;
+
+FeatureReference :
+	name=ID '->' type=[Referencable|ID]
+;
 	
 Greeting:
 	'Hall\u00F6chen' name=ID '!';
