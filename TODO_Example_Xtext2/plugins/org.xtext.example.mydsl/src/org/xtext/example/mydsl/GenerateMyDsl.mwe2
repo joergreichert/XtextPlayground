@@ -8,6 +8,7 @@ var grammarURI = "classpath:/org/xtext/example/mydsl/MyDsl.xtext"
 var file.extensions = "mydsl"
 var projectName = "org.xtext.example.mydsl"
 var runtimeProject = "../${projectName}"
+var fileEncoding = "UTF-8"
 
 Workflow {
     bean = StandaloneSetup {
@@ -27,6 +28,7 @@ Workflow {
     }
 
     component = Generator {
+    	encoding = "${fileEncoding}"
         pathRtProject = runtimeProject
         pathUiProject = "${runtimeProject}.ui"
         pathTestProject = "../../tests/${projectName}.tests"

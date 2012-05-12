@@ -4,9 +4,12 @@
 package org.xtext.example.mydsl.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.parser.IEncodingProvider;
+import org.eclipse.xtext.service.DispatchingProvider;
 import org.eclipse.xtext.ui.editor.IXtextEditorCallback;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
+import org.xtext.example.mydsl.encoding.UTF8Provider;
 import org.xtext.example.mydsl.ui.highlighting.MyDslHighlightingConfiguration;
 import org.xtext.example.mydsl.ui.highlighting.MyDslSemanticHighlightingCalculator;
 import org.xtext.example.mydsl.ui.tasks.ITaskElementChecker;
@@ -14,6 +17,7 @@ import org.xtext.example.mydsl.ui.tasks.MyDslTaskElementChecker;
 import org.xtext.example.mydsl.ui.tasks.TaskConstants;
 import org.xtext.example.mydsl.ui.tasks.XtextTaskCalculator;
 
+import com.google.inject.Binder;
 import com.google.inject.name.Names;
 
 /**
@@ -42,4 +46,14 @@ public class MyDslUiModule extends
 	public Class<? extends ITaskElementChecker> bindTaskElementChecker() {
 		return MyDslTaskElementChecker.class;
 	}
+	
+	@Override
+	public void configureUiEncodingProvider(Binder binder) {
+	    binder.bind(IEncodingProvider.class)
+	          .annotatedWith(DispatchingProvider.Ui.class)
+	          .to(UTF8Provider.class);
+	}
+	public Class<? extends IEncodingProvider> bindIEncodingProvider() {
+	    return UTF8Provider.class;
+	}	
 }
