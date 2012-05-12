@@ -129,13 +129,13 @@
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.ecore/2.2.1.v201112130541/org.eclipse.xtext.ecore-2.2.1.v201112130541.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.junit/2.2.1.v201112130541/org.eclipse.xtext.junit-2.2.1.v201112130541.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/.cache/tycho/org.junit-3.8.2.v3_8_2_v20100427-1100.jar/junit.jar"/>
-	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.junit4/2.2.1.v201112130541/org.eclipse.xtext.junit4-2.2.1.v201112130541.jar"/>
+	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.junit4/2.2.1.v201112130541/org.eclipse.xtext.junit4-2.2.1.v201112130541.jar" sourcepath="C:/eclipse/SprayEclipse/plugins/org.eclipse.xtext.junit4.source_2.2.1.v201112130541.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/org/eclipse/xtext/todo/org.eclipse.xtext.todo/0.1.0-SNAPSHOT/org.eclipse.xtext.todo-0.1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.xtend2.lib/2.2.1.v201112130541/org.eclipse.xtext.xtend2.lib-2.2.1.v201112130541.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/org/eclipse/xtext/todo/org.eclipse.xtext.todo.ui/0.1.0-SNAPSHOT/org.eclipse.xtext.todo.ui-0.1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.ui.junit/2.2.1.v201112130541/org.eclipse.xtext.ui.junit-2.2.1.v201112130541.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.junit4/4.8.1.v20100525/org.junit4-4.8.1.v20100525.jar"/>
-	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipselabs.xtext.utils.unittesting/0.9.3.201204261440/org.eclipselabs.xtext.utils.unittesting-0.9.3.201204261440.jar"/>
+	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipselabs.xtext.utils.unittesting/0.9.3.201204261440/org.eclipselabs.xtext.utils.unittesting-0.9.3.201204261440.jar" sourcepath="C:/eclipse/SprayEclipse/plugins/org.eclipselabs.xtext.utils.unittesting.source_0.9.2.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.ui.shared/2.2.1.v201112130541/org.eclipse.xtext.ui.shared-2.2.1.v201112130541.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.ui.codetemplates.ui/2.2.1.v201112130541/org.eclipse.xtext.ui.codetemplates.ui-2.2.1.v201112130541.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.xtext.ui.codetemplates/2.2.1.v201112130541/org.eclipse.xtext.ui.codetemplates-2.2.1.v201112130541.jar"/>

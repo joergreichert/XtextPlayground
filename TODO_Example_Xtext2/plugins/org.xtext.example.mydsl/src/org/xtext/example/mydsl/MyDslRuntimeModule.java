@@ -10,14 +10,16 @@ import org.xtext.example.mydsl.encoding.UTF8Provider;
 import com.google.inject.Binder;
 
 /**
- * Use this class to register components to be used at runtime / without the Equinox extension registry.
+ * Use this class to register components to be used at runtime / without the
+ * Equinox extension registry.
  */
-public class MyDslRuntimeModule extends org.xtext.example.mydsl.AbstractMyDslRuntimeModule {
+public class MyDslRuntimeModule extends
+		org.xtext.example.mydsl.AbstractMyDslRuntimeModule {
 
 	@Override
 	public void configureRuntimeEncodingProvider(Binder binder) {
-	    binder.bind(IEncodingProvider.class)
-	          .annotatedWith(DispatchingProvider.Runtime.class)
-	          .to(UTF8Provider.class);
+		binder.bind(IEncodingProvider.class)
+				.annotatedWith(DispatchingProvider.Runtime.class)
+				.to(UTF8Provider.class);
 	}
 }

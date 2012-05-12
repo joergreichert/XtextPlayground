@@ -6,4 +6,14 @@ Model:
 	greetings+=Greeting*;
 	
 Greeting:
-	'Hallöchen' name=ID '!';
+	'Hall\u00F6chen' name=ID '!';
+	
+terminal ID : '^'?('\u00E4'|'\u00F6'|'\u00FC'|'a'..'z'|'A'..'Z'|'\u00C4'|'\u00D6'|'\u00DC'|'_') ('\u00E4'|'\u00F6'|'\u00FC'|'\u00DF'|'a'..'z'|'\u00C4'|'\u00D6'|'\u00DC'|'A'..'Z'|'_'|'0'..'9')*;	
+
+//\u00C4 -> Ä 
+//\u00E4 -> ä 
+//\u00D6 -> Ö 
+//\u00F6 -> ö 
+//\u00DC -> Ü 
+//\u00FC -> ü 
+//\u00DF -> ß
