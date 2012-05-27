@@ -8,3 +8,17 @@
 /TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.repository/target
 /TODO_Example_Xtext2/tests/org.xtext.example.mydsl.tests/target
 /TODO_Example_Xtext2/tests/org.eclipse.xtext.todo.ui.tests/target
+/RepositoryTargetGenerator/xtend-gen
+/RepositoryTargetGenerator/bin
+/TODO_Example_Xtext2/plugins/org.eclipse.xtext.todo/xtend-gen
+/TODO_Example_Xtext2/plugins/org.eclipse.xtext.todo/src-gen
+/TODO_Example_Xtext2/plugins/org.eclipse.xtext.todo.ui/src-gen
+/TODO_Example_Xtext2/plugins/org.eclipse.xtext.todo.ui/target
+/TODO_Example_Xtext2/plugins/org.eclipse.xtext.todo/target
+/TODO_Example_Xtext2/plugins/org.eclipse.xtext.todo/xtend-gen
+/TODO_Example_Xtext2/plugins/org.eclipse.xtext.todo/src-gen
+/TODO_Example_Xtext2/tests/org.eclipse.xtext.todo.tests/target
+/TODO_Example_Xtext2/tests/org.eclipse.xtext.todo.tests/src-gen
+/TODO_Example_Xtext2/tests/org.eclipse.xtext.todo.ui.tests/screenshots
+/TODO_Example_Xtext2/tests/org.eclipse.xtext.todo.ui.tests/target
+/TODO_Example_Xtext2/tests/org.eclipse.xtext.todo.ui.tests/xtend-gen
