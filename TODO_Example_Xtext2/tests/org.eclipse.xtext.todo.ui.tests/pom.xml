@@ -29,7 +29,7 @@
 						<dependency>
 							<type>p2-installable-unit</type>
 							<artifactId>org.eclipse.sdk</artifactId>
-							<version>[3.7.0,4.0.0)</version>
+							<version>[4.2.0,4.3.0)</version>
 						</dependency>
 						<dependency>
 							<type>p2-installable-unit</type>

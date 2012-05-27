@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.eclipse.xtext.todo.tests
+Bundle-Vendor: Joerg Reichert
+Bundle-Version: 0.2.0.qualifier
+Bundle-SymbolicName: org.eclipse.xtext.todo.tests; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext.todo;bundle-version="0.2.0",
+ org.eclipse.xtext.todo.ui;bundle-version="0.2.0",
+ org.eclipse.core.runtime,
+ org.eclipse.xtext,
+ org.eclipse.xtext.junit4,
+ org.eclipse.xtext.ui.junit,
+ org.junit4,
+ org.eclipse.ui.workbench;resolution:=optional,
+ org.eclipselabs.xtext.utils.unittesting;bundle-version="0.9.3",
+ org.xtext.example.mydsl,
+ org.xtext.example.mydsl.ui
+Import-Package: org.apache.log4j,
+ org.apache.commons.logging,
+ org.junit.runner;version="4.5.0",
+ org.junit.runner.manipulation;version="4.5.0",
+ org.junit.runner.notification;version="4.5.0",
+ org.junit.runners;version="4.5.0",
+ org.junit.runners.model;version="4.5.0",
+ org.hamcrest.core
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.xtext.example.mydsl

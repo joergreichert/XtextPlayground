@@ -23,9 +23,9 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
-				<module>../../plugins/org.xtext.example.mydsl</module>
-				<module>../../plugins/org.xtext.example.mydsl.ui</module>
-				<module>../../tests/org.xtext.example.mydsl.tests</module>
+				<module>../../plugins/org.eclipse.xtext.todo</module>
+				<module>../../plugins/org.eclipse.xtext.todo.ui</module>
+				<module>../../tests/org.eclipse.xtext.todo.tests</module>
 				<module>../../tests/org.eclipse.xtext.todo.ui.tests</module>
 			</modules>
 		</profile>
