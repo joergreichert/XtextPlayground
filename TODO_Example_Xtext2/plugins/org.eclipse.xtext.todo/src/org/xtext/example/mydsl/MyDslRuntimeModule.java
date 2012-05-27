@@ -4,8 +4,10 @@
 package org.xtext.example.mydsl;
 
 import org.eclipse.xtext.parser.IEncodingProvider;
+import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.service.DispatchingProvider;
 import org.xtext.example.mydsl.encoding.UTF8Provider;
+import org.xtext.example.mydsl.resources.MyDslResourceDescriptionStrategy;
 
 import com.google.inject.Binder;
 
@@ -22,4 +24,9 @@ public class MyDslRuntimeModule extends
 				.annotatedWith(DispatchingProvider.Runtime.class)
 				.to(UTF8Provider.class);
 	}
+	
+	public Class<? extends IDefaultResourceDescriptionStrategy> bindIDefaultResourceDescriptionStrategy() {
+		return MyDslResourceDescriptionStrategy.class;
+	}
+
 }

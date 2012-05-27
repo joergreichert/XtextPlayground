@@ -3,30 +3,39 @@
 */
 package org.xtext.example.mydsl.ui.contentassist;
 
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.conversion.ValueConverterException;
-import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
-import org.eclipse.xtext.ui.editor.contentassist.AbstractJavaBasedContentProposalProvider.ReferenceProposalCreator;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover;
+import org.xtext.example.mydsl.MyDslRuntimeModule;
+import org.xtext.example.mydsl.resources.MyDslEObjectDescription;
+import org.xtext.example.mydsl.scoping.PackageSelector;
 
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import com.google.inject.Inject;
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
 public class MyDslProposalProvider extends AbstractMyDslProposalProvider {
+	private PackageSelector packageSelector;
 
+	public MyDslProposalProvider() {
+		packageSelector = new PackageSelector();
+	}
+	
 	public ReferenceProposalCreator getCrossReferenceProposalCreator() {
 		return super.getCrossReferenceProposalCreator();
 	}
@@ -67,8 +76,8 @@ public class MyDslProposalProvider extends AbstractMyDslProposalProvider {
 			
 			protected StyledString getStyledDisplayString(IEObjectDescription description) {
 				return getStyledDisplayString(description.getEObjectOrProxy(),
-						description.getEClass().getEPackage().getName() + "." + description.getName(),
-						description.getEClass().getEPackage().getName() + "." + description.getName());
+						description.getUserData(MyDslEObjectDescription.PACKAGE_KEY) + "." + description.getQualifiedName(),
+						description.getUserData(MyDslEObjectDescription.PACKAGE_KEY) + "." + description.getName());
 			}
 			
 			protected StyledString getStyledDisplayString(EObject element, String qualifiedName, String shortName) {
@@ -76,4 +85,33 @@ public class MyDslProposalProvider extends AbstractMyDslProposalProvider {
 			}
 		};
 	}
+	
+    @Override
+    public void completeImport_ImportedNamespace(EObject model, Assignment assignment, final ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+        Set<Entry<String, Object>> packages = EPackage.Registry.INSTANCE.entrySet();
+        EObject container = model.eContainer();
+        IJavaProject project = packageSelector.getJavaProject(model);
+        if (project != null) {
+            List<String> alreadyImported = packageSelector.getAlreadyImported(container);
+            List<EPackage> ePackages = packageSelector.getEPackages(packages);
+            createImportProposals(context, acceptor, project, alreadyImported, ePackages);
+        }
+    }
+
+    private void createImportProposals(final ContentAssistContext context, ICompletionProposalAcceptor acceptor, IJavaProject javaProject, List<String> alreadyImported, List<EPackage> ePackages) {
+        List<EPackage> filteredEPackages = packageSelector.filterAccessibleEPackages(javaProject, ePackages);
+        for (EPackage ePackage : filteredEPackages) {
+            createImportProposals(context, acceptor, alreadyImported, ePackage);
+        }
+    }
+
+    private void createImportProposals(final ContentAssistContext context, ICompletionProposalAcceptor acceptor, List<String> alreadyImported, EPackage ePackage) {
+        String name = ePackage.getName() + ".*";
+        if (!alreadyImported.contains(name)) {
+            ConfigurableCompletionProposal proposal = (ConfigurableCompletionProposal) createCompletionProposal(name, context);
+            String displayString = ePackage.getName() + " (" + ePackage.getNsURI() + ")";
+            proposal.setDisplayString(displayString);
+            acceptor.accept(proposal);
+        }
+    }
 }

@@ -3,23 +3,23 @@
  */
 package org.xtext.example.mydsl.scoping;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.xtext.example.mydsl.myDsl.Entity;
 import org.xtext.example.mydsl.myDsl.FeatureReference;
+import org.xtext.example.mydsl.myDsl.Model;
 import org.xtext.example.mydsl.myDsl.Referencable;
 import org.xtext.example.mydsl.myDsl.Reference;
 import org.xtext.example.mydsl.myDsl.ReferenceChain;
@@ -33,6 +33,11 @@ import org.xtext.example.mydsl.myDsl.ReferenceExpression;
  * 
  */
 public class MyDslScopeProvider extends AbstractDeclarativeScopeProvider {
+	private PackageSelector packageSelector;
+	
+	public MyDslScopeProvider() {
+		packageSelector = new PackageSelector();
+	}
 
 	public IScope scope_ReferenceChain_target(ReferenceChain chain,
 			EReference ref) {
@@ -63,52 +68,61 @@ public class MyDslScopeProvider extends AbstractDeclarativeScopeProvider {
 	protected IScope delegateGetScope(EObject context, EReference reference) {
 		if (context instanceof FeatureReference && "mapsTo".equals(reference.getName())) {
 			return scope_FeatureReference_mapsTo((FeatureReference) context, reference);
+		} else if (context instanceof Entity && "mapsTo".equals(reference.getName())) {
+			return scope_Entity_mapsTo((Entity) context, reference);
 		}
 		return super.delegateGetScope(context, reference);
 	}
-
-	// Uses EPackage Registry and loaded EObjects
-	public IScope scope_FeatureReference_mapsTo(FeatureReference entity, EReference ref) {
+	
+	public IScope scope_Entity_mapsTo(Entity entity, EReference ref) {
 		Set<Entry<String, Object>> packages = EPackage.Registry.INSTANCE
 				.entrySet();
-		List<EPackage> ePackages = getEPackages(packages);
-		TreeIterator<EObject> contents;
-		EObject o;
+		List<EPackage> ePackages = packageSelector.getFilteredEPackages(entity, packages);
+		List<String> alreadyImported = packageSelector.getAlreadyImportedForElement(entity);
 		Set<EClassifier> eClassifiers = new HashSet<EClassifier>();
+		String name;
 		for (EPackage pack : ePackages) {
-			contents = pack.eAllContents();
-			while (contents.hasNext()) {
-				o = contents.next();
-				if (o instanceof EClassifier) {
-					eClassifiers.add((EClassifier) o);
-				}
+			name = pack.getName() + ".*";
+			if (alreadyImported.contains(name)) {
+				iteratePackage(pack, eClassifiers);
 			}
 		}
 		return Scopes.scopeFor(eClassifiers);
 	}
 
-	private List<EPackage> getEPackages(Set<Entry<String, Object>> packages) {
-		List<EPackage> ePackages = new ArrayList<EPackage>();
-		try {
-			Object packageObj = null;
-			EPackage.Descriptor ePackageDescriptor = null;
-			EPackage ePackage = null;
-			for (Entry<String, Object> entry : packages) {
-				packageObj = entry.getValue();
-				if (packageObj instanceof EPackage) {
-					ePackages.add((EPackage) packageObj);
-				} else if (packageObj instanceof EPackage.Descriptor) {
-					ePackageDescriptor = (EPackage.Descriptor) packageObj;
-					ePackage = ePackageDescriptor.getEPackage();
-					if (ePackage != null) {
-						ePackages.add(ePackage);
-					}
-				}
+	// Uses EPackage Registry and loaded EObjects
+	public IScope scope_FeatureReference_mapsTo(FeatureReference featureReference, EReference ref) {
+		Set<Entry<String, Object>> packages = EPackage.Registry.INSTANCE
+				.entrySet();
+		Entity entity = (Entity) featureReference.eContainer();
+		EClassifier mapsTo = entity.getMapsTo();
+		Set<EClassifier> eClassifiers = new HashSet<EClassifier>();
+		if(mapsTo == null) {
+			List<EPackage> ePackages = packageSelector.getFilteredEPackages(featureReference, packages);
+			List<String> alreadyImported = packageSelector.getAlreadyImportedForElement(featureReference);
+			String name;
+			for (EPackage pack : ePackages) {
+				name = pack.getName() + ".*";
+		        if (alreadyImported.contains(name)) {
+		        	iteratePackage(pack, eClassifiers);
+		        }
 			}
-			return ePackages;
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
+			for(EReference r : mapsTo.eClass().getEAllReferences()) {
+				eClassifiers.add(r.getEType());
+			}
 		}
-		return ePackages;
+		return Scopes.scopeFor(eClassifiers);
+	}
+	
+	public void iteratePackage(EPackage pack, Set<EClassifier> eClassifiers) {
+		List<EObject> contents = pack.eContents();
+		for (EObject o : contents) {
+			if (o instanceof EClassifier) {
+				eClassifiers.add((EClassifier) o);
+			} else if (o instanceof EPackage) {
+				iteratePackage((EPackage) o, eClassifiers);
+			}
+		}
 	}
 }
