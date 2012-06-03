@@ -21,7 +21,6 @@ import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHover;
-import org.xtext.example.mydsl.resources.MyDslEObjectDescription;
 import org.xtext.example.mydsl.scoping.PackageSelector;
 
 import com.google.common.base.Function;
@@ -51,6 +50,7 @@ public class MyDslProposalProvider extends AbstractMyDslProposalProvider {
 			@Inject
 			private IEObjectHover hover;
 
+			
 			@Override
 			public ICompletionProposal apply(IEObjectDescription candidate) {
 				if (candidate == null)
@@ -79,24 +79,6 @@ public class MyDslProposalProvider extends AbstractMyDslProposalProvider {
 				getPriorityHelper().adjustCrossReferencePriority(result,
 						contentAssistContext.getPrefix());
 				return result;
-			}
-
-			protected StyledString getStyledDisplayString(
-					IEObjectDescription description) {
-				return getStyledDisplayString(
-						description.getEObjectOrProxy(),
-						description
-								.getUserData(MyDslEObjectDescription.PACKAGE_KEY)
-								+ "." + description.getQualifiedName(),
-						description
-								.getUserData(MyDslEObjectDescription.PACKAGE_KEY)
-								+ "." + description.getName());
-			}
-
-			protected StyledString getStyledDisplayString(EObject element,
-					String qualifiedName, String shortName) {
-				return new StyledString(getDisplayString(element,
-						qualifiedName, shortName));
 			}
 		};
 	}

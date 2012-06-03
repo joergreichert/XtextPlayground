@@ -3,17 +3,23 @@
  */
 package org.xtext.example.mydsl.scoping;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.naming.QualifiedName;
+import org.eclipse.xtext.resource.EObjectDescription;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.eclipse.xtext.scoping.impl.MapBasedScope;
 import org.xtext.example.mydsl.myDsl.Entity;
 import org.xtext.example.mydsl.myDsl.FeatureReference;
 import org.xtext.example.mydsl.myDsl.Referencable;
@@ -21,6 +27,8 @@ import org.xtext.example.mydsl.myDsl.Reference;
 import org.xtext.example.mydsl.myDsl.ReferenceChain;
 import org.xtext.example.mydsl.myDsl.ReferenceExpression;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
 /**
@@ -33,7 +41,7 @@ import com.google.inject.Inject;
 public class MyDslScopeProvider extends AbstractDeclarativeScopeProvider {
 	@Inject
 	private PackageSelector packageSelector;
-	
+
 	public IScope scope_ReferenceChain_target(ReferenceChain chain,
 			EReference ref) {
 		ReferenceExpression source = chain.getSource();
@@ -61,51 +69,103 @@ public class MyDslScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	protected IScope delegateGetScope(EObject context, EReference reference) {
-		if (context instanceof FeatureReference && "mapsTo".equals(reference.getName())) {
-			return scope_FeatureReference_mapsTo((FeatureReference) context, reference);
-		} else if (context instanceof Entity && "mapsTo".equals(reference.getName())) {
+		if (context instanceof FeatureReference
+				&& "mapsTo".equals(reference.getName())) {
+			return scope_FeatureReference_mapsTo((FeatureReference) context,
+					reference);
+		} else if (context instanceof Entity
+				&& "mapsTo".equals(reference.getName())) {
 			return scope_Entity_mapsTo((Entity) context, reference);
 		}
 		return super.delegateGetScope(context, reference);
 	}
-	
+
 	public IScope scope_Entity_mapsTo(Entity entity, EReference ref) {
 		List<EPackage> ePackages = packageSelector.getFilteredEPackages(entity);
-		List<String> alreadyImported = packageSelector.getAlreadyImportedForElement(entity);
+		List<EPackage> importedEPackages = new ArrayList<EPackage>();
+		List<String> alreadyImported = packageSelector
+				.getAlreadyImportedForElement(entity);
 		Set<EClassifier> eClassifiers = new HashSet<EClassifier>();
 		String name;
 		for (EPackage pack : ePackages) {
 			name = pack.getName() + ".*";
 			if (alreadyImported.contains(name)) {
-				iteratePackage(pack, eClassifiers);
+				importedEPackages.add(pack);
 			}
+			iteratePackage(pack, eClassifiers);
 		}
-		return Scopes.scopeFor(eClassifiers);
+		return createScope(eClassifiers, importedEPackages);
 	}
 
 	// Uses EPackage Registry and loaded EObjects
-	public IScope scope_FeatureReference_mapsTo(FeatureReference featureReference, EReference ref) {
+	public IScope scope_FeatureReference_mapsTo(
+			FeatureReference featureReference, EReference ref) {
 		Entity entity = (Entity) featureReference.eContainer();
 		EClassifier mapsTo = entity.getMapsTo();
-		Set<EClassifier> eClassifiers = new HashSet<EClassifier>();
-		if(mapsTo == null) {
-			List<EPackage> ePackages = packageSelector.getFilteredEPackages(featureReference);
-			List<String> alreadyImported = packageSelector.getAlreadyImportedForElement(featureReference);
-			String name;
-			for (EPackage pack : ePackages) {
-				name = pack.getName() + ".*";
-		        if (alreadyImported.contains(name)) {
-		        	iteratePackage(pack, eClassifiers);
-		        }
-			}
-		} else {
-			for(EReference r : mapsTo.eClass().getEAllReferences()) {
-				eClassifiers.add(r.getEType());
+		Set<EReference> eReferences = new HashSet<EReference>();
+		if (mapsTo != null) {
+			for (EObject refObj : mapsTo.eCrossReferences()) {
+				if (refObj instanceof EReference) {
+					eReferences.add((EReference) refObj);
+				}
 			}
 		}
-		return Scopes.scopeFor(eClassifiers);
+		Function<EReference, IEObjectDescription> referenceToObjDesc = new Function<EReference, IEObjectDescription>() {
+			@Override
+			public IEObjectDescription apply(EReference from) {
+				return EObjectDescription.create(from.getName(), from);
+			}
+		};
+		Iterable<IEObjectDescription> refs = Iterables.transform(eReferences,
+				referenceToObjDesc);
+
+		return MapBasedScope.createScope(IScope.NULLSCOPE, refs);
 	}
-	
+
+	private IScope createScope(final Set<EClassifier> eClassifiers,
+			final List<EPackage> ePackages) {
+		Function<EPackage, IEObjectDescription> packageToObjDesc = new Function<EPackage, IEObjectDescription>() {
+			@Override
+			public IEObjectDescription apply(EPackage from) {
+				return EObjectDescription.create(from.getName(), from);
+			}
+		};
+		Function<EClassifier, IEObjectDescription> qnClassToObjDesc = new Function<EClassifier, IEObjectDescription>() {
+			@Override
+			public IEObjectDescription apply(EClassifier from) {
+				return EObjectDescription.create(
+						QualifiedName.create(from.getEPackage().getName(),
+								from.getName()), from);
+			}
+		};
+		Function<EClassifier, IEObjectDescription> classToObjDesc = new Function<EClassifier, IEObjectDescription>() {
+			@Override
+			public IEObjectDescription apply(EClassifier from) {
+				if (ePackages.contains(from.getEPackage())) {
+					return EObjectDescription.create(from.getName(), from);
+				} else {
+					return EObjectDescription.create(QualifiedName.create(from
+							.getEPackage().getName(), from.getName()), from);
+				}
+			}
+		};
+		Iterable<IEObjectDescription> packages = Iterables.transform(ePackages,
+				packageToObjDesc);
+		Iterable<IEObjectDescription> qnClassifiers = Iterables.transform(
+				eClassifiers, qnClassToObjDesc);
+		List<IEObjectDescription> global = new ArrayList<IEObjectDescription>();
+		for (IEObjectDescription pack : packages) {
+			global.add(pack);
+		}
+		for (IEObjectDescription qnClassifier : qnClassifiers) {
+			global.add(qnClassifier);
+		}
+		final IScope packageScope = MapBasedScope.createScope(IScope.NULLSCOPE,
+				global);
+		return MapBasedScope.createScope(packageScope,
+				Iterables.transform(eClassifiers, classToObjDesc));
+	}
+
 	public void iteratePackage(EPackage pack, Set<EClassifier> eClassifiers) {
 		List<EObject> contents = pack.eContents();
 		for (EObject o : contents) {

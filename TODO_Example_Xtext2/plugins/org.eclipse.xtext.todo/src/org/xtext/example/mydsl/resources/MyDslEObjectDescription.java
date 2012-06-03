@@ -23,8 +23,8 @@ public class MyDslEObjectDescription extends EObjectDescription {
 
 	private void handleImport(Map<String, String> userData, Resource resource,
 			EObject eObject) {
-		if(eObject.eClass() instanceof EClassifier) {
-			EClassifier eClassifier = (EClassifier) eObject.eClass();
+		if(eObject instanceof EClassifier) {
+			EClassifier eClassifier = (EClassifier) eObject;
 			EPackage pack = eClassifier.getEPackage();
 			if(pack != null) {
 				userData.put(PACKAGE_KEY, pack.getName());

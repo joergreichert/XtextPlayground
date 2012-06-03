@@ -42,11 +42,11 @@ Feature :
 ;
 
 Attribute :
-	name=ID '=' value=STRING ('mapsTo' mapsTo=[ecore::EClassifier|QualifiedName])?
+	name=ID '=' value=STRING ('mapsTo' mapsTo=[ecore::EAttribute|ID])?
 ;
 
 FeatureReference :
-	name=ID '->' type=[Referencable|ID] ('mapsTo' mapsTo=[ecore::EClassifier|QualifiedName])?
+	name=ID '->' type=[Referencable|ID] ('mapsTo' mapsTo=[ecore::EReference|ID])?
 ;
 	
 Greeting:
