@@ -8,6 +8,7 @@ import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.service.DispatchingProvider;
 import org.xtext.example.mydsl.encoding.UTF8Provider;
 import org.xtext.example.mydsl.resources.MyDslResourceDescriptionStrategy;
+import org.xtext.example.mydsl.scoping.PackageSelector;
 
 import com.google.inject.Binder;
 
@@ -29,4 +30,7 @@ public class MyDslRuntimeModule extends
 		return MyDslResourceDescriptionStrategy.class;
 	}
 
+	public Class<? extends PackageSelector> bindPackageSelector() {
+		return PackageSelector.class;
+	}
 }

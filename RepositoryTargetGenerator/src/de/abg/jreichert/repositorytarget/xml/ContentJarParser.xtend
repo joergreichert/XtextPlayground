@@ -1,17 +1,11 @@
-package de.abg.jreichert.repositorytarget
+package de.abg.jreichert.repositorytarget.xml
 
-import java.io.InputStreamReader
+import java.net.HttpURLConnection
 import java.net.JarURLConnection
 import java.net.URL
-import org.xml.sax.InputSource
-import org.xml.sax.helpers.XMLReaderFactory
-import java.io.BufferedReader
-import java.io.StringReader
-import java.net.HttpURLConnection
 import java.util.List
-import java.io.InputStream
 
-class ContentJarParser {
+class ContentJarParser extends ContentParser {
 	private val List<String> contents;
 	
 	new(String url) {
@@ -65,16 +59,6 @@ class ContentJarParser {
 		getContent(input)
 	}
 	
-	def getContent(InputStream input) {
-		val buf = new BufferedReader(new InputStreamReader(input))
-		var String line
-		var sb = new StringBuilder;
-		while((line = buf.readLine) != null) {
-		   sb.append(line).append("\n")
-		}
-		sb.toString
-	}
-	
 	def existsXmlUrl(String url, String contentFileName) {
 		existsUrl(url, contentFileName, "xml")
 	}
@@ -101,14 +85,6 @@ class ContentJarParser {
 	      	parse(content, contentHandler)
       	}
 		contentHandler.version
-	}
-	
-	def parse(String content, org.xml.sax.ContentHandler contentHandler) {
-		val xmlReader = XMLReaderFactory::createXMLReader();
-      	xmlReader.setContentHandler(contentHandler);
-      	val reader = new StringReader(content.toString)
-      	val inputSource = new InputSource(reader);
-      	xmlReader.parse(inputSource);
 	}
 	
 	def parseLocations(String content, String location) {

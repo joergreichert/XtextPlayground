@@ -1,4 +1,4 @@
-package de.abg.jreichert.repositorytarget;
+package de.abg.jreichert.repositorytarget.xml;
 
 import java.util.SortedSet;
 import java.util.TreeSet;

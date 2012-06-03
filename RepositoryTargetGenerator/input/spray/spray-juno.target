@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target includeMode="feature" name="Spray Target Platform - Eclipse 4.2" sequenceNumber="67">
+	<locations>
+		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.emf.eef.codegen.ecore-feature.feature.group" version="1.1.0.201205090942"/>
+			<repository location="http://download.eclipse.org/releases/juno"/>
+		</location>
+		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.0.0.v201108011202"/>
+			<unit id="de.itemis.xtext.antlr.feature.feature.group" version="2.0.0.v201108011202"/>
+			<repository location="http://download.itemis.com/updates/releases/2.0.0/"/>
+		</location>
+		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.0.5.20111003_1754-3676ac8-dev-e36"/>
+			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.0.5.20111003_1754-3676ac8-dev-e36"/>
+			<unit id="org.eclipse.swtbot.eclipse.test.junit4.feature.group" version="2.0.5.20111003_1754-3676ac8-dev-e36"/>
+			<repository location="http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site"/>
+		</location>
+		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.sdk.feature.group" version="4.2.0.v20120429-1556-7T7mA7DPz-3DcfC15AKz0_pby1qYJceLYkz0qFh33K_9D"/>
+			<unit id="org.eclipse.pde.feature.group" version="3.8.0.v20120511-0746-7c7vFcdFFt6Zr5_Zt4Jz0hBd"/>
+			<unit id="org.eclipse.emf.sdk.feature.group" version="2.8.0.v20120507-0712"/>
+			<unit id="org.eclipse.emf.transaction.sdk.feature.group" version="1.5.0.v20110502-1600-777T-9AZP-F1cMhjSqjhYl0eU20D"/>
+			<unit id="org.eclipse.gef.sdk.feature.group" version="3.8.0.201205041431"/>
+			<unit id="org.eclipse.zest.sdk.feature.group" version="1.4.0.201205041431"/>
+			<unit id="org.eclipse.graphiti.sdk.plus.feature.feature.group" version="0.9.0.v20120509-1113"/>
+			<unit id="org.eclipse.swt" version="3.100.0.v4229f"/>
+			<repository location="http://download.eclipse.org/releases/juno"/>
+		</location>
+		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.3.0.v201205221035"/>
+			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.3.0.v201205221035"/>
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.3.0.v201205220958"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.3.0.v201205220958"/>
+			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones/"/>
+		</location>
+		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" version="0.9.3.201204261440"/>
+			<repository location="http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x"/>
+		</location>
+	</locations>
+	<environment>
+		<nl>en</nl>
+	</environment>
+	<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<launcherArgs>
+		<vmArgs>-Xmx512m -XX:MaxPermSize=128m</vmArgs>
+	</launcherArgs>
+</target>

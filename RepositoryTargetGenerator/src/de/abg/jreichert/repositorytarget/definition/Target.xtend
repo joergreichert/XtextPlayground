@@ -1,10 +1,10 @@
-package de.abg.jreichert.repositorytarget
+package de.abg.jreichert.repositorytarget.definition
 
 import java.util.List
 
 class Target {
-   @Property String name
-   @Property List<Location> locations = newArrayList
+   @Property private String name
+   @Property private List<Location> locations = newArrayList
   
    def createLocation((Location)=>void initializer) {
       val location = new Location()
@@ -42,8 +42,8 @@ class Target {
 }
 
 class Location {
-   @Property List<Unit> units = newArrayList
-   @Property String repositoryLocation
+   @Property private List<Unit> units = newArrayList
+   @Property private String repositoryLocation
 	
    def createUnit((Unit)=>void initializer) {
       val unit = new Unit()
@@ -64,17 +64,23 @@ class Location {
 }
 
 class Unit {
-	@Property String categoryId
-	@Property String targetId
-	@Property String version
-	@Property String url
-	@Property String category = "3rdparty"
-	@Property Boolean feature = true
+	@Property private String categoryId = ""
+	@Property private String targetId = ""
+	@Property private String version = ""
+	@Property private String url = ""
+	@Property private String category = "3rdparty"
+	@Property private Boolean feature = true
 	
 	def String getTargetId() {
-		if(!categoryId.nullOrEmpty && !categoryId.endsWith("feature.group") && feature)
-           categoryId + ".feature.group"
-		else categoryId	
+		if(!_categoryId.nullOrEmpty && !_categoryId.endsWith("feature.group") && feature)
+           _categoryId + ".feature.group"
+		else _categoryId	
+	}
+
+	def String getCategoryId() {
+		if(!_targetId.nullOrEmpty && _categoryId.nullOrEmpty)
+			_categoryId = _targetId.replace(".feature.group", "") 
+		else _categoryId	
 	}
 	
 	def String getUrl() {

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.pde_3.7.2.v20120120-1420-7b7rFUOFEx2Xnqafnpz0E--0.jar" id="org.eclipse.pde" version="3.7.2.v20120120-1420-7b7rFUOFEx2Xnqafnpz0E--0">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/de.itemis.xtext.antlr.sdk_2.0.0.v201108011202.jar" id="de.itemis.xtext.antlr.sdk" version="2.0.0.v201108011202">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.emf.mwe2.language.sdk_2.2.0.v201112071250.jar" id="org.eclipse.emf.mwe2.language.sdk" version="2.2.0.v201112071250">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.emf.mwe2.language.sdk.source_2.2.0.v201112071250.jar" id="org.eclipse.emf.mwe2.language.sdk.source" version="2.2.0.v201112071250">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.emf.mwe2.runtime.sdk_2.2.0.v201112070431.jar" id="org.eclipse.emf.mwe2.runtime.sdk" version="2.2.0.v201112070431">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.emf.mwe2.runtime.sdk.source_2.2.0.v201112070431.jar" id="org.eclipse.emf.mwe2.runtime.sdk.source" version="2.2.0.v201112070431">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.emf.sdk_2.7.2.v20120130-0943.jar" id="org.eclipse.emf.sdk" version="2.7.2.v20120130-0943">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.emf.compare.sdk_1.2.2.v20120214-0915.jar" id="org.eclipse.emf.compare.sdk" version="1.2.2.v20120214-0915">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.wb.rcp.feature_1.3.0.r37x201202010053.jar" id="org.eclipse.wb.rcp.feature" version="1.3.0.r37x201202010053">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.wb.swt.feature_1.3.0.r37x201202010030.jar" id="org.eclipse.wb.swt.feature" version="1.3.0.r37x201202010030">	
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.wb.xwt.feature_1.3.0.r37x201202061752.jar" id="org.eclipse.wb.xwt.feature" version="1.3.0.r37x201202061752">	
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.wb.core.feature_1.3.0.r37x201202052311.jar" id="org.eclipse.wb.core.feature" version="1.3.0.r37x201202052311">	
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.wb.doc.user.feature_1.3.0.r37x201202052336.jar" id="org.eclipse.wb.doc.user.feature" version="1.3.0.r37x201202052336">	
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.wb.core.ui.feature_1.3.0.r37x201202052340.jar" id="org.eclipse.wb.core.ui.feature" version="1.3.0.r37x201202052340">	
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.wb.layout.group.feature_1.3.0.r37x201202060028.jar" id="org.eclipse.wb.layout.group.feature" version="1.3.0.r37x201202060028">	
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.wb.core.xml.feature_1.3.0.r37x201202052344.jar" id="org.eclipse.wb.core.xml.feature" version="1.3.0.r37x201202052344">	
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.swtbot_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot" version="2.0.5.20111003_1754-3676ac8-dev-e36">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.swtbot.eclipse_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot.eclipse" version="2.0.5.20111003_1754-3676ac8-dev-e36">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.swtbot.eclipse.test.junit4_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot.eclipse.test.junit4" version="2.0.5.20111003_1754-3676ac8-dev-e36">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.swtbot.forms_2.0.5.20111003_1754-3676ac8-dev-e36.jar" id="org.eclipse.swtbot.forms" version="2.0.5.20111003_1754-3676ac8-dev-e36">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipselabs.xtext.utils.unittesting.feature_0.9.3.jar" id="org.eclipselabs.xtext.utils.unittesting.feature" version="0.9.3">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.sdk_3.7.2.r37x_v20111213-7Q7xALDPb32vCjY6UACVPdFTz-icPtJkUadz0lMmk4z-8.jar" id="org.eclipse.sdk" version="3.7.2.r37x_v20111213-7Q7xALDPb32vCjY6UACVPdFTz-icPtJkUadz0lMmk4z-8">
+      <category name="3rdparty"/>
+   </feature>
+   <feature url="features/org.eclipse.xtext.sdk_2.2.1.v201112130541.jar" id="org.eclipse.xtext.sdk" version="2.2.1.v201112130541">
+      <category name="3rdparty"/>
+   </feature>
+   <category-def name="3rdparty" label="Third Party">
+      <description>
+         Dependent features to work with OperaMisterWongBookmarks.
+      </description>
+   </category-def>
+</site>
