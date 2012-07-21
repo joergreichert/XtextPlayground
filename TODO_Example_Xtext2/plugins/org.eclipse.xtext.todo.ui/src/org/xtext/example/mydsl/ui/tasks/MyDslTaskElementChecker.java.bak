@@ -15,13 +15,11 @@ public class MyDslTaskElementChecker implements ITaskElementChecker {
 	public String getPrefixToIgnore(INode argNode) {
 		boolean singleLineComment = objGrammarAccess.getSL_COMMENTRule()
 				.equals(argNode.getGrammarElement());
-		boolean multiLineComment = objGrammarAccess.getML_COMMENTRule()
-				.equals(argNode.getGrammarElement());
 		boolean containsTodoKeyword = argNode instanceof LeafNode ? ((LeafNode) argNode)
 				.getText().contains(TaskConstants.TODO_PREFIX) : false;
-		if ((singleLineComment || multiLineComment) && containsTodoKeyword) {
+		if (singleLineComment && containsTodoKeyword) {
 			return TaskConstants.TODO_PREFIX;
 		}
 		return null;
-	}	
+	}
 }

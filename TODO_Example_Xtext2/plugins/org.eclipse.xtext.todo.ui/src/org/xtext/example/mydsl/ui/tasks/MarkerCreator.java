@@ -1,22 +1,25 @@
 package org.xtext.example.mydsl.ui.tasks;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.StringUtils;
+import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.xtext.example.mydsl.ui.internal.MyDslActivator;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.BidiIterator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.apache.commons.lang.StringUtils;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.xtext.example.mydsl.ui.internal.MyDslActivator;
 
 public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
    private static final String TASK_MARKER_TYPE = "";
@@ -65,9 +68,10 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
       if (varIgnorePrefix != null) {
          IMarker varMarker = argRresource.createMarker(getMarkerType());
          String text = argNode.getText();
-         int index = text.indexOf(varIgnorePrefix);
-         if (index > 0) {
-            text = text.substring(index + varIgnorePrefix.length());
+         // match from varIgnorePrefix until end of line
+         Matcher matcher = Pattern.compile("(?s).*" + varIgnorePrefix + "(.*?)(\\r)?\\n.*").matcher(text);
+         if (matcher.matches()) {
+        	 text = matcher.group(1);
          }
          varMarker.setAttribute(IMarker.MESSAGE, text.trim());
          varMarker.setAttribute(IMarker.LOCATION, "line " + argNode.getStartLine());
