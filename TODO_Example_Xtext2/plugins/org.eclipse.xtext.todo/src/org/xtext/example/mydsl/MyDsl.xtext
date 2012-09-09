@@ -54,6 +54,25 @@ Greeting:
 	
 terminal ID : '^'?('\u00E4'|'\u00F6'|'\u00FC'|'a'..'z'|'A'..'Z'|'\u00C4'|'\u00D6'|'\u00DC'|'_') ('\u00E4'|'\u00F6'|'\u00FC'|'\u00DF'|'a'..'z'|'\u00C4'|'\u00D6'|'\u00DC'|'A'..'Z'|'_'|'0'..'9')*;	
 
+DummyJavaClass:
+	name=ID
+	description=STRING
+	methods+=DummyJavaClassMethod*
+;
+
+DummyJavaClassMethod:
+	name=ID
+	description=STRING
+	input+=DummyJavaClassMethodParameter*	
+	ouput+=DummyJavaClassMethodParameter*	
+;
+
+DummyJavaClassMethodParameter:
+	name=ID
+	description=STRING
+	type=STRING	
+;
+
 QualifiedName : ID ('.' ID)*;
 
 //\u00C4 -> Ä 
