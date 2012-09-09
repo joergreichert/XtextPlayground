@@ -24,9 +24,6 @@
 	<feature url="features/org.eclipse.emf.sdk_2.8.0.v20120608-0554.jar" id="org.eclipse.emf.sdk" version="2.8.0.v20120608-0554">
 		<category name="3rdparty"/>
 	</feature>
-	<feature url="features/org.eclipse.swt_3.100.0.v4233d.jar" id="org.eclipse.swt" version="3.100.0.v4233d">
-		<category name="3rdparty"/>
-	</feature>
 	<feature url="features/org.eclipse.emf.mwe2.language.sdk_2.3.0.v201206120758.jar" id="org.eclipse.emf.mwe2.language.sdk" version="2.3.0.v201206120758">
 		<category name="3rdparty"/>
 	</feature>
