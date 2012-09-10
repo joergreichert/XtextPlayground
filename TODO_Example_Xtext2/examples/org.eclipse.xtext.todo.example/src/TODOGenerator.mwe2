@@ -1,0 +1,14 @@
+module org.eclipse.xtext.todo.example.TODOGenerator
+
+import org.eclipse.emf.mwe.utils.*
+
+Workflow {
+	bean = StandaloneSetup {
+		platformUri = "../../.."
+		registerGeneratedEPackage = "org.xtext.example.mydsl.myDsl.MyDslPackage"
+		registerGenModelFile = "platform:/resource/org.eclipse.xtext.todo/org/xtext/example/mydsl/MyDsl.genmodel"
+		registerGeneratedEPackage = "org.eclipse.xtext.classDef.ClassDefPackage"
+		registerGenModelFile = "platform:/resource/org.eclipse.xtext.classdef/org/eclipse/xtext/ClassDef.genmodel"
+		scanClassPath=true
+	}
+}

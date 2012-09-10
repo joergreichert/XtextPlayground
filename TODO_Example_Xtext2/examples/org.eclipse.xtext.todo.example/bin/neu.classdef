@@ -1,0 +1,4 @@
+class Test "Neu"
+	action doSomething "Example method"
+		inputs:
+			param param1 : "String" "First parameter" 

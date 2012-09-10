@@ -19,7 +19,8 @@ Require-Bundle: org.eclipse.xtext.todo;bundle-version="0.2.0";visibility:=reexpo
  org.apache.commons.lang;bundle-version="2.4.0",
  org.eclipse.jdt.core,
  org.eclipse.emf.codegen.ecore,
- org.eclipse.pde.core
+ org.eclipse.pde.core,
+ org.eclipse.xtext.xbase.ui
 Import-Package: org.apache.log4j,
  org.apache.commons.logging
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

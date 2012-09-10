@@ -8,7 +8,6 @@ import org.eclipse.xtext.parser.IEncodingProvider;
 import org.eclipse.xtext.service.DispatchingProvider;
 import org.eclipse.xtext.ui.editor.IXtextEditorCallback;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.xtext.example.mydsl.encoding.UTF8Provider;
 import org.xtext.example.mydsl.ui.contentassist.CustomReferenceProposalCreator;
 import org.xtext.example.mydsl.ui.highlighting.MyDslHighlightingConfiguration;
@@ -26,11 +25,13 @@ import com.google.inject.name.Names;
  */
 public class MyDslUiModule extends
 		org.xtext.example.mydsl.ui.AbstractMyDslUiModule {
+
 	public MyDslUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
 	}
-
-	public Class<? extends ISemanticHighlightingCalculator> bindSemanticHighlightingCalculator() {
+		
+	@Override
+	public Class<? extends org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator> bindISemanticHighlightingCalculator() {
 		return MyDslSemanticHighlightingCalculator.class;
 	}
 

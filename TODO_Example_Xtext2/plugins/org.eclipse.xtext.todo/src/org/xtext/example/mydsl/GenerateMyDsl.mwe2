@@ -135,7 +135,9 @@ Workflow {
             fragment = types.TypesGeneratorFragment {}
 
             // generates the required bindings only if the grammar inherits from Xbase
-            fragment = xbase.XbaseGeneratorFragment {}
+            fragment = xbase.XbaseGeneratorFragment {
+			   useInferredJvmModel = false
+			}
 
             // provides a preference page for template proposals
             fragment = templates.CodetemplatesGeneratorFragment {}

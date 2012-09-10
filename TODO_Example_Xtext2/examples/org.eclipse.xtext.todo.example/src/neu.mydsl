@@ -1,0 +1,3 @@
+classRef org.example.mydsl.Test
+classRef neu.Test2
+// TODO: neu

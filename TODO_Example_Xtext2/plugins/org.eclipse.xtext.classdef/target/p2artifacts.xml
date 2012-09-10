@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='2'>
+  <artifact classifier='osgi.bundle' id='org.eclipse.xtext.classdef' version='0.2.0.201209100727'>
+    <properties size='5'>
+      <property name='artifact.size' value='208532'/>
+      <property name='download.size' value='208532'/>
+      <property name='maven-groupId' value='org.eclipse.xtext.todo'/>
+      <property name='maven-artifactId' value='org.eclipse.xtext.classdef'/>
+      <property name='maven-version' value='0.2.0-SNAPSHOT'/>
+    </properties>
+  </artifact>
+  <artifact classifier='osgi.bundle' id='org.eclipse.xtext.classdef.source' version='0.2.0.201209100727'>
+    <properties size='6'>
+      <property name='artifact.size' value='136286'/>
+      <property name='download.size' value='136286'/>
+      <property name='maven-groupId' value='org.eclipse.xtext.todo'/>
+      <property name='maven-artifactId' value='org.eclipse.xtext.classdef'/>
+      <property name='maven-version' value='0.2.0-SNAPSHOT'/>
+      <property name='maven-classifier' value='sources'/>
+    </properties>
+  </artifact>
+</artifacts>

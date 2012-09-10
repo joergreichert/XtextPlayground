@@ -12,7 +12,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.14.1</tycho-version>
+		<tycho-version>0.15.0</tycho-version>
 		<junit-version>4.8.1</junit-version>
 		<platform-version-name>indigo</platform-version-name>
 		<eclipse-site>http://download.eclipse.org/releases/${platform-version-name}</eclipse-site>
@@ -26,8 +26,9 @@
 		<maven-clean-plugin-version>2.4.1</maven-clean-plugin-version>
 		<maven-assembly-plugin-version>2.3</maven-assembly-plugin-version>
 		<build-helper-maven-plugin-version>1.7</build-helper-maven-plugin-version>
-		<fornax-oaw-m2-plugin-version>3.3.1</fornax-oaw-m2-plugin-version>
-		<xtend-maven-plugin-version>2.2.2</xtend-maven-plugin-version>
+		<fornax-oaw-m2-plugin-version>3.4.0</fornax-oaw-m2-plugin-version>
+		<xtend-maven-plugin-version>2.3.1</xtend-maven-plugin-version>
+		<xtend-library-version>2.3.1</xtend-library-version>
 	</properties>
 
 	<build>
@@ -185,12 +186,27 @@
 					<version>${fornax-oaw-m2-plugin-version}</version>
 				</plugin>
 				<plugin>
-					<groupId>org.eclipse.xtend2</groupId>
+					<groupId>org.eclipse.xtend</groupId>
 					<artifactId>xtend-maven-plugin</artifactId>
 					<version>${xtend-maven-plugin-version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+							</goals>
+						</execution>
+					</executions>
 					<configuration>
 						<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.xtend</groupId>
+							<artifactId>org.eclipse.xtend.lib</artifactId>
+							<version>${xtend-library-version}</version>
+							<type>pom</type>
+						</dependency>
+					</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>

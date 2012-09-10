@@ -23,10 +23,14 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
+				<module>../../plugins/org.eclipse.xtext.classdef</module>
 				<module>../../plugins/org.eclipse.xtext.todo</module>
+				<module>../../plugins/org.eclipse.xtext.classdef.ui</module>
 				<module>../../plugins/org.eclipse.xtext.todo.ui</module>
+				<module>../../tests/org.eclipse.xtext.classdef.tests</module>
 				<module>../../tests/org.eclipse.xtext.todo.tests</module>
 				<module>../../tests/org.eclipse.xtext.todo.ui.tests</module>
+				<module>../../examples/org.eclipse.xtext.todo.example</module>
 			</modules>
 		</profile>
 		<profile>

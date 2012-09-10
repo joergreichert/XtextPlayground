@@ -11,19 +11,20 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
+import org.eclipse.xtext.xbase.ui.highlighting.XbaseHighlightingCalculator;
 import org.xtext.example.mydsl.ui.tasks.ITaskElementChecker;
 
 import com.google.inject.Inject;
 
-public class MyDslSemanticHighlightingCalculator implements
-		ISemanticHighlightingCalculator {
+public class MyDslSemanticHighlightingCalculator extends XbaseHighlightingCalculator {
 
 	@Inject
 	private ITaskElementChecker objElementChecker;
 
+	@Override
 	public void provideHighlightingFor(XtextResource resource,
 			IHighlightedPositionAcceptor acceptor) {
+		super.provideHighlightingFor(resource, acceptor);
 		if (resource == null) {
 			return;
 		}
