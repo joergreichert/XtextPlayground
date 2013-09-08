@@ -12,22 +12,28 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.14.1</tycho-version>
+		<tycho-version>0.18.1</tycho-version>
 		<junit-version>4.8.1</junit-version>
-		<platform-version-name>indigo</platform-version-name>
+		<platform-version-name>kepler</platform-version-name>
 		<eclipse-site>http://download.eclipse.org/releases/${platform-version-name}</eclipse-site>
-		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository</orbit-site>
-		<platform-version>[3.7,3.8)</platform-version>
+		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20130118183705/repository</orbit-site>
+		<platform-version>[3.7,4.3)</platform-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<target-platform-version>0.1.1-SNAPSHOT</target-platform-version>
-		<maven-resources-plugin-version>2.5</maven-resources-plugin-version>
+		<maven-resources-plugin-version>2.6</maven-resources-plugin-version>
 		<maven-antrun-plugin-version>1.7</maven-antrun-plugin-version>
-		<maven-surefire-plugin-version>2.9</maven-surefire-plugin-version>
-		<maven-clean-plugin-version>2.4.1</maven-clean-plugin-version>
-		<maven-assembly-plugin-version>2.3</maven-assembly-plugin-version>
-		<build-helper-maven-plugin-version>1.7</build-helper-maven-plugin-version>
-		<fornax-oaw-m2-plugin-version>3.3.1</fornax-oaw-m2-plugin-version>
-		<xtend-maven-plugin-version>2.2.2</xtend-maven-plugin-version>
+		<maven-surefire-plugin-version>2.16</maven-surefire-plugin-version>
+		<maven-clean-plugin-version>2.5</maven-clean-plugin-version>
+		<maven-assembly-plugin-version>2.4</maven-assembly-plugin-version>
+		<build-helper-maven-plugin-version>1.8</build-helper-maven-plugin-version>
+		<fornax-oaw-m2-plugin-version>3.4.0</fornax-oaw-m2-plugin-version>
+		<xtend-maven-plugin-version>2.4.3</xtend-maven-plugin-version>
+		<xtend-library-version>2.4.3</xtend-library-version>
+		<project.encoding>UTF-8</project.encoding>
+		<file.encoding>${project.encoding}</file.encoding>
+		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+		<memoryArgs>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m</memoryArgs>
+		<encodingArgs>-Dfile.encoding=${file.encoding}</encodingArgs>
 	</properties>
 
 	<build>
@@ -108,7 +114,7 @@
 					<artifactId>tycho-compiler-plugin</artifactId>
 					<version>${tycho-version}</version>
 					<configuration>
-						<encoding>UTF-8</encoding>
+						<encoding>${project.encoding}</encoding>
 						<source>6.0</source>
 						<target>6.0</target>
 						<verbose>true</verbose>
@@ -134,7 +140,7 @@
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>${maven-resources-plugin-version}</version>
 					<configuration>
-						<encoding>UTF-8</encoding>
+						<encoding>${project.encoding}</encoding>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -185,25 +191,40 @@
 					<version>${fornax-oaw-m2-plugin-version}</version>
 				</plugin>
 				<plugin>
-					<groupId>org.eclipse.xtend2</groupId>
+					<groupId>org.eclipse.xtend</groupId>
 					<artifactId>xtend-maven-plugin</artifactId>
 					<version>${xtend-maven-plugin-version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+							</goals>
+						</execution>
+					</executions>
 					<configuration>
 						<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.xtend</groupId>
+							<artifactId>org.eclipse.xtend.lib</artifactId>
+							<version>${xtend-library-version}</version>
+							<type>pom</type>
+						</dependency>
+					</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
 	<pluginRepositories>
 		<pluginRepository>
-			<id>sonatype</id>
-			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
+			<id>sonatype_releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
 		<pluginRepository>
@@ -216,15 +237,10 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-		<pluginRepository>
-			<id>xtend</id>
-			<url>http://build.eclipse.org/common/xtend/maven/</url>
-		</pluginRepository>
 	</pluginRepositories>
-
 	<profiles>
 		<profile>
-			<id>platform-indigo</id>
+			<id>platform-kepler</id>
 			<activation>
 				<property>
 					<name>platform-version-name</name>
@@ -232,7 +248,7 @@
 				</property>
 			</activation>
 			<properties>
-				<eclipse-site>http://download.eclipse.org/releases/indigo</eclipse-site>
+				<eclipse-site>http://download.eclipse.org/releases/kepler</eclipse-site>
 				<platform-version>${platform-version}</platform-version>
 			</properties>
 		</profile>
@@ -301,7 +317,7 @@
 		<profile>
 			<id>codeCoverage</id>
 			<properties>
-				<jacoco.version>0.5.6.201201232323</jacoco.version>
+				<jacoco.version>0.6.3.201306030806</jacoco.version>
 				<jacoco.destFile>${project.basedir}/../../releng/org.eclipse.xtext.todo.parent/target/jacoco.exec</jacoco.destFile>
 				<jacoco.it.destFile>${project.basedir}/../../releng/org.eclipse.xtext.todo.parent/target/jacoco_it.exec</jacoco.it.destFile>
 				<!-- Sonar -->

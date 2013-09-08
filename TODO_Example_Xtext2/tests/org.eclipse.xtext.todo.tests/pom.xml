@@ -34,6 +34,7 @@
 						<id>test</id>
 						<phase>test</phase>
 						<configuration>
+							<argLine>${encodingArgs}</argLine>
 							<testClassesDirectory>${project.build.outputDirectory}</testClassesDirectory>
 							<includes>
 								<include>**/*Test.java</include>

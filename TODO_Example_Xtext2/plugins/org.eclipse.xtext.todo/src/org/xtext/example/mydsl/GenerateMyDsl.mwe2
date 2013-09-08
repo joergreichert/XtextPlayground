@@ -34,6 +34,10 @@ Workflow {
     }
 
     component = DirectoryCleaner {
+        directory = "${runtimeProject}/model"
+    }
+
+    component = DirectoryCleaner {
         directory = "${runtimeProject}.ui/src-gen"
     }
 
@@ -44,6 +48,7 @@ Workflow {
         pathTestProject = "../../tests/${projectName}.tests"
         projectNameRt = projectName
         projectNameUi = "${projectName}.ui"
+        encoding = "UTF-8"
         language = {
             uri = grammarURI
             fileExtensions = file.extensions
@@ -52,7 +57,7 @@ Workflow {
             fragment = grammarAccess.GrammarAccessFragment {}
 
             // generates Java API for the generated EPackages
-            fragment = ecore.EcoreGeneratorFragment {
+            fragment = ecore.EMFGeneratorFragment {
             // referencedGenModels = "
             //  platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel,
             //  platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel
