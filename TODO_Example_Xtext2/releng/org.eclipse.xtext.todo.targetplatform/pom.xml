@@ -13,34 +13,6 @@
 	<groupId>org.eclipse.xtext.todo</groupId>
 	<artifactId>org.eclipse.xtext.todo.targetplatform</artifactId>
 	<version>0.3.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.3</version>
-				<executions>
-					<execution>
-						<id>attach-artifacts</id>
-						<phase>package</phase>
-						<goals>
-							<goal>attach-artifact</goal>
-						</goals>
-						<configuration>
-							<artifacts>
-								<artifact>
-									<file>todo.target</file>
-									<type>target</type>
-									<classifier>todo</classifier>
-								</artifact>
-							</artifacts>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+	<packaging>eclipse-target-definition</packaging>	
 
 </project>
