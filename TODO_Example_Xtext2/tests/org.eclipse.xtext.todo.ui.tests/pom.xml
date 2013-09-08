@@ -21,7 +21,7 @@
 				<version>${tycho-version}</version>
 				<configuration>
 					<skip>${tycho.surefire.skipUiTest}</skip>
-					<argLine>-Xms256m -Xmx512m -XX:MaxPermSize=256M ${it.coverage.argLine}</argLine>
+					<argLine>-Xms256m -Xmx512m -XX:MaxPermSize=256M ${it.coverage.argLine} -Dlog4j.configuration=file:${basedir}/log4j.properties</argLine>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
 					<application>org.eclipse.ui.ide.workbench</application>
