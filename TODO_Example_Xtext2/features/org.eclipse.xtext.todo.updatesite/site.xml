@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipse.xtext.todo.feature_0.2.0.qualifier.jar" id="org.eclipse.xtext.todo.feature" version="0.2.0.qualifier">
+   <feature url="features/org.eclipse.xtext.todo.feature_0.3.0.qualifier.jar" id="org.eclipse.xtext.todo.feature" version="0.3.0.qualifier">
       <category name="Xtext_TODOs"/>
    </feature>
    <category-def name="Xtext_TODOs" label="Xtext TODOs"/>
