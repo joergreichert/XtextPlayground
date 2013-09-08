@@ -24,7 +24,7 @@
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20130118183705/repository</orbit-site>
 		<platform-version>[3.7,4.3)</platform-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<target-platform-version>0.1.1-SNAPSHOT</target-platform-version>
+		<target-platform-version>0.3.0-SNAPSHOT</target-platform-version>
 		<maven-resources-plugin-version>2.6</maven-resources-plugin-version>
 		<maven-antrun-plugin-version>1.7</maven-antrun-plugin-version>
 		<maven-surefire-plugin-version>2.16</maven-surefire-plugin-version>
