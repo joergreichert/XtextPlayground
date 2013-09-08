@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<modelVersion>4.0.0</modelVersion>
+	<!-- Tycho requires Maven 3 -->
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+
+	<groupId>org.eclipse.xtext.todo</groupId>
+	<artifactId>org.eclipse.xtext.todo.config.parent</artifactId>
+	<version>0.3.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<platform-version-name>kepler</platform-version-name>
+		<project.encoding>UTF-8</project.encoding>
+		<file.encoding>${project.encoding}</file.encoding>
+		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+		<tycho-version>0.18.1</tycho-version>
+		<maven-clean-plugin-version>2.5</maven-clean-plugin-version>
+		<maven-deploy-plugin-version>2.7</maven-deploy-plugin-version>
+		<github-site-maven-plugin-version>0.8</github-site-maven-plugin-version>
+		<local-build-platform-version>[3.8,4.3)</local-build-platform-version>		
+		<ui.test.vmargs></ui.test.vmargs>
+		<coverageAgent></coverageAgent>
+		<it.coverage.argLine></it.coverage.argLine>
+		<distribution.dir>${basedir}/../../releng/org.eclipse.xtext.todo.parent/target/repository</distribution.dir>
+	</properties>
+	
+	<modules>
+		<module>../../releng/org.eclipse.xtext.example.knapsack.distribution</module>
+	</modules>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<!-- By default clean xtend-gen if exists, the sources will be produced 
+				by xtend-plugin -->
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>xtend-gen</directory>
+							<includes>
+								<include>**</include>
+							</includes>
+							<excludes>
+								<exclude>.gitignore</exclude>
+							</excludes>
+						</fileset>
+					</filesets>
+				</configuration>
+				<executions>
+					<execution>
+						<id>clean-repository</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+						<configuration>
+							<excludeDefaultDirectories>true</excludeDefaultDirectories>
+							<filesets>
+								<fileset>
+									<directory>${distribution.dir}/org/eclipse/xtext/todo/${project.artifactId}</directory>
+									<includes>
+										<include>**/*</include>
+									</includes>
+								</fileset>
+							</filesets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
+					<altDeploymentRepository>internal.repo::default::file://${distribution.dir}</altDeploymentRepository>
+				</configuration>
+			</plugin>			
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven-deploy-plugin-version}</version>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${maven-clean-plugin-version}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.github.github</groupId>
+					<artifactId>site-maven-plugin</artifactId>
+					<version>${github-site-maven-plugin-version}</version>
+					<configuration>
+						<message>Maven artifacts for ${project.groupId}:${project.artifactId}:${project-version} ~${maven.build.timestamp}</message>
+						<noJekyll>true</noJekyll>
+						<outputDirectory>${distribution.dir}</outputDirectory>
+						<merge>true</merge>
+						<repositoryOwner>joergreichert</repositoryOwner>
+						<repositoryName>distributions</repositoryName>
+						<branch>refs/heads/gh-pages</branch>
+						<path>/snapshots</path>		
+						<oauth2Token>${env.TOKEN}</oauth2Token>						
+						<includes>
+							<include>**/*</include>
+						</includes>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>site</goal>
+							</goals>
+							<phase>deploy</phase>
+						</execution>
+					</executions>
+				</plugin>			
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>sonatype</id>
+			<url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>sonatype_snapshot</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<!-- Fornax Workflow Runner plugin -->
+		<pluginRepository>
+			<id>fornax</id>
+			<url>http://www.fornax-platform.org/m2/repository</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<licenses>
+		<license>
+			<name>Eclipse Public License v1.0</name>
+			<comments>
+       All rights reserved.
+
+       This program and the accompanying materials are made
+       available under the terms of the Eclipse Public License v1.0
+       which accompanies this distribution, and is available at
+       http://www.eclipse.org/legal/epl-v10.htm
+      </comments>
+		</license>
+	</licenses>
+
+	<inceptionYear>2011</inceptionYear>
+	<issueManagement>
+		<system>GitHub Issue Tracker</system>
+		<url>https://github.com/joergreichert/TODO_Example_Xtext2/issues</url>
+	</issueManagement>
+	<organization>
+		<name>GitHub</name>
+		<url>https://github.com/joergreichert/TODO_Example_Xtext2</url>
+	</organization>
+	<scm>
+		<developerConnection>https://github.com/joergreichert/TODO_Example_Xtext2</developerConnection>
+		<url>https://github.com/joergreichert/TODO_Example_Xtext2</url>
+		<connection>https://github.com/joergreichert/TODO_Example_Xtext2</connection>
+	</scm>
+	<ciManagement>
+		<system>Travis</system>
+		<url>https://travis-ci.org/joergreichert/TODO_Example_Xtext2</url>
+	</ciManagement>
+
+	<distributionManagement>
+		<repository>
+			<id>joergreichert-releases</id>
+			<name>joergreichert-releases</name>
+			<url>http://joergreichert.github.com/distributions/release</url>
+		</repository>
+		<snapshotRepository>
+			<id>joergreichert-snapshots</id>
+			<name>joergreichert-snapshots</name>
+			<url>http://joergreichert.github.com/distributions/snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>

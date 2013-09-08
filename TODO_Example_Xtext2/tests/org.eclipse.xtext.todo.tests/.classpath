@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="src-gen"/>
 	<classpathentry kind="src" path="res"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.1/junit-4.8.1.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/com.google.inject/3.0.0.no_aop/com.google.inject-3.0.0.no_aop.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/javax.inject/1.0.0.v20091030/javax.inject-1.0.0.v20091030.jar"/>
@@ -145,5 +144,6 @@
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.swt.cocoa.macosx/3.7.2.v3740f/org.eclipse.swt.cocoa.macosx-3.7.2.v3740f.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.swt.gtk.linux.x86/3.7.2.v3740f/org.eclipse.swt.gtk.linux.x86-3.7.2.v3740f.jar"/>
 	<classpathentry kind="lib" path="C:/_maven_repo/p2/osgi/bundle/org.eclipse.swt.gtk.linux.x86_64/3.7.2.v3740f/org.eclipse.swt.gtk.linux.x86_64-3.7.2.v3740f.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -34,7 +34,6 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
       this.argMonitor = argMonitor;
    }
 
-   @Override
    public java.lang.Void exec(XtextResource argState) {
       if (argState != null && !argState.getContents().isEmpty()) {
          EObject varModel = argState.getContents().get(0);

@@ -6,15 +6,20 @@
 		<maven>3.0</maven>
 	</prerequisites>
 
+	<parent>
+		<groupId>org.eclipse.xtext.todo</groupId>
+		<artifactId>org.eclipse.xtext.todo.config.parent</artifactId>
+		<version>0.3.0-SNAPSHOT</version>
+		<relativePath>../../releng/org.eclipse.xtext.todo.config.parent/pom.xml</relativePath>
+	</parent>	
+	
 	<groupId>org.eclipse.xtext.todo</groupId>
 	<artifactId>org.eclipse.xtext.todo.repository.parent</artifactId>
-	<version>0.1.1-SNAPSHOT</version>
+	<version>0.3.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.18.1</tycho-version>
 		<junit-version>4.8.1</junit-version>
-		<platform-version-name>kepler</platform-version-name>
 		<eclipse-site>http://download.eclipse.org/releases/${platform-version-name}</eclipse-site>
 		<orbit-site>http://download.eclipse.org/tools/orbit/downloads/drops/R20130118183705/repository</orbit-site>
 		<platform-version>[3.7,4.3)</platform-version>
@@ -23,15 +28,11 @@
 		<maven-resources-plugin-version>2.6</maven-resources-plugin-version>
 		<maven-antrun-plugin-version>1.7</maven-antrun-plugin-version>
 		<maven-surefire-plugin-version>2.16</maven-surefire-plugin-version>
-		<maven-clean-plugin-version>2.5</maven-clean-plugin-version>
 		<maven-assembly-plugin-version>2.4</maven-assembly-plugin-version>
 		<build-helper-maven-plugin-version>1.8</build-helper-maven-plugin-version>
 		<fornax-oaw-m2-plugin-version>3.4.0</fornax-oaw-m2-plugin-version>
 		<xtend-maven-plugin-version>2.4.3</xtend-maven-plugin-version>
 		<xtend-library-version>2.4.3</xtend-library-version>
-		<project.encoding>UTF-8</project.encoding>
-		<file.encoding>${project.encoding}</file.encoding>
-		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
 		<memoryArgs>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m</memoryArgs>
 		<encodingArgs>-Dfile.encoding=${file.encoding}</encodingArgs>
 	</properties>
@@ -122,11 +123,6 @@
 				</plugin>
 				<plugin>
 					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-surefire-plugin</artifactId>
-					<version>${tycho-version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
 					<artifactId>maven-osgi-test-plugin</artifactId>
 					<version>${tycho-version}</version>
 				</plugin>
@@ -152,11 +148,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${maven-surefire-plugin-version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>${maven-clean-plugin-version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -216,28 +207,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>sonatype_releases</id>
-			<url>https://oss.sonatype.org/content/repositories/releases/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>fornax</id>
-			<url>http://www.fornax-platform.org/m2/repository</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
 	<profiles>
 		<profile>
 			<id>platform-kepler</id>
@@ -358,50 +327,4 @@
 			</build>
 		</profile>				
 	</profiles>
-
-	<licenses>
-		<license>
-			<name>Eclipse Public License v1.0</name>
-			<comments>
-       All rights reserved.
-
-       This program and the accompanying materials are made
-       available under the terms of the Eclipse Public License v1.0
-       which accompanies this distribution, and is available at
-       http://www.eclipse.org/legal/epl-v10.htm
-      </comments>
-		</license>
-	</licenses>
-
-	<inceptionYear>2011</inceptionYear>
-	<issueManagement>
-		<system>GitHub Issue Tracker</system>
-		<url>https://github.com/joergreichert/XtextTodos/issues</url>
-	</issueManagement>
-	<organization>
-		<name>GitHub</name>
-		<url>https://github.com/joergreichert/XtextTodos</url>
-	</organization>
-	<scm>
-		<developerConnection>https://github.com/joergreichert/XtextTodos</developerConnection>
-		<url>https://github.com/joergreichert/XtextTodos</url>
-		<connection>https://github.com/joergreichert/XtextTodos</connection>
-	</scm>
-	<ciManagement>
-		<system>Cloudbees Jenkins</system>
-		<url>https://joergreichert.ci.cloudbees.com/</url>
-	</ciManagement>
-	
-	<distributionManagement>
-		<repository>
-			<id>cloudbees-release</id>
-			<name>Cloudbees Private Repository</name>
-			<url>dav:https://repository-joergreichert.forge.cloudbees.com/release</url>
-		</repository>
-		<snapshotRepository>
-			<id>cloudbees-snapshot</id>
-			<name>Cloudbees Private Repository</name>
-			<url>dav:https://repository-joergreichert.forge.cloudbees.com/snapshot</url>
-		</snapshotRepository>
-	</distributionManagement>	
 </project>

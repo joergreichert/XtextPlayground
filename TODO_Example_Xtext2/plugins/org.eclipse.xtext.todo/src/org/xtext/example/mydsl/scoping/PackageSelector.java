@@ -154,7 +154,7 @@ public class PackageSelector {
 											&& (genModelURI = nameTOGenModelURI
 													.get(resourceName)) != null) {
 										EcorePlugin
-												.getEPackageNsURIToGenModelLocationMap()
+												.getEPackageNsURIToGenModelLocationMap(false)
 												.put(ePackageNsURI, genModelURI);
 									}
 								}
@@ -170,7 +170,7 @@ public class PackageSelector {
 			}
 		}
 		EcorePlugin.computePlatformPluginToPlatformResourceMap();
-		EcorePlugin.computePlatformURIMap();
+		EcorePlugin.computePlatformURIMap(false);
 	}
 
 	public List<String> getAlreadyImportedForElement(EObject modelElement) {
@@ -222,7 +222,7 @@ public class PackageSelector {
 	}
 
 	public GenPackage getGenPackage(String uri, String packageName) {
-		URI genModelLoc = EcorePlugin.getEPackageNsURIToGenModelLocationMap()
+		URI genModelLoc = EcorePlugin.getEPackageNsURIToGenModelLocationMap(false)
 				.get(uri);
 		if (genModelLoc == null) {
 			throw new IllegalStateException(

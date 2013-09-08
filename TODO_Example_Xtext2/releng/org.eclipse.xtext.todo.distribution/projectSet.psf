@@ -3,6 +3,7 @@
 <provider id="org.eclipse.egit.core.GitProvider">
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.distribution"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/features/org.eclipse.xtext.todo.feature"/>
+<project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.config.parent"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.parent"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.repository"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.repository.parent"/>
@@ -23,6 +24,7 @@
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1335773296084_6" label="Xtext TODOs releng" name="Xtext TODOs releng">
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipse.xtext.todo.distribution" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipse.xtext.todo.config.parent" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/org.eclipse.xtext.todo.parent" type="4"/>
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1335773281589_5" label="Xtext TODOs repository" name="Xtext TODOs repository">

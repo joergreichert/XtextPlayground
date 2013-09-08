@@ -71,12 +71,10 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 		perspective.activate();
 		getBot().waitUntil(new DefaultCondition() {
 
-			@Override
 			public boolean test() {
 				return perspective.isActive();
 			}
 
-			@Override
 			public String getFailureMessage() {
 				return "Perspective '" + perspectiveLabel
 						+ "' was not activated";
@@ -84,12 +82,10 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 		});
 		getBot().waitUntil(new DefaultCondition() {
 			
-			@Override
 			public boolean test() throws Exception {
 				return getBot().activeShell() != null;
 			}
 			
-			@Override
 			public String getFailureMessage() {
 				return "No active shell not found";
 			}

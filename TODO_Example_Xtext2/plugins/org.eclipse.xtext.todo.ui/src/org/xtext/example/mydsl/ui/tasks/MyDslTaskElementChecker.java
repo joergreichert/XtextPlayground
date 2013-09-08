@@ -11,7 +11,6 @@ public class MyDslTaskElementChecker implements ITaskElementChecker {
 	@Inject
 	private MyDslGrammarAccess objGrammarAccess;
 
-	@Override
 	public String getPrefixToIgnore(INode argNode) {
 		boolean singleLineComment = objGrammarAccess.getSL_COMMENTRule()
 				.equals(argNode.getGrammarElement());

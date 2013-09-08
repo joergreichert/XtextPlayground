@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.eclipse.xtext.todo</groupId>
 		<artifactId>org.eclipse.xtext.todo.parent</artifactId>
-		<version>0.1.1-SNAPSHOT</version>
+		<version>0.3.0-SNAPSHOT</version>
 		<relativePath>../../releng/org.eclipse.xtext.todo.parent/pom.xml</relativePath>
 	</parent>
 
@@ -48,5 +48,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.3.0-SNAPSHOT</version>
 </project>

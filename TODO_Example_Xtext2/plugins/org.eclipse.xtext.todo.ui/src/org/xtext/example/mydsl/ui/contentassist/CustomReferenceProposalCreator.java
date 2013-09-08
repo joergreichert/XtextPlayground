@@ -4,7 +4,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 
 import com.google.common.base.Function;
 
