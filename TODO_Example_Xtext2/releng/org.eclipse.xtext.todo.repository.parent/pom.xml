@@ -57,7 +57,6 @@
 							<groupId>org.eclipse.xtext.todo</groupId>
 							<artifactId>org.eclipse.xtext.todo.targetplatform</artifactId>
 							<version>${target-platform-version}</version>
-							<classifier>todo</classifier>
 						</artifact>
 					</target>
 					<environments>

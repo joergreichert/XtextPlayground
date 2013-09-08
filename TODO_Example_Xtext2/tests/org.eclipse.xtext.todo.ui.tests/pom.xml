@@ -34,12 +34,12 @@
 						<dependency>
 							<type>p2-installable-unit</type>
 							<artifactId>org.eclipse.xtext.todo</artifactId>
-							<version>[0.2.0,0.3.0]</version>
+							<version>[0.3.0,0.4.0]</version>
 						</dependency>
 						<dependency>
 							<type>p2-installable-unit</type>
 							<artifactId>org.eclipse.xtext.todo.ui</artifactId>
-							<version>[0.2.0,0.3.0]</version>
+							<version>[0.3.0,0.4.0]</version>
 						</dependency>
 					</dependencies>
 					<forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>

@@ -1,5 +1,5 @@
 TargetDefinition "Xtext TODO Platform - Eclipse 4.3"
-	targetFile = todo
+	targetFile = org.eclipse.xtext.todo.targetplatform
 
 	"Kepler" http://download.eclipse.org/releases/kepler {
 		org.eclipse.sdk 4.3.0.v20130605-2000,
