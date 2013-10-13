@@ -30,6 +30,12 @@
 	<feature url="features/org.xpect.sdk_0.0.0.jar" id="org.xpect.sdk" version="0.0.0">
 		<category name="3rdparty"/>
 	</feature>
+	<feature url="features/org.eclipse.swtbot.eclipse_0.0.0.jar" id="org.eclipse.swtbot.eclipse" version="0.0.0">
+		<category name="3rdparty"/>
+	</feature>
+	<feature url="features/org.eclipse.swtbot.eclipse.gef_0.0.0.jar" id="org.eclipse.swtbot.eclipse.gef" version="0.0.0">
+		<category name="3rdparty"/>
+	</feature>
 	<category-def name="3rdparty" label="Third Party">
 		<description>Xtext TODO Platform - Eclipse 4.2</description>
 	</category-def>
