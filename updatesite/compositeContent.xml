@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?compositeMetadataRepository version='1.0.0'?>
+<repository name='Repository Target Generator Update Site'
+	type='org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository'
+	version='1.0.0'>
+	<properties size='2'>
+		<property name='p2.compressed' value='true' />
+		<!-- get new time w/ date +%s000 -->
+		<property name='p2.timestamp' value='1377268792413' />
+	</properties>
+	<children size='5'>
+		<child
+			location='jar:http://joergreichert.github.io/RepositoryTargetGenerator/updatesite/de.abg.jreichert.repositorytarget.updatesite-0.1.0.201211111542.zip!/' />
+		<child
+			location='jar:http://joergreichert.github.io/RepositoryTargetGenerator/updatesite/de.abg.jreichert.repositorytarget.updatesite-0.1.0.201204242252.zip!/' />
+		<child
+			location='jar:http://joergreichert.github.io/RepositoryTargetGenerator/updatesite/de.abg.jreichert.repositorytarget.updatesite-0.1.0.201305030058.zip!/' />
+		<child
+			location='jar:http://joergreichert.github.io/RepositoryTargetGenerator/updatesite/de.abg.jreichert.repositorytarget.updatesite-0.1.0-201308091811.zip!/' />
+		<child
+			location='jar:http://joergreichert.github.io/RepositoryTargetGenerator/updatesite/de.abg.jreichert.repositorytarget.updatesite-0.1.0-201308231639.zip!/' />
+	</children>
+</repository>
