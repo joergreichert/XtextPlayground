@@ -11,8 +11,8 @@ Require-Bundle: org.eclipse.xtext.todo;bundle-version="0.3.0",
  org.eclipse.xtext,
  org.eclipse.xtext.junit4,
  org.eclipse.xtext.ui.junit,
- org.junit,
- org.eclipse.ui.workbench;resolution:=optional
+ org.eclipse.ui.workbench;resolution:=optional,
+ org.junit
 Import-Package: org.apache.log4j,
  org.apache.commons.logging,
  org.junit.runner;version="4.5.0",

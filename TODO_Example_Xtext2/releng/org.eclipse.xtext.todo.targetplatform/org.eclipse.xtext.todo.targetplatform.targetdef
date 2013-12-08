@@ -4,15 +4,15 @@ TargetDefinition "Xtext TODO Platform - Eclipse 4.3"
 	"Kepler" http://download.eclipse.org/releases/kepler {
 		org.eclipse.sdk 4.3.1.v20130911-1000,
 		org.eclipse.pde 3.9.1.v20130911-1000,
+		org.eclipse.emf.sdk 2.9.1.v20130902-0605,
 		org.eclipse.swt noFeature 3.102.1.v20130827-2021
 	}
 
-	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
-		org.eclipse.emf.sdk 2.9.1.v20130902-0605,
-		org.eclipse.xtext.sdk 2.4.3.v201309030823,
-		org.eclipse.xtend.sdk 2.4.3.v201309030823,
-		org.eclipse.emf.mwe2.language.sdk 2.4.1.v201309030840,
-		org.eclipse.emf.mwe2.runtime.sdk 2.4.1.v201309030422
+	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/nightly/ {
+		org.eclipse.xtext.sdk 2.5.0.v201312061236,
+		org.eclipse.xtend.sdk 2.5.0.v201312061236,
+		org.eclipse.emf.mwe2.language.sdk 2.5.0.v201311291554,
+		org.eclipse.emf.mwe2.runtime.sdk 2.5.0.v201311291538
 	}
 
 	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.1.0/ {
@@ -20,8 +20,8 @@ TargetDefinition "Xtext TODO Platform - Eclipse 4.3"
 		de.itemis.xtext.antlr.feature 2.1.0.v201308291703
 	}
 	
-	"XPECT" http://www.xpect-tests.org/updatesite/nightly/ {
-		org.xpect.sdk 0.1.0.201310081935
+	"Xpect" http://www.xpect-tests.org/updatesite/nightly/ {
+		org.xpect.sdk 0.1.0.201311301514
 	}
 	
 	"SWTBot" http://download.eclipse.org/technology/swtbot/releases/latest/ {

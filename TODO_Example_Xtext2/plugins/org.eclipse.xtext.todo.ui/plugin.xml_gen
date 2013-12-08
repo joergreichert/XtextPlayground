@@ -392,5 +392,21 @@
             extensions="mydsl">
     </provider>
   </extension>
+   <extension
+         id="Xtask"
+         name="Xtext-Task"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.taskmarker">
+      </super>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.annotationTypes">
+      <type
+            markerType="org.eclipse.xtext.todo.ui.Xtask"
+            name="org.xtext.example.mydsl.ui.highlighting.XtaskAnnotation"
+            super="org.eclipse.ui.workbench.texteditor.task">
+      </type>
+   </extension>
 
 </plugin>

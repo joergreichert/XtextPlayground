@@ -19,7 +19,7 @@
 		<project.encoding>UTF-8</project.encoding>
 		<file.encoding>${project.encoding}</file.encoding>
 		<project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
-		<tycho-version>0.18.1</tycho-version>
+		<tycho-version>0.19.0</tycho-version>
 		<maven-clean-plugin-version>2.5</maven-clean-plugin-version>
 		<maven-deploy-plugin-version>2.7</maven-deploy-plugin-version>
 		<github-site-maven-plugin-version>0.8</github-site-maven-plugin-version>

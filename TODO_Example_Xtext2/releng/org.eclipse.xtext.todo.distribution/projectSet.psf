@@ -11,6 +11,7 @@
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/tests/org.xtext.example.mydsl.tests"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/tests/org.eclipse.xtext.todo.ui.tests"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/features/org.eclipse.xtext.todo.updatesite"/>
+<project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/plugins/org.eclipse.xtext.todo.fragment"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/plugins/org.xtext.example.mydsl"/>
 <project reference="1.0,https://joergreichert@github.com/joergreichert/XtextPlayground.git,master,TODO_Example_Xtext2/plugins/org.xtext.example.mydsl.ui"/>
 </provider>
@@ -19,6 +20,7 @@
 <item elementID="=org.eclipse.xtext.todo.updatesite" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1335773216481_2" label="Xtext TODOs plug-ins" name="Xtext TODOs plug-ins">
+<item elementID="=org.eclipse.xtext.todo.fragment" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=org.xtext.example.mydsl" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item elementID="=org.xtext.example.mydsl.ui" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSets>

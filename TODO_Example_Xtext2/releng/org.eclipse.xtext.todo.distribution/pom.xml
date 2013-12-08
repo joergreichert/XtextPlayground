@@ -23,6 +23,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
+				<module>../../plugins/org.eclipse.xtext.todo.fragment</module>
 				<module>../../plugins/org.eclipse.xtext.todo</module>
 				<module>../../plugins/org.eclipse.xtext.todo.ui</module>
 				<module>../../tests/org.eclipse.xtext.todo.tests</module>

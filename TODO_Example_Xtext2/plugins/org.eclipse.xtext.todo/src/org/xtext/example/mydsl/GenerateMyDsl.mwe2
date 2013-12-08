@@ -149,7 +149,9 @@ Workflow {
             fragment = compare.CompareFragment {
                  fileExtensions = file.extensions
             }
-
+            
+            fragment = org.eclipse.xtext.todo.TodoFragment {
+			}
         }
     }
 }

@@ -1,0 +1,17 @@
+import org::eclipse::xtext;
+import org::eclipse::xtext::generator;
+
+extension org::eclipse::xtext::generator::Naming;
+
+String getSemanticHighlightingCalculatorName(Grammar g) :
+	getSemanticHighlightingCalculatorName(g, getNaming());
+	
+private String getSemanticHighlightingCalculatorName(Grammar g, Naming n) :
+	JAVA org.eclipse.xtext.todo.TodoFragment.getSemanticHighlightingCalculatorName(org.eclipse.xtext.Grammar, org.eclipse.xtext.generator.Naming);
+
+String getHighlightingConfigurationName(Grammar g) :
+	getHighlightingConfigurationName(g, getNaming());
+	
+private String getHighlightingConfigurationName(Grammar g, Naming n) :
+	JAVA org.eclipse.xtext.todo.TodoFragment.getHighlightingConfigurationName(org.eclipse.xtext.Grammar, org.eclipse.xtext.generator.Naming);
+
