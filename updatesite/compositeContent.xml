@@ -6,18 +6,10 @@
 	<properties size='2'>
 		<property name='p2.compressed' value='true' />
 		<!-- get new time w/ date +%s000 -->
-		<property name='p2.timestamp' value='1377268792413' />
+		<property name='p2.timestamp' value='1386537499692' />
 	</properties>
-	<children size='5'>
+	<children size='1'>
 		<child
-			location='jar:http://joergreichert.github.io/RepositoryTargetGenerator/updatesite/de.abg.jreichert.repositorytarget.updatesite-0.1.0.201211111542.zip!/' />
-		<child
-			location='jar:http://joergreichert.github.io/RepositoryTargetGenerator/updatesite/de.abg.jreichert.repositorytarget.updatesite-0.1.0.201204242252.zip!/' />
-		<child
-			location='jar:http://joergreichert.github.io/RepositoryTargetGenerator/updatesite/de.abg.jreichert.repositorytarget.updatesite-0.1.0.201305030058.zip!/' />
-		<child
-			location='jar:http://joergreichert.github.io/RepositoryTargetGenerator/updatesite/de.abg.jreichert.repositorytarget.updatesite-0.1.0-201308091811.zip!/' />
-		<child
-			location='jar:http://joergreichert.github.io/RepositoryTargetGenerator/updatesite/de.abg.jreichert.repositorytarget.updatesite-0.1.0-201308231639.zip!/' />
+			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312082218!/' />
 	</children>
 </repository>
