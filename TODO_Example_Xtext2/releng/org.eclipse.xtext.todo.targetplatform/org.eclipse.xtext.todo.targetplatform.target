@@ -11,11 +11,11 @@
 			<repository location="http://download.eclipse.org/releases/kepler"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.5.0.v201312061236"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.5.0.v201312061236"/>
-			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.5.0.v201311291554"/>
-			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.5.0.v201311291538"/>
-			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/nightly/"/>
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.5.0.v201312110906"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.5.0.v201312110906"/>
+			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.5.0.v201312110944"/>
+			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.5.0.v201312110307"/>
+			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.1.0.v201308291703"/>

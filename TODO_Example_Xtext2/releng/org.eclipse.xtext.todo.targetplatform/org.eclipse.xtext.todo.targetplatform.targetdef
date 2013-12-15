@@ -8,11 +8,11 @@ TargetDefinition "Xtext TODO Platform - Eclipse 4.3"
 		org.eclipse.swt noFeature 3.102.1.v20130827-2021
 	}
 
-	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/nightly/ {
-		org.eclipse.xtext.sdk 2.5.0.v201312061236,
-		org.eclipse.xtend.sdk 2.5.0.v201312061236,
-		org.eclipse.emf.mwe2.language.sdk 2.5.0.v201311291554,
-		org.eclipse.emf.mwe2.runtime.sdk 2.5.0.v201311291538
+	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
+		org.eclipse.xtext.sdk 2.5.0.v201312110906,
+		org.eclipse.xtend.sdk 2.5.0.v201312110906,
+		org.eclipse.emf.mwe2.language.sdk 2.5.0.v201312110944,
+		org.eclipse.emf.mwe2.runtime.sdk 2.5.0.v201312110307
 	}
 
 	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.1.0/ {

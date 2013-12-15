@@ -11,11 +11,6 @@ import org.eclipse.xtext.generator.AbstractGeneratorFragment;
 import org.eclipse.xtext.generator.BindFactory;
 import org.eclipse.xtext.generator.Binding;
 import org.eclipse.xtext.generator.Naming;
-import org.eclipse.xtext.ui.editor.IXtextEditorCallback;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
-
-import com.google.inject.name.Names;
 
 public class TodoFragment extends AbstractGeneratorFragment {
 
@@ -38,18 +33,17 @@ public class TodoFragment extends AbstractGeneratorFragment {
 	public Set<Binding> getGuiceBindingsUi(Grammar grammar) {
 		BindFactory bindFactory = new BindFactory();
 		return bindFactory
-				.addTypeToType(ITaskElementChecker.class.getCanonicalName(), 
-						TaskElementChecker.class.getCanonicalName())		
+				.addTypeToType("org.eclipse.xtext.todo.ITaskElementChecker", 
+						"org.eclipse.xtext.todo.TaskElementChecker")		
 				.addConfiguredBinding("MatchingTagMarker",
 					"binder.bind("
-							+ IXtextEditorCallback.class.getCanonicalName() + ".class"
+							+ "org.eclipse.xtext.ui.editor.IXtextEditorCallback.class"
 							+ ").annotatedWith("
-							+ Names.class.getCanonicalName() + ".named(" + TaskConstants.class.getCanonicalName() + ".XTEXT_TASKS)"
-							+ ").to(" 
-							+ XtextTaskCalculator.class.getCanonicalName() + ".class)")				
-				.addTypeToType(ISemanticHighlightingCalculator.class.getCanonicalName(), 
+							+ "com.google.inject.name.Names.named(org.eclipse.xtext.todo.TaskConstants.XTEXT_TASKS)"
+							+ ").to(org.eclipse.xtext.todo.XtextTaskCalculator.class)")				
+				.addTypeToType("org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator", 
 						getSemanticHighlightingCalculatorName(grammar, getNaming()))		
-				.addTypeToType(DefaultHighlightingConfiguration.class.getCanonicalName(), 
+				.addTypeToType("org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration", 
 						getHighlightingConfigurationName(grammar, getNaming()))		
 				.getBindings();
 	}

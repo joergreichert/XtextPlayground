@@ -11,8 +11,8 @@
 		<artifactId>org.eclipse.xtext.todo.config.parent</artifactId>
 		<version>0.3.0-SNAPSHOT</version>
 		<relativePath>../../releng/org.eclipse.xtext.todo.config.parent/pom.xml</relativePath>
-	</parent>	
-	
+	</parent>
+
 	<groupId>org.eclipse.xtext.todo</groupId>
 	<artifactId>org.eclipse.xtext.todo.repository.parent</artifactId>
 	<version>0.3.0-SNAPSHOT</version>
@@ -30,11 +30,14 @@
 		<maven-surefire-plugin-version>2.16</maven-surefire-plugin-version>
 		<maven-assembly-plugin-version>2.4</maven-assembly-plugin-version>
 		<build-helper-maven-plugin-version>1.8</build-helper-maven-plugin-version>
-		<fornax-oaw-m2-plugin-version>3.4.0</fornax-oaw-m2-plugin-version>
-		<xtend-maven-plugin-version>2.4.3</xtend-maven-plugin-version>
-		<xtend-library-version>2.4.3</xtend-library-version>
+		<gmaven-plugin-version>1.2</gmaven-plugin-version>
+		<exec-maven-plugin-version>1.2.1</exec-maven-plugin-version>
+		<xtend-maven-plugin-version>2.5.0</xtend-maven-plugin-version>
+		<xtend-library-version>2.5.0</xtend-library-version>
+		<xtext-version>2.5.0</xtext-version>
 		<memoryArgs>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m</memoryArgs>
 		<encodingArgs>-Dfile.encoding=${file.encoding}</encodingArgs>
+		<skip.mwe2>true</skip.mwe2>
 	</properties>
 
 	<build>
@@ -176,9 +179,66 @@
 					</executions>
 				</plugin>
 				<plugin>
-					<groupId>org.fornax.toolsupport</groupId>
-					<artifactId>fornax-oaw-m2-plugin</artifactId>
-					<version>${fornax-oaw-m2-plugin-version}</version>
+					<groupId>org.codehaus.gmaven</groupId>
+					<artifactId>gmaven-plugin</artifactId>
+					<version>${gmaven-plugin-version}</version>
+					<executions>
+						<execution>
+							<id>setProperty</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>execute</goal>
+							</goals>
+							<configuration>
+								<classpath>
+									<element>
+										<groupId>commons-lang</groupId>
+										<artifactId>commons-lang</artifactId>
+										<version>2.4</version>
+									</element>
+								</classpath>
+								<source>
+									if (org.apache.commons.lang.SystemUtils.IS_OS_WINDOWS) {  
+										pom.properties['main.basedir']='file://' + project.basedir.absolutePath.replace('\\','/'); 	
+									}
+								</source>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>${exec-maven-plugin-version}</version>
+					<executions>
+						<execution>
+							<phase>generate-sources</phase>
+							<goals>
+								<goal>java</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<skip>${skip.mwe2}</skip>
+						<includeProjectDependencies>true</includeProjectDependencies>
+						<includePluginDependencies>true</includePluginDependencies>
+						<mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
+						<arguments>
+							<argument>${main.basedir}/${mwe2.relative.path}</argument>
+						</arguments>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.xtext</groupId>
+							<artifactId>org.eclipse.xtext.xtext</artifactId>
+							<version>${xtext-version}</version>
+						</dependency>
+						<dependency>
+							<groupId>org.eclipse.xtext</groupId>
+							<artifactId>org.eclipse.xtext.xbase</artifactId>
+							<version>${xtext-version}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.eclipse.xtend</groupId>
@@ -188,6 +248,9 @@
 						<execution>
 							<goals>
 								<goal>compile</goal>
+								<goal>xtend-install-debug-info</goal>
+								<goal>testCompile</goal>
+								<goal>xtend-test-install-debug-info</goal>
 							</goals>
 						</execution>
 					</executions>
@@ -212,7 +275,7 @@
 			<activation>
 				<property>
 					<name>platform-version-name</name>
-					<value>indigo</value>
+					<value>kepler</value>
 				</property>
 			</activation>
 			<properties>
@@ -253,9 +316,9 @@
 				<sonar.jdbc.password>sonar</sonar.jdbc.password>
 				<sonar.host.url>http://localhost:9000/</sonar.host.url>
 				<sonar.java.source>1.6</sonar.java.source>
-				<sonar.java.target>1.6</sonar.java.target>				
+				<sonar.java.target>1.6</sonar.java.target>
 				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-			</properties> 
+			</properties>
 		</profile>
 		<profile>
 			<id>sonarRemote</id>
@@ -266,9 +329,9 @@
 				<sonar.jdbc.password>sonar</sonar.jdbc.password>
 				<sonar.host.url>http://ec2-174-129-80-78.compute-1.amazonaws.com:9000/sonar</sonar.host.url>
 				<sonar.java.source>1.6</sonar.java.source>
-				<sonar.java.target>1.6</sonar.java.target>				
+				<sonar.java.target>1.6</sonar.java.target>
 				<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-			</properties> 
+			</properties>
 		</profile>
 		<profile>
 			<id>noCodeCoverage</id>
@@ -281,7 +344,7 @@
 				<coverageAgent></coverageAgent>
 				<it.coverage.argLine></it.coverage.argLine>
 			</properties>
-		</profile>		
+		</profile>
 		<profile>
 			<id>codeCoverage</id>
 			<properties>
@@ -294,10 +357,10 @@
 				<sonar.jacoco.reportPath>${jacoco.destFile}</sonar.jacoco.reportPath>
 				<sonar.surefire.reportsPath>../${project.artifactId}.tests/target/surefire-reports/</sonar.surefire.reportsPath>
 				<sonar.jacoco.itReportPath>${jacoco.it.destFile}</sonar.jacoco.itReportPath>
-				<!--sonar.skippedModules>plugin.tests</sonar.skippedModules-->				
-			</properties> 
+				<!--sonar.skippedModules>plugin.tests</sonar.skippedModules -->
+			</properties>
 			<build>
-				<plugins>			
+				<plugins>
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
@@ -324,6 +387,6 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>				
+		</profile>
 	</profiles>
 </project>
