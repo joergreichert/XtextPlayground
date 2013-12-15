@@ -199,7 +199,9 @@
 								</classpath>
 								<source>
 									if (org.apache.commons.lang.SystemUtils.IS_OS_WINDOWS) {  
-										pom.properties['main.basedir']='file://' + project.basedir.absolutePath.replace('\\','/'); 	
+										pom.properties['project.abs.basedir']='file://' + project.basedir.absolutePath.replace('\\','/'); 	
+									} else {
+										pom.properties['project.abs.basedir']=project.basedir.absolutePath 	
 									}
 								</source>
 							</configuration>
@@ -224,7 +226,7 @@
 						<includePluginDependencies>true</includePluginDependencies>
 						<mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
 						<arguments>
-							<argument>${main.basedir}/${mwe2.relative.path}</argument>
+							<argument>${project.abs.basedir}/${mwe2.relative.path}</argument>
 						</arguments>
 					</configuration>
 					<dependencies>

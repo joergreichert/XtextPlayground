@@ -80,7 +80,7 @@
 							</excludes>
 						</fileset>
 						<fileset>
-							<directory>${basedir}/../${project.artifactId}.tests/src-gen</directory>
+							<directory>${basedir}/../../tests/${project.artifactId}.tests/src-gen</directory>
 							<includes>
 								<include>**</include>
 							</includes>
@@ -89,7 +89,7 @@
 							</excludes>
 						</fileset>
 						<fileset>
-							<directory>${basedir}/../${project.artifactId}.tests/xtend-gen</directory>
+							<directory>${basedir}/../../tests/${project.artifactId}.tests/xtend-gen</directory>
 							<includes>
 								<include>**</include>
 							</includes>
