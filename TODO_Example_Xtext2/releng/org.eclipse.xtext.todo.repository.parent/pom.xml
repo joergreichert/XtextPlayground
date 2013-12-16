@@ -30,7 +30,6 @@
 		<maven-surefire-plugin-version>2.16</maven-surefire-plugin-version>
 		<maven-assembly-plugin-version>2.4</maven-assembly-plugin-version>
 		<build-helper-maven-plugin-version>1.8</build-helper-maven-plugin-version>
-		<gmaven-plugin-version>1.2</gmaven-plugin-version>
 		<exec-maven-plugin-version>1.2.1</exec-maven-plugin-version>
 		<xtend-maven-plugin-version>2.5.0</xtend-maven-plugin-version>
 		<xtend-library-version>2.5.0</xtend-library-version>
@@ -179,36 +178,6 @@
 					</executions>
 				</plugin>
 				<plugin>
-					<groupId>org.codehaus.gmaven</groupId>
-					<artifactId>gmaven-plugin</artifactId>
-					<version>${gmaven-plugin-version}</version>
-					<executions>
-						<execution>
-							<id>setProperty</id>
-							<phase>validate</phase>
-							<goals>
-								<goal>execute</goal>
-							</goals>
-							<configuration>
-								<classpath>
-									<element>
-										<groupId>commons-lang</groupId>
-										<artifactId>commons-lang</artifactId>
-										<version>2.4</version>
-									</element>
-								</classpath>
-								<source>
-									if (org.apache.commons.lang.SystemUtils.IS_OS_WINDOWS) {  
-										pom.properties['project.abs.basedir']='file://' + project.basedir.absolutePath.replace('\\','/'); 	
-									} else {
-										pom.properties['project.abs.basedir']=project.basedir.absolutePath 	
-									}
-								</source>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>exec-maven-plugin</artifactId>
 					<version>${exec-maven-plugin-version}</version>
@@ -226,7 +195,7 @@
 						<includePluginDependencies>true</includePluginDependencies>
 						<mainClass>org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher</mainClass>
 						<arguments>
-							<argument>${project.abs.basedir}/${mwe2.relative.path}</argument>
+							<argument>file://${project.basedir}/${mwe2.relative.path}</argument>
 						</arguments>
 					</configuration>
 					<dependencies>
