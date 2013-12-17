@@ -27,7 +27,7 @@
 		<ui.test.vmargs></ui.test.vmargs>
 		<coverageAgent></coverageAgent>
 		<it.coverage.argLine></it.coverage.argLine>
-		<distribution.dir>${basedir}/../../releng/org.eclipse.xtext.todo.parent/target/repository</distribution.dir>
+		<distribution.dir>${project.basedir}/../../releng/org.eclipse.xtext.todo.parent/target/repository</distribution.dir>
 	</properties>
 	
 	<modules>
@@ -44,7 +44,7 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>${basedir}/src-gen</directory>
+							<directory>${project.basedir}/src-gen</directory>
 							<includes>
 								<include>**</include>
 							</includes>
@@ -53,7 +53,7 @@
 							</excludes>
 						</fileset>
 						<fileset>
-							<directory>${basedir}/xtend-gen</directory>
+							<directory>${project.basedir}/xtend-gen</directory>
 							<includes>
 								<include>**</include>
 							</includes>
@@ -62,7 +62,7 @@
 							</excludes>
 						</fileset>
 						<fileset>
-							<directory>${basedir}/../${project.artifactId}.ui/src-gen</directory>
+							<directory>${project.basedir}/../${project.artifactId}.ui/src-gen</directory>
 							<includes>
 								<include>**</include>
 							</includes>
@@ -71,7 +71,7 @@
 							</excludes>
 						</fileset>
 						<fileset>
-							<directory>${basedir}/../${project.artifactId}.ui/xtend-gen</directory>
+							<directory>${project.basedir}/../${project.artifactId}.ui/xtend-gen</directory>
 							<includes>
 								<include>**</include>
 							</includes>
@@ -80,7 +80,7 @@
 							</excludes>
 						</fileset>
 						<fileset>
-							<directory>${basedir}/../../tests/${project.artifactId}.tests/src-gen</directory>
+							<directory>${project.basedir}/../../tests/${project.artifactId}.tests/src-gen</directory>
 							<includes>
 								<include>**</include>
 							</includes>
@@ -89,7 +89,7 @@
 							</excludes>
 						</fileset>
 						<fileset>
-							<directory>${basedir}/../../tests/${project.artifactId}.tests/xtend-gen</directory>
+							<directory>${project.basedir}/../../tests/${project.artifactId}.tests/xtend-gen</directory>
 							<includes>
 								<include>**</include>
 							</includes>
@@ -220,16 +220,16 @@
 	<inceptionYear>2011</inceptionYear>
 	<issueManagement>
 		<system>GitHub Issue Tracker</system>
-		<url>https://github.com/joergreichert/TODO_Example_Xtext2/issues</url>
+		<url>https://github.com/joergreichert/XtextPlayground/issues</url>
 	</issueManagement>
 	<organization>
 		<name>GitHub</name>
-		<url>https://github.com/joergreichert/TODO_Example_Xtext2</url>
+		<url>https://github.com/joergreichert/XtextPlayground</url>
 	</organization>
 	<scm>
-		<developerConnection>https://github.com/joergreichert/TODO_Example_Xtext2</developerConnection>
-		<url>https://github.com/joergreichert/TODO_Example_Xtext2</url>
-		<connection>https://github.com/joergreichert/TODO_Example_Xtext2</connection>
+		<developerConnection>https://github.com/joergreichert/XtextPlayground</developerConnection>
+		<url>https://github.com/joergreichert/XtextPlayground</url>
+		<connection>https://github.com/joergreichert/XtextPlayground</connection>
 	</scm>
 	<ciManagement>
 		<system>Travis</system>
