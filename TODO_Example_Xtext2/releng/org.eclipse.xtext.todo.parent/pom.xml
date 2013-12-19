@@ -72,7 +72,7 @@
                 <repository>
                     <id>todo-dependencies</id>
                     <layout>p2</layout>
-                    <url>file:../org.eclipse.xtext.todo.repository/target/repository</url>
+                    <url>file:///${project.basedir}/../../releng/org.eclipse.xtext.todo.repository/target/repository</url>
                 </repository>
             </repositories>
         </profile>

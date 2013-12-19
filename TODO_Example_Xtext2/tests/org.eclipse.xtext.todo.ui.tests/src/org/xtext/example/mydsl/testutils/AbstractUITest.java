@@ -124,7 +124,7 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 		bot = shell.bot();
 		bot.tree().expandNode(path).select();
 		// press "Next >"
-		bot.button(1).click();
+		bot.button("Next >").click();
 		return shell;
 	}
 
