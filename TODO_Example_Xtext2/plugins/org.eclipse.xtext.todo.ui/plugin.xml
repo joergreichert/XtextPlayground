@@ -408,5 +408,29 @@
             super="org.eclipse.ui.workbench.texteditor.task">
       </type>
    </extension>
-
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            category="org.xtext.example.mydsl.MyDsl.compiler.propertyPage"
+            class="org.xtext.example.mydsl.ui.MyDslExecutableExtensionFactory:org.eclipse.xtext.todo.ui.TodoTaskPreferencePage"
+            id="org.xtext.example.mydsl.MyDsl.todo"
+            name="Task Tags">
+         <enabledWhen>
+		     <adapt type="org.eclipse.core.resources.IProject">
+		          <test property="org.eclipse.core.resources.projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+		     </adapt>         
+         </enabledWhen>
+         <keywordReference id="org.xtext.example.mydsl.ui.keyword_MyDsl"/>
+      </page>
+   </extension>   
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="Task Tags"
+            category="org.xtext.example.mydsl.MyDsl.compiler.preferencePage"
+            class="org.eclipse.xtext.todo.ui.TodoTaskPreferencePage"
+            id="org.eclipse.xtext.todo.ui.preferences.TodoTaskPreferencePage">
+         <keywordReference id="org.xtext.example.mydsl.ui.keyword_MyDsl"/>
+      </page>
+   </extension>   
 </plugin>

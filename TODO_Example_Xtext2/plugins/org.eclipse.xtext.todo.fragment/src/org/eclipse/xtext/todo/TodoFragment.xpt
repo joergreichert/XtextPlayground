@@ -131,6 +131,31 @@ public class «getSemanticHighlightingCalculatorName().toSimpleName()» implements
             super="org.eclipse.ui.workbench.texteditor.task">
       </type>
    </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            category="«name».compiler.propertyPage"
+            class="«uiPackage(this)».«toSimpleName(name)»ExecutableExtensionFactory:org.eclipse.xtext.todo.ui.TodoTaskPreferencePage"
+            id="«name».todo"
+            name="Task Tags">
+         <enabledWhen>
+		     <adapt type="org.eclipse.core.resources.IProject">
+		          <test property="org.eclipse.core.resources.projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+		     </adapt>         
+         </enabledWhen>
+         <keywordReference id="«uiPackage(this)».keyword_«toSimpleName(name)»"/>
+      </page>
+   </extension>   
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="Task Tags"
+            category="«name».compiler.preferencePage"
+            class="org.eclipse.xtext.todo.ui.TodoTaskPreferencePage"
+            id="org.eclipse.xtext.todo.ui.preferences.TodoTaskPreferencePage">
+         <keywordReference id="«uiPackage(this)».keyword_«toSimpleName(name)»"/>
+      </page>
+   </extension>   
 «ENDDEFINE»
 
 
