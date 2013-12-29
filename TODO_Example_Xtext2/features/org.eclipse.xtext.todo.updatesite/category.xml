@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+	<feature url="features/org.eclipse.xtext.todo.feature_0.0.0.jar" id="org.eclipse.xtext.todo.feature" version="0.0.0">
+		<category name="todo"/>
+	</feature>
+	<category-def name="todo" label="TODO Marker Generator Fragment">
+		<description>Generator fragment to enable support for TODO markers when generating DSL IDE infrastructure</description>
+	</category-def>
+</site>

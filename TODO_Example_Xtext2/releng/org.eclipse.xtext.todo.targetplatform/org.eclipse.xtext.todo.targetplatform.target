@@ -6,11 +6,11 @@
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.sdk.feature.group" version="4.3.1.v20130911-1000"/>
 			<unit id="org.eclipse.pde.feature.group" version="3.9.1.v20130911-1000"/>
-			<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.1.v20130902-0605"/>
 			<unit id="org.eclipse.swt" version="3.102.1.v20130827-2021"/>
 			<repository location="http://download.eclipse.org/releases/kepler"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.2.v20131212-0558"/>
 			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.5.0.v201312110906"/>
 			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.5.0.v201312110906"/>
 			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.5.0.v201312110944"/>
@@ -23,7 +23,7 @@
 			<repository location="http://download.itemis.com/updates/releases/2.1.0/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201311301514"/>
+			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201312181904"/>
 			<repository location="http://www.xpect-tests.org/updatesite/nightly/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
