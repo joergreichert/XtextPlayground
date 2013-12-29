@@ -42,12 +42,38 @@
         <h1>
 <a name="todo-markers-in-dsl" class="anchor" href="#todo-markers-in-dsl"><span class="octicon octicon-link"></span></a>TODO markers in DSL</h1>
 
-<ul>
-<li>Using <a href="http://blogs.itemis.de/stundzig/archives/827">this</a> blog post as starting point</li>
-<li><img src="joergreichert.github.io/XtextPlayground/images/task_tags_1.png" alt="Task tags in editor"></li>
-<li><img src="joergreichert.github.io/XtextPlayground/images/task_tags_2.png" alt="Task tags configuration in preference page"></li>
-<li><img src="joergreichert.github.io/XtextPlayground/images/task_tags_3.png" alt="Task tags configuration in project properties page"></li>
-</ul><h1>
+<p>Uses <a href="http://blogs.itemis.de/stundzig/archives/827">this</a> blog post as starting point to support TODO markers in your DSL:</p>
+
+<p><img src="http://joergreichert.github.io/XtextPlayground/images/task_tags_1.png" alt="Task tags in editor"></p>
+
+<p>You can configure the labels for which markers should be created in the Eclipse preferences under NameOfYourDSL/Compiler/Task Tags:</p>
+
+<p><img src="http://joergreichert.github.io/XtextPlayground/images/task_tags_2.png" alt="Task tags configuration in preference page"></p>
+
+<p>You can also define the marker labels project specific by opening the project properties (context menu on the project in the workspace and Properties):</p>
+
+<p><img src="http://joergreichert.github.io/XtextPlayground/images/task_tags_3.png" alt="Task tags configuration in project properties page"></p>
+
+<p><em>Update site</em>: <a href="http://joergreichert.github.io/XtextPlayground/updatesite/">http://joergreichert.github.io/XtextPlayground/updatesite/</a></p>
+
+<p><em>Usage</em>: After install open grammar generator workflow (e.g. GenerateMyDsl.mwe2 when your DSL's name is "mydsl") and add</p>
+
+<pre><code>...
+Workflow {
+...
+   component = Generator {
+   ...
+      language = auto-inject {
+      ...
+         fragment = org.eclipse.xtext.todo.TodoFragment auto-inject {}
+      }
+   }
+}
+</code></pre>
+
+<p>The use this workflow file to regenerate your grammar. Note: You have to update the plugin.xml in the grammar UI plugin with the contents of plugin.xml_gen.</p>
+
+<h1>
 <a name="others" class="anchor" href="#others"><span class="octicon octicon-link"></span></a>Others</h1>
 
 <ul>
