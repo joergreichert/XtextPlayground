@@ -8,8 +8,10 @@
 		<!-- get new time w/ date +%s000 -->
 		<property name='p2.timestamp' value='1386537499692' />
 	</properties>
-	<children size='1'>
+	<children size='2'>
 		<child
 			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312082218!/' />
+		<child
+			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312291423!/' />
 	</children>
 </repository>

@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?compositeMetadataRepository version='1.0.0'?>
-<repository name='Repository Target Generator Update Site'
+<repository name='Xtext TODO Marker Fragment Update Site'
 	type='org.eclipse.equinox.internal.p2.metadata.repository.CompositeMetadataRepository'
 	version='1.0.0'>
 	<properties size='2'>
@@ -8,8 +8,10 @@
 		<!-- get new time w/ date +%s000 -->
 		<property name='p2.timestamp' value='1386537499692' />
 	</properties>
-	<children size='1'>
+	<children size='2'>
 		<child
 			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312082218!/' />
+		<child
+			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312291423!/' />
 	</children>
 </repository>
