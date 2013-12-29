@@ -42,7 +42,12 @@
         <h1>
 <a name="todo-markers-in-dsl" class="anchor" href="#todo-markers-in-dsl"><span class="octicon octicon-link"></span></a>TODO markers in DSL</h1>
 
-<p>Uses <a href="http://blogs.itemis.de/stundzig/archives/827">this</a> blog post as starting point to support TODO markers in your DSL:</p>
+<p>Uses <a href="http://blogs.itemis.de/stundzig/archives/827">this</a> blog post as starting point to support TODO markers in your DSL.</p>
+
+<h2>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<p>For labels like TODO and FIXME automatically markers are created when saving the contents of the DSL editor:</p>
 
 <p><img src="http://joergreichert.github.io/XtextPlayground/images/task_tags_1.png" alt="Task tags in editor"></p>
 
@@ -54,9 +59,14 @@
 
 <p><img src="http://joergreichert.github.io/XtextPlayground/images/task_tags_3.png" alt="Task tags configuration in project properties page"></p>
 
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
 <p><em>Update site</em>: <a href="http://joergreichert.github.io/XtextPlayground/updatesite/">http://joergreichert.github.io/XtextPlayground/updatesite/</a></p>
 
-<p><em>Usage</em>: After install open grammar generator workflow (e.g. GenerateMyDsl.mwe2 when your DSL's name is "mydsl") and add</p>
+<p>After install add the bundle org.eclipse.xtext.todo.fragment to the dependency section of your grammar project MANIFEST.MF file.</p>
+
+<p>Then open grammar generator workflow (e.g. GenerateMyDsl.mwe2 when your DSL's name is "mydsl") and add</p>
 
 <pre><code>...
 Workflow {
@@ -71,7 +81,9 @@ Workflow {
 }
 </code></pre>
 
-<p>The use this workflow file to regenerate your grammar. Note: You have to update the plugin.xml in the grammar UI plugin with the contents of plugin.xml_gen.</p>
+<p>Execute the workflow file to (re-)generate your grammar. </p>
+
+<p>Note: Afterwards you have to update the plugin.xml in the grammar UI plugin with the contents of plugin.xml_gen.</p>
 
 <h1>
 <a name="others" class="anchor" href="#others"><span class="octicon octicon-link"></span></a>Others</h1>
