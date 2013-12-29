@@ -3,18 +3,10 @@ package org.eclipse.xtext.todo.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-
-import org.eclipse.core.runtime.IStatus;
-
 import org.eclipse.core.resources.IProject;
-
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.IFontProvider;
@@ -23,7 +15,13 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.window.Window;
-
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 
 public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
@@ -107,6 +105,7 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 	}
 
 	private static class TodoTaskSorter extends ViewerComparator {
+		@SuppressWarnings("unchecked")
 		@Override
 		public int compare(Viewer viewer, Object e1, Object e2) {
 			return getComparator().compare(((TodoTask) e1).name, ((TodoTask) e2).name);
@@ -356,5 +355,12 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 		}
 	}
 
+	@Override
+	protected Job getBuildJob(IProject project) {
+		Job buildJob = new OptionsConfigurationBlock.BuildJob("Rebuilding", project);
+		buildJob.setRule(ResourcesPlugin.getWorkspace().getRuleFactory().buildRule());
+		buildJob.setUser(true);
+		return buildJob;
+	}
 }
 

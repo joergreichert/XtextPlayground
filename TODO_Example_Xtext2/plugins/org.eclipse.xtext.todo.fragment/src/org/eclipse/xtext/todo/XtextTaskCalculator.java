@@ -1,103 +1,55 @@
 package org.eclipse.xtext.todo;
 
-import java.lang.reflect.InvocationTargetException;
+import java.io.IOException;
+import java.util.Collections;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubMonitor;
-import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.ui.actions.WorkspaceModifyOperation;
-import org.eclipse.xtext.ui.editor.IXtextEditorCallback;
-import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.xtext.builder.IXtextBuilderParticipant;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceFactory;
 
 import com.google.inject.Inject;
 
-public class XtextTaskCalculator extends IXtextEditorCallback.NullImpl {
+public class XtextTaskCalculator implements IXtextBuilderParticipant {
 
 	@Inject
-	private UpdateTaskMarkerJob objTaskMarkJob;
+	private XtextResourceFactory xtextResourceFactory;
+	
+	@Inject
+	private ITaskElementChecker objElementChecker;
 
 	@Override
-	public void afterCreatePartControl(XtextEditor editor) {
-		updateTaskMarkers(editor);
-	}
-
-	// update markers after a save
-	@Override
-	public void afterSave(XtextEditor argEditor) {
-		updateTaskMarkers(argEditor);
-	}
-
-	private void updateTaskMarkers(XtextEditor argEditor) {
-		// cancel does not really make sense, as it should be called
-		// just *before* saving, unfortunately there is no corresponding
-		// callback
-		objTaskMarkJob.cancel();
-		objTaskMarkJob.setEditor(argEditor);
-		if (objTaskMarkJob.isSystem()) {
-			objTaskMarkJob.setSystem(false);
-		}
-		objTaskMarkJob.setPriority(Job.DECORATE);
-		objTaskMarkJob.schedule();
-	}
-
-	public static class UpdateTaskMarkerJob extends Job {
-		@Inject
-		private ITaskElementChecker objElementChecker;
-		private XtextEditor objEditor;
-
-		public UpdateTaskMarkerJob() {
-			super("Xtext-Task-Marker-Update-Job");
-		}
-
-		void setEditor(XtextEditor argEditor) {
-			objEditor = argEditor;
-		}
-
-		@Override
-		public IStatus run(final IProgressMonitor argMonitor) {
-			if (!argMonitor.isCanceled()) {
-				try {
-					new UpdateTaskMarkersOperation(objEditor, objElementChecker)
-							.run(SubMonitor.convert(argMonitor));
-				} catch (Exception e) {
-					// don't care for now
-				}
+	public void build(IBuildContext context, IProgressMonitor monitor) throws CoreException {
+		// TODO: check for DSL file extension
+		for(IResourceDescription.Delta delta : context.getDeltas()) {
+			URI uri = delta.getUri();
+			IResource resource;
+			if (uri.isPlatformResource()) {
+				IPath path = new Path(uri.toPlatformString(true));
+				resource = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+			} else {
+				// log warning "unexpected URI"
+				continue;
 			}
-			return argMonitor.isCanceled() ? Status.CANCEL_STATUS
-					: Status.OK_STATUS;
-		}
-	}
 
-	static class UpdateTaskMarkersOperation extends WorkspaceModifyOperation {
-		private XtextEditor objEditor;
-		private ITaskElementChecker objElementChecker;
-
-		UpdateTaskMarkersOperation(XtextEditor argEditor,
-				ITaskElementChecker argElementChecker) {
-			objEditor = argEditor;
-			objElementChecker = argElementChecker;
-		}
-
-		@Override
-		protected void execute(IProgressMonitor monitor) throws CoreException,
-				InvocationTargetException, InterruptedException {
-			IResource resource = objEditor.getResource();
-			resource.deleteMarkers(MarkerCreator.getMarkerType(), true,
-					IResource.DEPTH_INFINITE);
-			if (!monitor.isCanceled()) {
-				createNewMarkers(objEditor, monitor);
+			if (resource.exists()) {
+				resource.deleteMarkers(MarkerCreator.getMarkerType(), true, IResource.DEPTH_INFINITE);
 			}
-		}
 
-		private void createNewMarkers(final XtextEditor argEditor,
-				final IProgressMonitor argMonitor) throws CoreException {
-			final IResource varResource = argEditor.getResource();
-			argEditor.getDocument().readOnly(
-					new MarkerCreator(varResource, objElementChecker, argMonitor));
+			XtextResource xtextResource = (XtextResource) xtextResourceFactory.createResource(delta.getUri());
+			try {
+				xtextResource.load(Collections.EMPTY_MAP);
+				new MarkerCreator(resource, objElementChecker, monitor).exec(xtextResource);
+			} catch (IOException e) {
+				// log error
+			}
 		}
 	}
 }

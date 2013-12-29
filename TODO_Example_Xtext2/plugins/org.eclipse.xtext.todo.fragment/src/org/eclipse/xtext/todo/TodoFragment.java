@@ -35,12 +35,6 @@ public class TodoFragment extends AbstractGeneratorFragment {
 		return bindFactory
 				.addTypeToType("org.eclipse.xtext.todo.ITaskElementChecker", 
 						"org.eclipse.xtext.todo.TaskElementChecker")		
-				.addConfiguredBinding("MatchingTagMarker",
-					"binder.bind("
-							+ "org.eclipse.xtext.ui.editor.IXtextEditorCallback.class"
-							+ ").annotatedWith("
-							+ "com.google.inject.name.Names.named(org.eclipse.xtext.todo.TaskConstants.XTEXT_TASKS)"
-							+ ").to(org.eclipse.xtext.todo.XtextTaskCalculator.class)")				
 				.addTypeToType("org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator", 
 						getSemanticHighlightingCalculatorName(grammar, getNaming()))		
 				.addTypeToType("org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration", 

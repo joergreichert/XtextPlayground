@@ -122,6 +122,7 @@ public class «getSemanticHighlightingCalculatorName().toSimpleName()» implements
       <super
             type="org.eclipse.core.resources.taskmarker">
       </super>
+	  <persistent value="true"/>
    </extension>
    <extension
          point="org.eclipse.ui.editors.annotationTypes">
@@ -132,11 +133,17 @@ public class «getSemanticHighlightingCalculatorName().toSimpleName()» implements
       </type>
    </extension>
    <extension
+         point="org.eclipse.xtext.builder.participant">
+      <participant
+            class="«uiPackage(this)».«toSimpleName(name)»ExecutableExtensionFactory:org.eclipse.xtext.todo.XtextTaskCalculator">
+      </participant>
+   </extension>   
+   <extension
          point="org.eclipse.ui.propertyPages">
       <page
             category="«name».compiler.propertyPage"
             class="«uiPackage(this)».«toSimpleName(name)»ExecutableExtensionFactory:org.eclipse.xtext.todo.ui.TodoTaskPreferencePage"
-            id="«name».todo"
+            id="org.eclipse.xtext.todo.fragment.propertyPages.TodoTaskPreferencePage"
             name="Task Tags">
          <enabledWhen>
 		     <adapt type="org.eclipse.core.resources.IProject">
@@ -152,10 +159,10 @@ public class «getSemanticHighlightingCalculatorName().toSimpleName()» implements
             name="Task Tags"
             category="«name».compiler.preferencePage"
             class="org.eclipse.xtext.todo.ui.TodoTaskPreferencePage"
-            id="org.eclipse.xtext.todo.ui.preferences.TodoTaskPreferencePage">
+            id="org.eclipse.xtext.todo.fragment.preferences.TodoTaskPreferencePage">
          <keywordReference id="«uiPackage(this)».keyword_«toSimpleName(name)»"/>
       </page>
-   </extension>   
+   </extension>
 «ENDDEFINE»
 
 

@@ -66,8 +66,8 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
       if (varIgnorePrefix != null) {
          IMarker varMarker = argRresource.createMarker(getMarkerType());
          String text = argNode.getText();
-         // match from varIgnorePrefix until end of line
-         Matcher matcher = Pattern.compile("(?s).*" + varIgnorePrefix + "(.*?)(\\r)?\\n.*").matcher(text);
+         // match from including varIgnorePrefix until end of line
+         Matcher matcher = Pattern.compile("(?s).*(" + varIgnorePrefix + ".*?)(\\r)?\\n.*").matcher(text);
          if (matcher.matches()) {
         	 text = matcher.group(1);
          }
@@ -77,6 +77,8 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
          varMarker.setAttribute(IMarker.CHAR_END, argNode.getOffset()
               + argNode.getLength());
          varMarker.setAttribute(IMarker.USER_EDITABLE, false);
+         // TODO use value from preference resp. properties page
+         varMarker.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_NORMAL);
       }
    }
 

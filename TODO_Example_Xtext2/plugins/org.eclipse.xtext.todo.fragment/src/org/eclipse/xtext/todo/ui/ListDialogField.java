@@ -19,9 +19,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-
 import org.eclipse.core.runtime.Assert;
-
 import org.eclipse.jface.layout.PixelConverter;
 import org.eclipse.jface.viewers.ColumnLayoutData;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -893,6 +891,7 @@ public class ListDialogField<E> extends DialogField {
 			if (selection instanceof IStructuredSelection) {
 				Iterator<?> iter= ((IStructuredSelection)selection).iterator();
 				while (iter.hasNext()) {
+					@SuppressWarnings("unchecked")
 					E element= (E) iter.next();
 					result.add(element);
 				}

@@ -31,16 +31,16 @@ import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 import org.eclipse.xtext.todo.Activator;
 
 public class TodoTaskPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, IWorkbenchPropertyPage {
-	public static final String PREFIX= Activator.PLUGIN_ID + '.';
-	public static final String TODOTASK_PROPERTY_PAGE= PREFIX + "tasktags_property_page_context"; //$NON-NLS-1$
-	public static final String TODOTASK_PREFERENCE_PAGE= PREFIX + "tasktags_preference_page_context"; //$NON-NLS-1$
-	public static final String TODO_TASK_INPUT_DIALOG= PREFIX + "todo_task_input_dialog_context"; //$NON-NLS-1$
+	public static final String PREFIX = Activator.PLUGIN_ID + '.';
+	public static final String TODOTASK_PROPERTY_PAGE = PREFIX + "tasktags_property_page_context"; //$NON-NLS-1$
+	public static final String TODOTASK_PREFERENCE_PAGE = PREFIX + "tasktags_preference_page_context"; //$NON-NLS-1$
+	public static final String TODO_TASK_INPUT_DIALOG = PREFIX + "todo_task_input_dialog_context"; //$NON-NLS-1$
 
 	public static final String DATA_NO_LINK= "PropertyAndPreferencePage.nolink"; //$NON-NLS-1$
 
-	public static final String PREF_ID= "org.eclipse.jdt.ui.preferences.TodoTaskPreferencePage"; //$NON-NLS-1$
-	public static final String PROP_ID= "org.eclipse.jdt.ui.propertyPages.TodoTaskPreferencePage"; //$NON-NLS-1$
-	public static final String TASK_TAG_INPUT_DIALOG= PREFIX + "todo_task_input_dialog_context"; //$NON-NLS-1$
+	public static final String PREF_ID = PREFIX + "preferences.TodoTaskPreferencePage"; //$NON-NLS-1$
+	public static final String PROP_ID = PREFIX + "propertyPages.TodoTaskPreferencePage"; //$NON-NLS-1$
+	public static final String TASK_TAG_INPUT_DIALOG = PREFIX + "todo_task_input_dialog_context"; //$NON-NLS-1$
 
 	private Control fConfigurationBlockControl;
 	private ControlEnableState fBlockEnableState;
@@ -215,7 +215,7 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 	protected final void openProjectProperties(IProject project, Object data) {
 		String id= getPropertyPageID();
 		if (id != null) {
-			PreferencesUtil.createPropertyDialogOn(getShell(), project, id, new String[] { id }, data).open();
+			PreferencesUtil.createPropertyDialogOn(getShell(), project, id, new String[] { /*id*/ }, /*data*/null).open();
 		}
 	}
 
