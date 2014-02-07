@@ -37,6 +37,9 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 
 	private static final String ENABLED= TodoTaskInputDialog.ENABLED;
 	private static final String DISABLED= TodoTaskInputDialog.DISABLED;
+	
+	private static final String DEFAULT_TASK_TAGS= "TODO, FIXME";
+	private static final String DEFAULT_TASK_PRIORITIES= "NORMAL, HIGH";
 
 	public static class TodoTask {
 		public String name;
@@ -320,7 +323,13 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 
 	private void unpackTodoTasks() {
 		String currTags= getValue(PREF_COMPILER_TASK_TAGS);
+		if(currTags == null) {
+			currTags = DEFAULT_TASK_TAGS;
+		}
 		String currPrios= getValue(PREF_COMPILER_TASK_PRIORITIES);
+		if(currPrios == null) {
+			currPrios = DEFAULT_TASK_PRIORITIES;
+		}
 		String[] tags= getTokens(currTags, ","); //$NON-NLS-1$
 		String[] prios= getTokens(currPrios, ","); //$NON-NLS-1$
 		ArrayList<TodoTask> elements= new ArrayList<TodoTask>(tags.length);
