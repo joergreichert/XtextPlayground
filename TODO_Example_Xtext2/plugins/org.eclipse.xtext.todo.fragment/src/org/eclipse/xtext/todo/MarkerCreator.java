@@ -74,7 +74,7 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
 			String text = argNode.getText();
 			// match from including varIgnorePrefix until end of line
 			Matcher matcher = Pattern.compile(
-					"(?s).*(" + varIgnorePrefix + ".*?)(\\r)?\\n.*").matcher(
+					"(?s).*(" + varIgnorePrefix + ".*?)(\\r)?(\\n.*|\\Z)").matcher(
 					text);
 			if (matcher.matches()) {
 				text = matcher.group(1);
