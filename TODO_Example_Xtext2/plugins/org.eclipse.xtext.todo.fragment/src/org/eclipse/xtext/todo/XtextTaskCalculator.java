@@ -8,7 +8,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.builder.IXtextBuilderParticipant;
 import org.eclipse.xtext.resource.IResourceDescription;
@@ -35,7 +37,8 @@ public class XtextTaskCalculator implements IXtextBuilderParticipant {
 				IPath path = new Path(uri.toPlatformString(true));
 				resource = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 			} else {
-				// log warning "unexpected URI"
+				IStatus status = new Status(IStatus.WARNING, Activator.PLUGIN_ID, "Unexpected URI: " + uri);
+				Activator.getDefault().getLog().log(status);
 				continue;
 			}
 
@@ -48,7 +51,8 @@ public class XtextTaskCalculator implements IXtextBuilderParticipant {
 				xtextResource.load(Collections.EMPTY_MAP);
 				new MarkerCreator(resource, objElementChecker, monitor).exec(xtextResource);
 			} catch (IOException e) {
-				// log error
+				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Could not create marker for Xtext resource " + delta.getUri(), e);
+				Activator.getDefault().getLog().log(status);
 			}
 		}
 	}
