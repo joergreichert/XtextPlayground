@@ -81,11 +81,11 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 			}
 		});
 		getBot().waitUntil(new DefaultCondition() {
-			
+
 			public boolean test() throws Exception {
 				return getBot().activeShell() != null;
 			}
-			
+
 			public String getFailureMessage() {
 				return "No active shell not found";
 			}
@@ -105,7 +105,7 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 		SWTBot bot = (SWTBot) getBot().activeShell().bot();
 		SWTBotMenu fileMenu = bot.menu(FILE_MENU);
 		SWTBotShell shell = null;
-		if(fileMenu == null) {
+		if (fileMenu == null) {
 			getBot().activeShell().pressShortcut(SWT.CTRL, 'N');
 			bot.waitUntil(Conditions.shellIsActive(NEW));
 			shell = bot.shell(NEW);
@@ -114,8 +114,10 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 			Assert.assertNotNull("fileMenu", fileMenu);
 			SWTBotMenu newMenu = fileMenu.menu(NEW);
 			Assert.assertNotNull("newMenu", newMenu);
-			SWTBotMenu projectMenu = newMenu.menu("Project...");
+			final SWTBotMenu projectMenu = newMenu.menu("Project...");
 			Assert.assertNotNull("projectMenu", projectMenu);
+			// SWTBot JUnit tests have to be run as non-UI JUnit tests, as otherwise projectMenu.click() hangs
+			// see http://osdir.com/ml/java.swtbot.user/2008-05/msg00014.html
 			projectMenu.click();
 			bot.waitUntil(Conditions.shellIsActive("New Project"));
 			shell = bot.shell("New Project");
@@ -190,7 +192,7 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 
 	private void createFolder(String folder, String folderLabel) {
 		SWTBotMenu newMenu = getBot().menu(FILE_MENU).menu(NEW);
-		if(newMenu == null) {
+		if (newMenu == null) {
 			getBot().activeShell().pressShortcut(SWT.ALT | SWT.SHIFT, 'R');
 		}
 		SWTBotMenu folderMenu = newMenu.menu(folderLabel);
@@ -265,7 +267,8 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 			workbench.showPerspective(defaultPerspectiveId, workbenchWindow);
 			page.resetPerspective();
 		} catch (WorkbenchException e) {
-			throw new IllegalStateException("Workbench could not be reset:\n" + e);
+			throw new IllegalStateException("Workbench could not be reset:\n"
+					+ e);
 		}
 	}
 

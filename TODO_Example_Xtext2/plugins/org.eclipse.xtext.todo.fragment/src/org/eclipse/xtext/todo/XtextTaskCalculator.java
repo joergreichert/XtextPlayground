@@ -26,6 +26,9 @@ public class XtextTaskCalculator implements IXtextBuilderParticipant {
 	
 	@Inject
 	private ITaskElementChecker objElementChecker;
+	
+	@Inject
+	private IActivatorProvider activatorProvider;
 
 	@Override
 	public void build(IBuildContext context, IProgressMonitor monitor) throws CoreException {
@@ -49,7 +52,7 @@ public class XtextTaskCalculator implements IXtextBuilderParticipant {
 			XtextResource xtextResource = (XtextResource) xtextResourceFactory.createResource(delta.getUri());
 			try {
 				xtextResource.load(Collections.EMPTY_MAP);
-				new MarkerCreator(resource, objElementChecker, monitor).exec(xtextResource);
+				new MarkerCreator(resource, objElementChecker, activatorProvider, monitor).exec(xtextResource);
 			} catch (IOException e) {
 				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Could not create marker for Xtext resource " + delta.getUri(), e);
 				Activator.getDefault().getLog().log(status);

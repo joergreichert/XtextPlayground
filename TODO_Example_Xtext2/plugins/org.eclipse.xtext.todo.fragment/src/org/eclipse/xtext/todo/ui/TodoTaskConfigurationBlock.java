@@ -22,14 +22,15 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 
-public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
+public abstract class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 
-	private static final Key PREF_COMPILER_TASK_TAGS= getJDTCoreKey(TodoTaskInputDialog.COMPILER_TASK_TAGS);
-	private static final Key PREF_COMPILER_TASK_PRIORITIES= getJDTCoreKey(TodoTaskInputDialog.COMPILER_TASK_PRIORITIES);
+	private Key PREF_COMPILER_TASK_TAGS= null;
+	private Key PREF_COMPILER_TASK_PRIORITIES= null;
 
-	private static final Key PREF_COMPILER_TASK_CASE_SENSITIVE= getJDTCoreKey(TodoTaskInputDialog.COMPILER_TASK_CASE_SENSITIVE);
+	private Key PREF_COMPILER_TASK_CASE_SENSITIVE= null;
 
 	private static final String PRIORITY_HIGH= TodoTaskInputDialog.COMPILER_TASK_PRIORITY_HIGH;
 	private static final String PRIORITY_NORMAL= TodoTaskInputDialog.COMPILER_TASK_PRIORITY_NORMAL;
@@ -125,9 +126,15 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 	private SelectionButtonDialogField fCaseSensitiveCheckBox;
 
 
-	public TodoTaskConfigurationBlock(IStatusChangeListener context, IProject project, IWorkbenchPreferenceContainer container) {
-		super(context, project, getKeys(), container);
+	public TodoTaskConfigurationBlock(IStatusChangeListener context, IProject project, Key [] keys, IWorkbenchPreferenceContainer container) {
+		super(context, project, keys, container);
 
+		if(keys.length == 3) {
+			PREF_COMPILER_TASK_TAGS = keys[0];
+			PREF_COMPILER_TASK_PRIORITIES = keys[1];
+			PREF_COMPILER_TASK_CASE_SENSITIVE = keys[2];
+		}
+		
 		TaskTagAdapter adapter=  new TaskTagAdapter();
 		String[] buttons= new String[] {
 			PreferencesMessages.TodoTaskConfigurationBlock_markers_tasks_add_button,
@@ -181,11 +188,6 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 		fTodoTasksList.enableButton(IDX_DEFAULT, false);
 	}
 
-	private static Key[] getKeys() {
-		return new Key[] {
-			PREF_COMPILER_TASK_TAGS, PREF_COMPILER_TASK_PRIORITIES, PREF_COMPILER_TASK_CASE_SENSITIVE
-		};
-	}
 
 	public class TaskTagAdapter implements IListAdapter<TodoTask>, IDialogFieldListener {
 
@@ -262,7 +264,7 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 		}
 
 		if (changedKey != null) {
-			if (PREF_COMPILER_TASK_TAGS.equals(changedKey)) {
+			if (getPrefCompilerTaskTagsKey().equals(changedKey)) {
 				fTaskTagsStatus= validateTaskTags();
 			} else {
 				return;
@@ -292,12 +294,12 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 				tags.append(elem.name);
 				prios.append(elem.priority);
 			}
-			setValue(PREF_COMPILER_TASK_TAGS, tags.toString());
-			setValue(PREF_COMPILER_TASK_PRIORITIES, prios.toString());
-			validateSettings(PREF_COMPILER_TASK_TAGS, null, null);
+			setValue(getPrefCompilerTaskTagsKey(), tags.toString());
+			setValue(getPrefCompilerTaskPrioritiesKey(), prios.toString());
+			validateSettings(getPrefCompilerTaskTagsKey(), null, null);
 		} else if (field == fCaseSensitiveCheckBox) {
 			String state= fCaseSensitiveCheckBox.isSelected() ? ENABLED : DISABLED;
-			setValue(PREF_COMPILER_TASK_CASE_SENSITIVE, state);
+			setValue(getPrefCompilerTaskCaseSensitiveKey(), state);
 		}
 	}
 
@@ -322,11 +324,11 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 	}
 
 	private void unpackTodoTasks() {
-		String currTags= getValue(PREF_COMPILER_TASK_TAGS);
+		String currTags= getValue(getPrefCompilerTaskTagsKey());
 		if(currTags == null) {
 			currTags = DEFAULT_TASK_TAGS;
 		}
-		String currPrios= getValue(PREF_COMPILER_TASK_PRIORITIES);
+		String currPrios= getValue(getPrefCompilerTaskPrioritiesKey());
 		if(currPrios == null) {
 			currPrios = DEFAULT_TASK_PRIORITIES;
 		}
@@ -341,7 +343,7 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 		}
 		fTodoTasksList.setElements(elements);
 
-		boolean isCaseSensitive= checkValue(PREF_COMPILER_TASK_CASE_SENSITIVE, ENABLED);
+		boolean isCaseSensitive= checkValue(getPrefCompilerTaskCaseSensitiveKey(), ENABLED);
 		fCaseSensitiveCheckBox.setSelection(isCaseSensitive);
 	}
 
@@ -351,7 +353,7 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 			edited= fTodoTasksList.getSelectedElements().get(0);
 		}
 		if (index == IDX_ADD || index == IDX_EDIT) {
-			TodoTaskInputDialog dialog= new TodoTaskInputDialog(getShell(), edited, fTodoTasksList.getElements());
+			TodoTaskInputDialog dialog= getTodoTaskInputDialog(getShell(), edited, fTodoTasksList.getElements());
 			if (dialog.open() == Window.OK) {
 				if (edited != null) {
 					fTodoTasksList.replaceElement(edited, dialog.getResult());
@@ -363,6 +365,8 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 			setToDefaultTask(edited);
 		}
 	}
+	
+	protected abstract TodoTaskInputDialog getTodoTaskInputDialog(Shell parent, TodoTask task, List<TodoTask> existingEntries);
 
 	@Override
 	protected Job getBuildJob(IProject project) {
@@ -371,5 +375,30 @@ public class TodoTaskConfigurationBlock extends OptionsConfigurationBlock {
 		buildJob.setUser(true);
 		return buildJob;
 	}
+	
+	protected Key getPrefCompilerTaskTagsKey() {
+		if(PREF_COMPILER_TASK_TAGS == null) {
+			PREF_COMPILER_TASK_TAGS = getJDTCoreKey(getCompilerTaskTagsKey());
+		}
+		return PREF_COMPILER_TASK_TAGS;
+	}
+	
+	protected Key getPrefCompilerTaskPrioritiesKey() {
+		if(PREF_COMPILER_TASK_PRIORITIES == null) {
+			PREF_COMPILER_TASK_PRIORITIES = getJDTCoreKey(getCompilerTaskPrioritiesKey());
+		}
+		return PREF_COMPILER_TASK_PRIORITIES;
+	}
+	
+	protected Key getPrefCompilerTaskCaseSensitiveKey() {
+		if(PREF_COMPILER_TASK_CASE_SENSITIVE == null) {
+			PREF_COMPILER_TASK_CASE_SENSITIVE = getJDTCoreKey(getCompilerTaskCaseSensitiveKey());
+		}
+		return PREF_COMPILER_TASK_CASE_SENSITIVE;
+	}
+	
+	protected abstract String getCompilerTaskTagsKey();
+	protected abstract String getCompilerTaskPrioritiesKey();
+	protected abstract String getCompilerTaskCaseSensitiveKey();
 }
 

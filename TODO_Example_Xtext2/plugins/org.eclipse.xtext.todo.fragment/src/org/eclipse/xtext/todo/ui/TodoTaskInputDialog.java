@@ -3,27 +3,23 @@ package org.eclipse.xtext.todo.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.dialogs.StatusDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.jface.dialogs.StatusDialog;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.xtext.todo.Activator;
 import org.eclipse.xtext.todo.ui.TodoTaskConfigurationBlock.TodoTask;
 
 /**
  * Dialog to enter a na new task tag
  */
-public class TodoTaskInputDialog extends StatusDialog {
+public abstract class TodoTaskInputDialog extends StatusDialog {
 	
 	public static final String COMPILER_TASK_PRIORITY_HIGH = "HIGH"; //$NON-NLS-1$
 	public static final String COMPILER_TASK_PRIORITY_LOW = "LOW"; //$NON-NLS-1$
 	public static final String COMPILER_TASK_PRIORITY_NORMAL = "NORMAL"; //$NON-NLS-1$
-	public static final String COMPILER_TASK_TAGS = Activator.PLUGIN_ID + ".compiler.taskTags"; //$NON-NLS-1$
-	public static final String COMPILER_TASK_PRIORITIES = Activator.PLUGIN_ID + ".compiler.taskPriorities"; //$NON-NLS-1$
-	public static final String COMPILER_TASK_CASE_SENSITIVE = Activator.PLUGIN_ID + ".compiler.taskCaseSensitive"; //$NON-NLS-1$
 	public static final String ENABLED = "enabled"; //$NON-NLS-1$
 	public static final String DISABLED = "disabled"; //$NON-NLS-1$
 
@@ -123,9 +119,19 @@ public class TodoTaskInputDialog extends StatusDialog {
 
 		applyDialogFont(composite);
 
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, TodoTaskPreferencePage.TASK_TAG_INPUT_DIALOG);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, getTaskTagInputDialog());
 
 		return composite;
+	}
+	
+	protected abstract String getPrefix();
+	
+	public String getTaskTagInputDialog() {
+		return getPrefix() + "todo_task_input_dialog_context"; //$NON-NLS-1$
+	}
+
+	public String getTodoTagInputDialog() {
+		return getPrefix() + "todo_task_input_dialog_context"; //$NON-NLS-1$
 	}
 
 	private void doValidation() {
@@ -151,7 +157,7 @@ public class TodoTaskInputDialog extends StatusDialog {
 	@Override
 	protected void configureShell(Shell newShell) {
 		super.configureShell(newShell);
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(newShell, TodoTaskPreferencePage.TODO_TASK_INPUT_DIALOG);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(newShell, getTodoTagInputDialog());
 	}
 }
 

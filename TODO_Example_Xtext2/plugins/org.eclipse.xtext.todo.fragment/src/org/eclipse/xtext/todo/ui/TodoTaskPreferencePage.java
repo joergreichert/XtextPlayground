@@ -30,17 +30,9 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 import org.eclipse.xtext.todo.Activator;
 
-public class TodoTaskPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, IWorkbenchPropertyPage {
-	public static final String PREFIX = Activator.PLUGIN_ID + '.';
-	public static final String TODOTASK_PROPERTY_PAGE = PREFIX + "tasktags_property_page_context"; //$NON-NLS-1$
-	public static final String TODOTASK_PREFERENCE_PAGE = PREFIX + "tasktags_preference_page_context"; //$NON-NLS-1$
-	public static final String TODO_TASK_INPUT_DIALOG = PREFIX + "todo_task_input_dialog_context"; //$NON-NLS-1$
-
-	public static final String DATA_NO_LINK= "PropertyAndPreferencePage.nolink"; //$NON-NLS-1$
-
-	public static final String PREF_ID = PREFIX + "preferences.TodoTaskPreferencePage"; //$NON-NLS-1$
-	public static final String PROP_ID = PREFIX + "propertyPages.TodoTaskPreferencePage"; //$NON-NLS-1$
-	public static final String TASK_TAG_INPUT_DIALOG = PREFIX + "todo_task_input_dialog_context"; //$NON-NLS-1$
+public abstract class TodoTaskPreferencePage extends PreferencePage implements
+		IWorkbenchPreferencePage, IWorkbenchPropertyPage {
+	public static final String DATA_NO_LINK = "PropertyAndPreferencePage.nolink"; //$NON-NLS-1$
 
 	private Control fConfigurationBlockControl;
 	private ControlEnableState fBlockEnableState;
@@ -55,10 +47,10 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 	private TodoTaskConfigurationBlock fConfigurationBlock;
 
 	public TodoTaskPreferencePage() {
-		fBlockStatus= new StatusInfo();
-		fBlockEnableState= null;
-		fProject= null;
-		fData= null;
+		fBlockStatus = new StatusInfo();
+		fBlockEnableState = null;
+		fProject = null;
+		fData = null;
 
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
 		setDescription(PreferencesMessages.TodoTaskPreferencePage_description);
@@ -75,22 +67,24 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 		return fData == null || !Boolean.TRUE.equals(fData.get(DATA_NO_LINK));
 	}
 
-    @Override
+	@Override
 	protected Label createDescriptionLabel(Composite parent) {
-		fParentComposite= parent;
+		fParentComposite = parent;
 		if (isProjectPreferencePage()) {
-			Composite composite= new Composite(parent, SWT.NONE);
+			Composite composite = new Composite(parent, SWT.NONE);
 			composite.setFont(parent.getFont());
-			GridLayout layout= new GridLayout();
-			layout.marginHeight= 0;
-			layout.marginWidth= 0;
-			layout.numColumns= 2;
+			GridLayout layout = new GridLayout();
+			layout.marginHeight = 0;
+			layout.marginWidth = 0;
+			layout.numColumns = 2;
 			composite.setLayout(layout);
-			composite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+			composite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+					false));
 
-			IDialogFieldListener listener= new IDialogFieldListener() {
+			IDialogFieldListener listener = new IDialogFieldListener() {
 				public void dialogFieldChanged(DialogField field) {
-					boolean enabled= ((SelectionButtonDialogField) field).isSelected();
+					boolean enabled = ((SelectionButtonDialogField) field)
+							.isSelected();
 					enableProjectSpecificSettings(enabled);
 
 					if (enabled && getData() != null) {
@@ -99,49 +93,61 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 				}
 			};
 
-			fUseProjectSettings= new SelectionButtonDialogField(SWT.CHECK);
+			fUseProjectSettings = new SelectionButtonDialogField(SWT.CHECK);
 			fUseProjectSettings.setDialogFieldListener(listener);
-			fUseProjectSettings.setLabelText(PreferencesMessages.PropertyAndPreferencePage_useprojectsettings_label);
+			fUseProjectSettings
+					.setLabelText(PreferencesMessages.PropertyAndPreferencePage_useprojectsettings_label);
 			fUseProjectSettings.doFillIntoGrid(composite, 1);
-			LayoutUtil.setHorizontalGrabbing(fUseProjectSettings.getSelectionButton(null));
+			LayoutUtil.setHorizontalGrabbing(fUseProjectSettings
+					.getSelectionButton(null));
 
 			if (offerLink()) {
-				fChangeWorkspaceSettings= createLink(composite, PreferencesMessages.PropertyAndPreferencePage_useworkspacesettings_change);
-				fChangeWorkspaceSettings.setLayoutData(new GridData(SWT.END, SWT.CENTER, false, false));
+				fChangeWorkspaceSettings = createLink(
+						composite,
+						PreferencesMessages.PropertyAndPreferencePage_useworkspacesettings_change);
+				fChangeWorkspaceSettings.setLayoutData(new GridData(SWT.END,
+						SWT.CENTER, false, false));
 			} else {
-				LayoutUtil.setHorizontalSpan(fUseProjectSettings.getSelectionButton(null), 2);
+				LayoutUtil.setHorizontalSpan(
+						fUseProjectSettings.getSelectionButton(null), 2);
 			}
 
-			Label horizontalLine= new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL);
-			horizontalLine.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, false, 2, 1));
+			Label horizontalLine = new Label(composite, SWT.SEPARATOR
+					| SWT.HORIZONTAL);
+			horizontalLine.setLayoutData(new GridData(GridData.FILL,
+					GridData.FILL, true, false, 2, 1));
 			horizontalLine.setFont(composite.getFont());
 		} else if (supportsProjectSpecificOptions() && offerLink()) {
-			fChangeWorkspaceSettings= createLink(parent, PreferencesMessages.PropertyAndPreferencePage_showprojectspecificsettings_label);
-			fChangeWorkspaceSettings.setLayoutData(new GridData(SWT.END, SWT.CENTER, true, false));
+			fChangeWorkspaceSettings = createLink(
+					parent,
+					PreferencesMessages.PropertyAndPreferencePage_showprojectspecificsettings_label);
+			fChangeWorkspaceSettings.setLayoutData(new GridData(SWT.END,
+					SWT.CENTER, true, false));
 		}
 
 		return super.createDescriptionLabel(parent);
-    }
+	}
 
 	/*
-	 * @see org.eclipse.jface.preference.IPreferencePage#createContents(Composite)
+	 * @see
+	 * org.eclipse.jface.preference.IPreferencePage#createContents(Composite)
 	 */
 	@Override
 	protected Control createContents(Composite parent) {
-		Composite composite= new Composite(parent, SWT.NONE);
-		GridLayout layout= new GridLayout();
-		layout.marginHeight= 0;
-		layout.marginWidth= 0;
+		Composite composite = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout();
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
 		composite.setLayout(layout);
 		composite.setFont(parent.getFont());
 
-		GridData data= new GridData(GridData.FILL, GridData.FILL, true, true);
+		GridData data = new GridData(GridData.FILL, GridData.FILL, true, true);
 
-		fConfigurationBlockControl= createPreferenceContent(composite);
+		fConfigurationBlockControl = createPreferenceContent(composite);
 		fConfigurationBlockControl.setLayoutData(data);
 
 		if (isProjectPreferencePage()) {
-			boolean useProjectSettings= hasProjectSpecificOptions(getProject());
+			boolean useProjectSettings = hasProjectSpecificOptions(getProject());
 			enableProjectSpecificSettings(useProjectSettings);
 		}
 
@@ -150,9 +156,9 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 	}
 
 	private Link createLink(Composite composite, String text) {
-		Link link= new Link(composite, SWT.NONE);
+		Link link = new Link(composite, SWT.NONE);
 		link.setFont(composite.getFont());
-		link.setText("<A>" + text + "</A>");  //$NON-NLS-1$//$NON-NLS-2$
+		link.setText("<A>" + text + "</A>"); //$NON-NLS-1$//$NON-NLS-2$
 		link.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				doLinkActivated((Link) e.widget);
@@ -166,7 +172,8 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 	}
 
 	protected boolean useProjectSettings() {
-		return isProjectPreferencePage() && fUseProjectSettings != null && fUseProjectSettings.isSelected();
+		return isProjectPreferencePage() && fUseProjectSettings != null
+				&& fUseProjectSettings.isSelected();
 	}
 
 	protected boolean isProjectPreferencePage() {
@@ -179,48 +186,54 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 
 	/**
 	 * Handle link activation.
-	 *
-	 * @param link the link
+	 * 
+	 * @param link
+	 *            the link
 	 */
 	final void doLinkActivated(Link link) {
-		Map<String, Object> data= getData();
+		Map<String, Object> data = getData();
 		if (data == null)
-			data= new HashMap<String, Object>();
+			data = new HashMap<String, Object>();
 		data.put(DATA_NO_LINK, Boolean.TRUE);
 
 		if (isProjectPreferencePage()) {
 			openWorkspacePreferences(data);
 		} else {
-			HashSet<IProject> projectsWithSpecifics= new HashSet<IProject>();
-			IProject[] projects= ResourcesPlugin.getWorkspace().getRoot().getProjects();
-			for (int i= 0; i < projects.length; i++) {
-				IProject curr= projects[i];
+			HashSet<IProject> projectsWithSpecifics = new HashSet<IProject>();
+			IProject[] projects = ResourcesPlugin.getWorkspace().getRoot()
+					.getProjects();
+			for (int i = 0; i < projects.length; i++) {
+				IProject curr = projects[i];
 				if (hasProjectSpecificOptions(curr.getProject())) {
 					projectsWithSpecifics.add(curr);
 				}
 			}
-			ProjectSelectionDialog dialog= new ProjectSelectionDialog(getShell(), projectsWithSpecifics);
+			ProjectSelectionDialog dialog = new ProjectSelectionDialog(
+					getShell(), projectsWithSpecifics);
 			if (dialog.open() == Window.OK) {
-				IProject res= (IProject) dialog.getFirstResult();
+				IProject res = (IProject) dialog.getFirstResult();
 				openProjectProperties(res.getProject(), data);
 			}
 		}
 	}
 
 	protected final void openWorkspacePreferences(Object data) {
-		String id= getPreferencePageID();
-		PreferencesUtil.createPreferenceDialogOn(getShell(), id, new String[] { id }, data).open();
+		String id = getPreferencePageID();
+		PreferencesUtil.createPreferenceDialogOn(getShell(), id,
+				new String[] { id }, data).open();
 	}
 
 	protected final void openProjectProperties(IProject project, Object data) {
-		String id= getPropertyPageID();
+		String id = getPropertyPageID();
 		if (id != null) {
-			PreferencesUtil.createPropertyDialogOn(getShell(), project, id, new String[] { /*id*/ }, /*data*/null).open();
+			PreferencesUtil.createPropertyDialogOn(getShell(), project, id,
+					new String[] { /* id */}, /* data */null).open();
 		}
 	}
 
 	private void updateLinkVisibility() {
-		if (fChangeWorkspaceSettings == null || fChangeWorkspaceSettings.isDisposed()) {
+		if (fChangeWorkspaceSettings == null
+				|| fChangeWorkspaceSettings.isDisposed()) {
 			return;
 		}
 
@@ -229,15 +242,15 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 		}
 	}
 
-
 	protected void setPreferenceContentStatus(IStatus status) {
-		fBlockStatus= status;
+		fBlockStatus = status;
 		doStatusChanged();
 	}
 
 	/**
-	 * Returns a new status change listener that calls {@link #setPreferenceContentStatus(IStatus)}
-	 * when the status has changed
+	 * Returns a new status change listener that calls
+	 * {@link #setPreferenceContentStatus(IStatus)} when the status has changed
+	 * 
 	 * @return The new listener
 	 */
 	protected IStatusChangeListener getNewStatusChangedListener() {
@@ -264,11 +277,12 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 		if (enable) {
 			if (fBlockEnableState != null) {
 				fBlockEnableState.restore();
-				fBlockEnableState= null;
+				fBlockEnableState = null;
 			}
 		} else {
 			if (fBlockEnableState == null) {
-				fBlockEnableState= ControlEnableState.disable(fConfigurationBlockControl);
+				fBlockEnableState = ControlEnableState
+						.disable(fConfigurationBlockControl);
 			}
 		}
 	}
@@ -278,35 +292,46 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 		StatusUtil.applyToStatusLine(this, status);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
 	 */
 	public void init(IWorkbench workbench) {
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.ui.IWorkbenchPropertyPage#getElement()
 	 */
 	public IAdaptable getElement() {
 		return fProject;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.ui.IWorkbenchPropertyPage#setElement(org.eclipse.core.runtime.IAdaptable)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.ui.IWorkbenchPropertyPage#setElement(org.eclipse.core.runtime
+	 * .IAdaptable)
 	 */
 	public void setElement(IAdaptable element) {
-		fProject= (IProject) element.getAdapter(IResource.class);
+		fProject = (IProject) element.getAdapter(IResource.class);
 	}
 
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.preference.PreferencePage#applyData(java.lang.Object)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.jface.preference.PreferencePage#applyData(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void applyData(Object data) {
 		if (data instanceof Map) {
-			fData= (Map<String, Object>) data;
+			fData = (Map<String, Object>) data;
 		}
 		if (fChangeWorkspaceSettings != null) {
 			if (!offerLink()) {
@@ -314,28 +339,46 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 				fParentComposite.layout(true, true);
 			}
 		}
- 	}
+	}
 
 	protected Map<String, Object> getData() {
 		return fData;
 	}
 
-
 	/*
-	 * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+	 * @see
+	 * org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets
+	 * .Composite)
 	 */
 	@Override
 	public void createControl(Composite parent) {
-		IWorkbenchPreferenceContainer container= (IWorkbenchPreferenceContainer) getContainer();
-		fConfigurationBlock= new TodoTaskConfigurationBlock(getNewStatusChangedListener(), getProject(), container);
+		IWorkbenchPreferenceContainer container = (IWorkbenchPreferenceContainer) getContainer();
+		fConfigurationBlock = getTodoTaskConfigurationBlock(
+				getNewStatusChangedListener(), getProject(), container);
 
 		super.createControl(parent);
 
 		if (isProjectPreferencePage()) {
-			PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), TODOTASK_PROPERTY_PAGE);
+			PlatformUI.getWorkbench().getHelpSystem()
+					.setHelp(getControl(), getTodoTaskPropertyPage());
 		} else {
-			PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), TODOTASK_PREFERENCE_PAGE);
+			PlatformUI.getWorkbench().getHelpSystem()
+					.setHelp(getControl(), getTodoTaskPreferencePage());
 		}
+	}
+
+	protected abstract TodoTaskConfigurationBlock getTodoTaskConfigurationBlock(
+			IStatusChangeListener context, IProject project,
+			IWorkbenchPreferenceContainer container);
+
+	protected abstract String getPrefix();
+
+	protected String getTodoTaskPropertyPage() {
+		return getPrefix() + "tasktags_property_page_context"; //$NON-NLS-1$
+	}
+
+	protected String getTodoTaskPreferencePage() {
+		return getPrefix() + "tasktags_preference_page_context"; //$NON-NLS-1$
 	}
 
 	protected Control createPreferenceContent(Composite composite) {
@@ -346,22 +389,23 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 		return fConfigurationBlock.hasProjectSpecificOptions(project);
 	}
 
-
 	protected String getPreferencePageID() {
-		return PREF_ID;
+		return getPrefix() + "preferences.TodoTaskPreferencePage"; //$NON-NLS-1$
 	}
 
 	protected String getPropertyPageID() {
-		return PROP_ID;
+		return getPrefix() + "propertyPages.TodoTaskPreferencePage"; //$NON-NLS-1$
 	}
 
-	protected void enableProjectSpecificSettings(boolean useProjectSpecificSettings) {
+	protected void enableProjectSpecificSettings(
+			boolean useProjectSpecificSettings) {
 		fUseProjectSettings.setSelection(useProjectSpecificSettings);
 		enablePreferenceContent(useProjectSpecificSettings);
 		updateLinkVisibility();
 		doStatusChanged();
 		if (fConfigurationBlock != null) {
-			fConfigurationBlock.useProjectSpecificSettings(useProjectSpecificSettings);
+			fConfigurationBlock
+					.useProjectSpecificSettings(useProjectSpecificSettings);
 		}
 	}
 
@@ -397,7 +441,9 @@ public class TodoTaskPreferencePage extends PreferencePage implements IWorkbench
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.jface.dialogs.DialogPage#dispose()
 	 */
 	@Override

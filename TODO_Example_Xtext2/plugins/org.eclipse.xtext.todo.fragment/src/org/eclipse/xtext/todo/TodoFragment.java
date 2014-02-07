@@ -39,6 +39,8 @@ public class TodoFragment extends AbstractGeneratorFragment {
 						getSemanticHighlightingCalculatorName(grammar, getNaming()))		
 				.addTypeToType("org.eclipse.xtext.ui.editor.syntaxcoloring.DefaultHighlightingConfiguration", 
 						getHighlightingConfigurationName(grammar, getNaming()))		
+				.addTypeToType("org.eclipse.xtext.todo.IActivatorProvider", 
+						getActivatorProviderName(grammar, getNaming()))		
 				.getBindings();
 	}
 	
@@ -54,4 +56,20 @@ public class TodoFragment extends AbstractGeneratorFragment {
 	public static String getHighlightingConfigurationName(Grammar g, Naming n) {
 		return n.basePackageUi(g) + ".highlighting." + GrammarUtil.getName(g) + "HighlightingConfiguration";
 	}	
+	
+	public static String getActivatorProviderName(Grammar g, Naming n) {
+		return n.basePackageUi(g) + ".todo." + GrammarUtil.getName(g) + "ActivatorProvider";
+	}	
+	
+	public static String getTodoTaskPreferencePageName(Grammar g, Naming n) {
+		return n.basePackageUi(g) + ".todo." + GrammarUtil.getName(g) + "TodoTaskPreferencePage";
+	}	
+
+	public static String getTodoTaskInputDialogName(Grammar g, Naming n) {
+		return n.basePackageUi(g) + ".todo." + GrammarUtil.getName(g) + "TodoTaskInputDialog";
+	}	
+
+	public static String getTodoTaskConfigurationBlockName(Grammar g, Naming n) {
+		return n.basePackageUi(g) + ".todo." + GrammarUtil.getName(g) + "TodoTaskConfigurationBlock";
+	}
 }

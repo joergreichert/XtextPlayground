@@ -27,13 +27,16 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
 	private static final String TASK_MARKER_TYPE = "";
 	private final IResource varResource;
 	private final ITaskElementChecker objElementChecker;
+	private final IActivatorProvider activatorProvider;
 	private final IProgressMonitor argMonitor;
 
 	MarkerCreator(final IResource varResource,
 			final ITaskElementChecker objElementChecker,
+			final IActivatorProvider activatorProvider,
 			final IProgressMonitor argMonitor) {
 		this.varResource = varResource;
 		this.objElementChecker = objElementChecker;
+		this.activatorProvider = activatorProvider;
 		this.argMonitor = argMonitor;
 	}
 
@@ -44,8 +47,7 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
 			try {
 				visit(varRoot, varResource, argMonitor);
 			} catch (CoreException e) {
-				Activator
-						.getDefault()
+				activatorProvider.getActivator()
 						.getLog()
 						.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
 								"Could not create marker", e));
@@ -86,18 +88,16 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
 			varMarker.setAttribute(IMarker.CHAR_END, argNode.getOffset()
 					+ argNode.getLength());
 			varMarker.setAttribute(IMarker.USER_EDITABLE, false);
-			String tagsStr = Activator.getDefault().getPreferenceStore()
-					.getString(TodoTaskInputDialog.COMPILER_TASK_TAGS);
+			String tagsStr = activatorProvider.getActivator().getPreferenceStore()
+					.getString(activatorProvider.getCompilerTaskTagsKey());
 			int priority = IMarker.PRIORITY_NORMAL;
 			if (tagsStr != null) {
 				List<String> tags = Arrays.asList(tagsStr.split(","));
 				int index = tags.indexOf(varIgnorePrefix);
 				if (index >= 0) {
-					String prioritiesStr = Activator
-							.getDefault()
+					String prioritiesStr = activatorProvider.getActivator()
 							.getPreferenceStore()
-							.getString(
-									TodoTaskInputDialog.COMPILER_TASK_PRIORITIES);
+							.getString(activatorProvider.getCompilerTaskPrioritiesKey());
 					if (prioritiesStr != null) {
 						List<String> priorities = Arrays.asList(prioritiesStr
 								.split(","));

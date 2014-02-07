@@ -108,6 +108,130 @@ public class «getSemanticHighlightingCalculatorName().toSimpleName()» implements
 	}
 }
 «ENDFILE»
+«FILE getActivatorProviderName().asPath()+".java" SRC_GEN_UI-»
+package «getActivatorProviderName().toJavaPackage()»;
+
+import org.eclipse.xtext.todo.IActivatorProvider;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+
+public class «getActivatorProviderName().toSimpleName()» implements IActivatorProvider {
+
+	public AbstractUIPlugin getActivator() {
+		return «uiPackage(this)».internal.«toSimpleName(name)»Activator.getInstance(); 
+	}
+	
+	public String getCompilerTaskTagsKey() {
+		return «uiPackage(this)».internal.«toSimpleName(name)»Activator.«getId(this).toUpperCase().replaceAll('\\.', '_')» + ".compiler.taskTags"; //$NON-NLS-1$
+	}
+	
+	public String getCompilerTaskPrioritiesKey() {
+		return «uiPackage(this)».internal.«toSimpleName(name)»Activator.«getId(this).toUpperCase().replaceAll('\\.', '_')» + ".compiler.taskPriorities"; //$NON-NLS-1$
+	}
+	
+	public String getCompilerTaskCaseSensitiveKey() {
+		return «uiPackage(this)».internal.«toSimpleName(name)»Activator.«getId(this).toUpperCase().replaceAll('\\.', '_')» + ".compiler.taskCaseSensitive"; //$NON-NLS-1$
+	}
+}
+«ENDFILE»
+«FILE getTodoTaskInputDialogName().asPath()+".java" SRC_GEN_UI-»
+package «getTodoTaskInputDialogName().toJavaPackage()»;
+
+import java.util.List;
+
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.xtext.todo.ui.TodoTaskConfigurationBlock.TodoTask;
+import org.eclipse.xtext.todo.ui.TodoTaskInputDialog;
+
+public class «getTodoTaskInputDialogName().toSimpleName()» extends TodoTaskInputDialog {
+
+	public «getTodoTaskInputDialogName().toSimpleName()»(Shell parent, TodoTask task,
+			List<TodoTask> existingEntries) {
+		super(parent, task, existingEntries);
+	}
+
+	@Override
+	protected String getPrefix() {
+		return «uiPackage(this)».internal.«toSimpleName(name)»Activator.«getId(this).toUpperCase().replaceAll('\\.', '_')» + '.';
+	}
+}
+«ENDFILE»
+«FILE getTodoTaskConfigurationBlockName().asPath()+".java" SRC_GEN_UI-»
+package «getTodoTaskInputDialogName().toJavaPackage()»;
+
+import java.util.List;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
+import org.eclipse.xtext.todo.ui.IStatusChangeListener;
+import org.eclipse.xtext.todo.ui.TodoTaskConfigurationBlock;
+import org.eclipse.xtext.todo.ui.TodoTaskInputDialog;
+
+public class «getTodoTaskConfigurationBlockName().toSimpleName()» extends TodoTaskConfigurationBlock {
+
+	public static final String COMPILER_TASK_TAGS = «uiPackage(this)».internal.«toSimpleName(name)»Activator.«getId(this).toUpperCase().replaceAll('\\.', '_')» + ".compiler.taskTags"; //$NON-NLS-1$
+	public static final String COMPILER_TASK_PRIORITIES = «uiPackage(this)».internal.«toSimpleName(name)»Activator.«getId(this).toUpperCase().replaceAll('\\.', '_')» + ".compiler.taskPriorities"; //$NON-NLS-1$
+	public static final String COMPILER_TASK_CASE_SENSITIVE = «uiPackage(this)».internal.«toSimpleName(name)»Activator.«getId(this).toUpperCase().replaceAll('\\.', '_')» + ".compiler.taskCaseSensitive"; //$NON-NLS-1$
+
+	private static final Key PREF_COMPILER_TASK_TAGS= getJDTCoreKey(COMPILER_TASK_TAGS);
+	private static final Key PREF_COMPILER_TASK_PRIORITIES= getJDTCoreKey(COMPILER_TASK_PRIORITIES);
+
+	private static final Key PREF_COMPILER_TASK_CASE_SENSITIVE= getJDTCoreKey(COMPILER_TASK_CASE_SENSITIVE);
+
+	public «getTodoTaskConfigurationBlockName().toSimpleName()»(IStatusChangeListener context,
+			IProject project, IWorkbenchPreferenceContainer container) {
+		super(context, project, getKeys(), container);
+	}
+	
+	private static Key[] getKeys() {
+		return new Key[] {
+			PREF_COMPILER_TASK_TAGS, PREF_COMPILER_TASK_PRIORITIES, PREF_COMPILER_TASK_CASE_SENSITIVE
+		};
+	}
+
+	@Override
+	protected TodoTaskInputDialog getTodoTaskInputDialog(Shell parent,
+			TodoTask task, List<TodoTask> existingEntries) {
+		return new «getTodoTaskInputDialogName().toSimpleName()»(parent, task, existingEntries);
+	}
+	
+	protected String getCompilerTaskTagsKey() {
+		return COMPILER_TASK_TAGS;
+	}
+	
+	protected String getCompilerTaskPrioritiesKey() {
+		return COMPILER_TASK_PRIORITIES;
+	}
+	
+	protected String getCompilerTaskCaseSensitiveKey() {
+		return COMPILER_TASK_CASE_SENSITIVE;
+	}
+}
+«ENDFILE»
+«FILE getTodoTaskPreferencePageName().asPath()+".java" SRC_GEN_UI-»
+package «getTodoTaskPreferencePageName().toJavaPackage()»;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
+import org.eclipse.xtext.todo.ui.IStatusChangeListener;
+import org.eclipse.xtext.todo.ui.TodoTaskConfigurationBlock;
+import org.eclipse.xtext.todo.ui.TodoTaskPreferencePage;
+
+public class «getTodoTaskPreferencePageName().toSimpleName()» extends TodoTaskPreferencePage {
+
+	@Override
+	protected String getPrefix() {
+		return «uiPackage(this)».internal.«toSimpleName(name)»Activator.«getId(this).toUpperCase().replaceAll('\\.', '_')» + '.';
+	}
+
+	@Override
+	protected TodoTaskConfigurationBlock getTodoTaskConfigurationBlock(
+			IStatusChangeListener context, IProject project,
+			IWorkbenchPreferenceContainer container) {
+		return new «getTodoTaskConfigurationBlockName().toSimpleName()»(context, project, container);
+	}
+}
+«ENDFILE»
 «ENDDEFINE»
 
 
@@ -142,8 +266,8 @@ public class «getSemanticHighlightingCalculatorName().toSimpleName()» implements
          point="org.eclipse.ui.propertyPages">
       <page
             category="«name».compiler.propertyPage"
-            class="«uiPackage(this)».«toSimpleName(name)»ExecutableExtensionFactory:org.eclipse.xtext.todo.ui.TodoTaskPreferencePage"
-            id="org.eclipse.xtext.todo.fragment.propertyPages.TodoTaskPreferencePage"
+            class="«getTodoTaskPreferencePageName()»"
+            id="«uiPackage(this)».todo.propertyPages.TodoTaskPreferencePage"
             name="Task Tags">
          <enabledWhen>
 		     <adapt type="org.eclipse.core.resources.IProject">
@@ -158,8 +282,8 @@ public class «getSemanticHighlightingCalculatorName().toSimpleName()» implements
       <page
             name="Task Tags"
             category="«name».compiler.preferencePage"
-            class="org.eclipse.xtext.todo.ui.TodoTaskPreferencePage"
-            id="org.eclipse.xtext.todo.fragment.preferences.TodoTaskPreferencePage">
+            class="«getTodoTaskPreferencePageName()»"
+            id="«uiPackage(this)».todo.preferences.TodoTaskPreferencePage">
          <keywordReference id="«uiPackage(this)».keyword_«toSimpleName(name)»"/>
       </page>
    </extension>

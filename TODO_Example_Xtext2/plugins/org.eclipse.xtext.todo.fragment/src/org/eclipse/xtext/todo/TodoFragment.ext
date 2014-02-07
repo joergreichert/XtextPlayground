@@ -15,3 +15,27 @@ String getHighlightingConfigurationName(Grammar g) :
 private String getHighlightingConfigurationName(Grammar g, Naming n) :
 	JAVA org.eclipse.xtext.todo.TodoFragment.getHighlightingConfigurationName(org.eclipse.xtext.Grammar, org.eclipse.xtext.generator.Naming);
 
+String getActivatorProviderName(Grammar g) :
+	getActivatorProviderName(g, getNaming());
+
+private String getActivatorProviderName(Grammar g, Naming n) :
+	JAVA org.eclipse.xtext.todo.TodoFragment.getActivatorProviderName(org.eclipse.xtext.Grammar, org.eclipse.xtext.generator.Naming);
+
+String getTodoTaskPreferencePageName(Grammar g) :
+	getTodoTaskPreferencePageName(g, getNaming());
+
+private String getTodoTaskPreferencePageName(Grammar g, Naming n) :
+	JAVA org.eclipse.xtext.todo.TodoFragment.getTodoTaskPreferencePageName(org.eclipse.xtext.Grammar, org.eclipse.xtext.generator.Naming);
+
+String getTodoTaskInputDialogName(Grammar g) :
+	getTodoTaskInputDialogName(g, getNaming());
+
+private String getTodoTaskInputDialogName(Grammar g, Naming n) :
+	JAVA org.eclipse.xtext.todo.TodoFragment.getTodoTaskInputDialogName(org.eclipse.xtext.Grammar, org.eclipse.xtext.generator.Naming);
+
+String getTodoTaskConfigurationBlockName(Grammar g) :
+	getTodoTaskConfigurationBlockName(g, getNaming());
+
+private String getTodoTaskConfigurationBlockName(Grammar g, Naming n) :
+	JAVA org.eclipse.xtext.todo.TodoFragment.getTodoTaskConfigurationBlockName(org.eclipse.xtext.Grammar, org.eclipse.xtext.generator.Naming);
+	

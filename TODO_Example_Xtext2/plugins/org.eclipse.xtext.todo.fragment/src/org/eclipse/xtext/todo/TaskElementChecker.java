@@ -6,7 +6,6 @@ import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
-import org.eclipse.xtext.todo.ui.TodoTaskInputDialog;
 
 import com.google.inject.Inject;
 
@@ -14,6 +13,9 @@ public class TaskElementChecker implements ITaskElementChecker {
 
 	@Inject
 	private TerminalsGrammarAccess objGrammarAccess;
+	
+	@Inject
+	private IActivatorProvider activatorProvider;
 
 	public String getPrefixToIgnore(INode argNode) {
 		boolean singleLineComment = getSingleLineCommentRule().equals(
@@ -21,8 +23,8 @@ public class TaskElementChecker implements ITaskElementChecker {
 		boolean multiLineComment = getMultiLineCommentRule().equals(
 				argNode.getGrammarElement());
 		if (argNode instanceof LeafNode) {
-			String value = Activator.getDefault().getPreferenceStore()
-					.getString(TodoTaskInputDialog.COMPILER_TASK_TAGS);
+			String value = activatorProvider.getActivator().getPreferenceStore()
+					.getString(activatorProvider.getCompilerTaskTagsKey());
 			if (value != null) {
 				StringTokenizer st = new StringTokenizer(value, ",");
 				String token;
