@@ -10,11 +10,11 @@
 			<repository location="http://download.eclipse.org/releases/kepler"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.2.v20131212-0558"/>
-			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.5.0.v201312110906"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.5.0.v201312110906"/>
-			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.5.0.v201312110944"/>
-			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.5.0.v201312110307"/>
+			<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.2.v20140203-1126"/>
+			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.5.1.v201402030714"/>
+			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.5.1.v201402030714"/>
+			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.5.1.v201402030750"/>
+			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.5.1.v201402030544"/>
 			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
@@ -23,12 +23,12 @@
 			<repository location="http://download.itemis.com/updates/releases/2.1.0/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201312181904"/>
+			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201401101421"/>
 			<repository location="http://www.xpect-tests.org/updatesite/nightly/"/>
 		</location>
 		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.1.1.201307101628"/>
-			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.1.1.201307101628"/>
+			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.2.0.201401081015"/>
+			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.2.0.201401081015"/>
 			<repository location="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
 		</location>
 	</locations>

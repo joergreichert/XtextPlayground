@@ -8,11 +8,11 @@ TargetDefinition "Xtext TODO Platform - Eclipse 4.3"
 	}
 
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
-		org.eclipse.emf.sdk 2.9.2.v20131212-0558,
-		org.eclipse.xtext.sdk 2.5.0.v201312110906,
-		org.eclipse.xtend.sdk 2.5.0.v201312110906,
-		org.eclipse.emf.mwe2.language.sdk 2.5.0.v201312110944,
-		org.eclipse.emf.mwe2.runtime.sdk 2.5.0.v201312110307
+		org.eclipse.emf.sdk 2.9.2.v20140203-1126,
+		org.eclipse.xtext.sdk 2.5.1.v201402030714,
+		org.eclipse.xtend.sdk 2.5.1.v201402030714,
+		org.eclipse.emf.mwe2.language.sdk 2.5.1.v201402030750,
+		org.eclipse.emf.mwe2.runtime.sdk 2.5.1.v201402030544
 	}
 
 	"Xtext ANTLR" http://download.itemis.com/updates/releases/2.1.0/ {
@@ -21,10 +21,10 @@ TargetDefinition "Xtext TODO Platform - Eclipse 4.3"
 	}
 	
 	"Xpect" http://www.xpect-tests.org/updatesite/nightly/ {
-		org.xpect.sdk 0.1.0.201312181904
+		org.xpect.sdk 0.1.0.201401101421
 	}
 	
 	"SWTBot" http://download.eclipse.org/technology/swtbot/releases/latest/ {
-		org.eclipse.swtbot.eclipse 2.1.1.201307101628,
-		org.eclipse.swtbot.eclipse.gef 2.1.1.201307101628
+		org.eclipse.swtbot.eclipse 2.2.0.201401081015,
+		org.eclipse.swtbot.eclipse.gef 2.2.0.201401081015
 	}	
