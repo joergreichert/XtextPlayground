@@ -48,6 +48,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
 import org.eclipse.xtext.todo.ITaskElementChecker;
+import org.eclipse.xtext.todo.IActivatorProvider;
 
 import com.google.inject.Inject;
 
@@ -56,6 +57,9 @@ public class «getSemanticHighlightingCalculatorName().toSimpleName()» implements
 
 	@Inject
 	private ITaskElementChecker objElementChecker;
+	
+	@Inject
+	private IActivatorProvider activatorProvider;
 
 	public void provideHighlightingFor(XtextResource resource,
 			IHighlightedPositionAcceptor acceptor) {
@@ -93,9 +97,23 @@ public class «getSemanticHighlightingCalculatorName().toSimpleName()» implements
 		}
 
 		String varIgnorePrefix = objElementChecker.getPrefixToIgnore(node);
+		
 		if (varIgnorePrefix != null) {
+
+			String caseSensitiveStr = activatorProvider
+					.getActivator()
+					.getPreferenceStore()
+					.getString(
+							activatorProvider.getCompilerTaskCaseSensitiveKey());
+			boolean caseSensitive = Boolean.valueOf(caseSensitiveStr);
+			String nodeText = node.getText();
+			if(!caseSensitive) {
+				varIgnorePrefix = varIgnorePrefix.toLowerCase();
+				nodeText = nodeText.toLowerCase();
+			}
+
 			int start = node.getOffset()
-					+ node.getText().indexOf(varIgnorePrefix);
+					+ nodeText.indexOf(varIgnorePrefix);
 			acceptor.addPosition(start, varIgnorePrefix.length(),
 					«getHighlightingConfigurationName().toSimpleName()».TODO_STYLE);
 		}
@@ -173,10 +191,10 @@ public class «getTodoTaskConfigurationBlockName().toSimpleName()» extends TodoTa
 	public static final String COMPILER_TASK_PRIORITIES = «uiPackage(this)».internal.«toSimpleName(name)»Activator.«getId(this).toUpperCase().replaceAll('\\.', '_')» + ".compiler.taskPriorities"; //$NON-NLS-1$
 	public static final String COMPILER_TASK_CASE_SENSITIVE = «uiPackage(this)».internal.«toSimpleName(name)»Activator.«getId(this).toUpperCase().replaceAll('\\.', '_')» + ".compiler.taskCaseSensitive"; //$NON-NLS-1$
 
-	private static final Key PREF_COMPILER_TASK_TAGS= getJDTCoreKey(COMPILER_TASK_TAGS);
-	private static final Key PREF_COMPILER_TASK_PRIORITIES= getJDTCoreKey(COMPILER_TASK_PRIORITIES);
+	private static final Key PREF_COMPILER_TASK_TAGS= staticAsKey(COMPILER_TASK_TAGS);
+	private static final Key PREF_COMPILER_TASK_PRIORITIES= staticAsKey(COMPILER_TASK_PRIORITIES);
 
-	private static final Key PREF_COMPILER_TASK_CASE_SENSITIVE= getJDTCoreKey(COMPILER_TASK_CASE_SENSITIVE);
+	private static final Key PREF_COMPILER_TASK_CASE_SENSITIVE= staticAsKey(COMPILER_TASK_CASE_SENSITIVE);
 
 	public «getTodoTaskConfigurationBlockName().toSimpleName()»(IStatusChangeListener context,
 			IProject project, IWorkbenchPreferenceContainer container) {
@@ -206,6 +224,15 @@ public class «getTodoTaskConfigurationBlockName().toSimpleName()» extends TodoTa
 	protected String getCompilerTaskCaseSensitiveKey() {
 		return COMPILER_TASK_CASE_SENSITIVE;
 	}
+	
+	@Override
+	protected Key asKey(String keyStr) {
+		return staticAsKey(keyStr);
+	}
+	
+	private static Key staticAsKey(String keyStr) {
+		return getKey(«uiPackage(this)».internal.«toSimpleName(name)»Activator.getInstance().getBundle().getSymbolicName(), keyStr);
+	}	
 }
 «ENDFILE»
 «FILE getTodoTaskPreferencePageName().asPath()+".java" SRC_GEN_UI-»

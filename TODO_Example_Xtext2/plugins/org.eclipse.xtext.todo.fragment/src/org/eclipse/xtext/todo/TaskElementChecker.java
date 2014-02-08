@@ -6,6 +6,7 @@ import org.eclipse.xtext.TerminalRule;
 import org.eclipse.xtext.common.services.TerminalsGrammarAccess;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.LeafNode;
+import org.eclipse.xtext.todo.ui.TodoTaskConfigurationBlock;
 
 import com.google.inject.Inject;
 
@@ -13,7 +14,7 @@ public class TaskElementChecker implements ITaskElementChecker {
 
 	@Inject
 	private TerminalsGrammarAccess objGrammarAccess;
-	
+
 	@Inject
 	private IActivatorProvider activatorProvider;
 
@@ -23,25 +24,48 @@ public class TaskElementChecker implements ITaskElementChecker {
 		boolean multiLineComment = getMultiLineCommentRule().equals(
 				argNode.getGrammarElement());
 		if (argNode instanceof LeafNode) {
-			String value = activatorProvider.getActivator().getPreferenceStore()
+			String value = activatorProvider.getActivator()
+					.getPreferenceStore()
 					.getString(activatorProvider.getCompilerTaskTagsKey());
-			if (value != null) {
-				StringTokenizer st = new StringTokenizer(value, ",");
-				String token;
-				while (st.hasMoreTokens()) {
-					token = st.nextToken();
-					if (token.trim().length() > 0) {
-						boolean containsTodoKeyword = ((LeafNode) argNode)
-								.getText().contains(token);
-						if ((singleLineComment || multiLineComment)
-								&& containsTodoKeyword) {
-							return token;
-						}
+			if (value == null) {
+				value = TodoTaskConfigurationBlock.DEFAULT_TASK_TAGS;
+				activatorProvider
+						.getActivator()
+						.getPreferenceStore()
+						.putValue(activatorProvider.getCompilerTaskTagsKey(),
+								value);
+			}
+			String caseSensitiveStr = activatorProvider
+					.getActivator()
+					.getPreferenceStore()
+					.getString(
+							activatorProvider.getCompilerTaskCaseSensitiveKey());
+			boolean caseSensitive = Boolean.valueOf(caseSensitiveStr);
+			StringTokenizer st = new StringTokenizer(value, ",");
+			String token;
+			while (st.hasMoreTokens()) {
+				token = st.nextToken();
+				if (token.trim().length() > 0) {
+					boolean containsTodoKeyword = containsToken(
+							((LeafNode) argNode).getText(), token,
+							caseSensitive);
+					if ((singleLineComment || multiLineComment)
+							&& containsTodoKeyword) {
+						return token;
 					}
 				}
 			}
 		}
 		return null;
+	}
+
+	protected boolean containsToken(String text, String token,
+			boolean caseSensitive) {
+		if (caseSensitive) {
+			return text.contains(token);
+		} else {
+			return text.toLowerCase().contains(token.toLowerCase());
+		}
 	}
 
 	protected TerminalRule getMultiLineCommentRule() {

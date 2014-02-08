@@ -20,6 +20,7 @@ import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.todo.ui.TodoTaskConfigurationBlock;
 import org.eclipse.xtext.todo.ui.TodoTaskInputDialog;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
@@ -47,7 +48,8 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
 			try {
 				visit(varRoot, varResource, argMonitor);
 			} catch (CoreException e) {
-				activatorProvider.getActivator()
+				activatorProvider
+						.getActivator()
 						.getLog()
 						.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
 								"Could not create marker", e));
@@ -74,10 +76,23 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
 		if (varIgnorePrefix != null) {
 			IMarker varMarker = argRresource.createMarker(getMarkerType());
 			String text = argNode.getText();
+			String caseSensitiveStr = activatorProvider
+					.getActivator()
+					.getPreferenceStore()
+					.getString(
+							activatorProvider.getCompilerTaskCaseSensitiveKey());
+			boolean caseSensitive = Boolean.valueOf(caseSensitiveStr)
+					.booleanValue();
 			// match from including varIgnorePrefix until end of line
-			Matcher matcher = Pattern.compile(
-					"(?s).*(" + varIgnorePrefix + ".*?)(\\r)?(\\n.*|\\Z)").matcher(
-					text);
+			String regex = "(?s).*(" + varIgnorePrefix
+					+ ".*?)(\\r)?(\\n.*|\\Z)";
+			Matcher matcher = null;
+			if (caseSensitive) {
+				matcher = Pattern.compile(regex).matcher(text);
+			} else {
+				matcher = Pattern.compile(regex, Pattern.CASE_INSENSITIVE)
+						.matcher(text);
+			}
 			if (matcher.matches()) {
 				text = matcher.group(1);
 			}
@@ -88,30 +103,49 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
 			varMarker.setAttribute(IMarker.CHAR_END, argNode.getOffset()
 					+ argNode.getLength());
 			varMarker.setAttribute(IMarker.USER_EDITABLE, false);
-			String tagsStr = activatorProvider.getActivator().getPreferenceStore()
+			String tagsStr = activatorProvider.getActivator()
+					.getPreferenceStore()
 					.getString(activatorProvider.getCompilerTaskTagsKey());
 			int priority = IMarker.PRIORITY_NORMAL;
 			if (tagsStr != null) {
+				if (!caseSensitive) {
+					tagsStr = tagsStr.toLowerCase();
+					varIgnorePrefix = varIgnorePrefix.toLowerCase();
+				}
 				List<String> tags = Arrays.asList(tagsStr.split(","));
 				int index = tags.indexOf(varIgnorePrefix);
 				if (index >= 0) {
-					String prioritiesStr = activatorProvider.getActivator()
+					String prioritiesStr = activatorProvider
+							.getActivator()
 							.getPreferenceStore()
-							.getString(activatorProvider.getCompilerTaskPrioritiesKey());
-					if (prioritiesStr != null) {
-						List<String> priorities = Arrays.asList(prioritiesStr
-								.split(","));
-						if (priorities.size() > index) {
-							String priorityStr = priorities.get(index);
-							if(TodoTaskInputDialog.COMPILER_TASK_PRIORITY_HIGH.equals(priorityStr)) {
-								priority = IMarker.PRIORITY_HIGH;
-							} else if(TodoTaskInputDialog.COMPILER_TASK_PRIORITY_NORMAL.equals(priorityStr)) {
-								priority = IMarker.PRIORITY_NORMAL;
-							} else if(TodoTaskInputDialog.COMPILER_TASK_PRIORITY_LOW.equals(priorityStr)) {
-								priority = IMarker.PRIORITY_LOW;
-							} else {
-								priority = IMarker.PRIORITY_NORMAL;
-							}
+							.getString(
+									activatorProvider
+											.getCompilerTaskPrioritiesKey());
+					if (prioritiesStr == null) {
+						prioritiesStr = TodoTaskConfigurationBlock.DEFAULT_TASK_PRIORITIES;
+						activatorProvider
+								.getActivator()
+								.getPreferenceStore()
+								.putValue(
+										activatorProvider
+												.getCompilerTaskPrioritiesKey(),
+										prioritiesStr);
+					}
+					List<String> priorities = Arrays.asList(prioritiesStr
+							.split(","));
+					if (priorities.size() > index) {
+						String priorityStr = priorities.get(index);
+						if (TodoTaskInputDialog.COMPILER_TASK_PRIORITY_HIGH
+								.equals(priorityStr)) {
+							priority = IMarker.PRIORITY_HIGH;
+						} else if (TodoTaskInputDialog.COMPILER_TASK_PRIORITY_NORMAL
+								.equals(priorityStr)) {
+							priority = IMarker.PRIORITY_NORMAL;
+						} else if (TodoTaskInputDialog.COMPILER_TASK_PRIORITY_LOW
+								.equals(priorityStr)) {
+							priority = IMarker.PRIORITY_LOW;
+						} else {
+							priority = IMarker.PRIORITY_NORMAL;
 						}
 					}
 				}

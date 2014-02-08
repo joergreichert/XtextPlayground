@@ -39,8 +39,8 @@ public abstract class TodoTaskConfigurationBlock extends OptionsConfigurationBlo
 	private static final String ENABLED= TodoTaskInputDialog.ENABLED;
 	private static final String DISABLED= TodoTaskInputDialog.DISABLED;
 	
-	private static final String DEFAULT_TASK_TAGS= "TODO, FIXME";
-	private static final String DEFAULT_TASK_PRIORITIES= "NORMAL, HIGH";
+	public static final String DEFAULT_TASK_TAGS= "TODO, FIXME";
+	public static final String DEFAULT_TASK_PRIORITIES= "NORMAL, HIGH";
 
 	public static class TodoTask {
 		public String name;
@@ -367,7 +367,7 @@ public abstract class TodoTaskConfigurationBlock extends OptionsConfigurationBlo
 	}
 	
 	protected abstract TodoTaskInputDialog getTodoTaskInputDialog(Shell parent, TodoTask task, List<TodoTask> existingEntries);
-
+	
 	@Override
 	protected Job getBuildJob(IProject project) {
 		Job buildJob = new OptionsConfigurationBlock.BuildJob("Rebuilding", project);
@@ -378,21 +378,21 @@ public abstract class TodoTaskConfigurationBlock extends OptionsConfigurationBlo
 	
 	protected Key getPrefCompilerTaskTagsKey() {
 		if(PREF_COMPILER_TASK_TAGS == null) {
-			PREF_COMPILER_TASK_TAGS = getJDTCoreKey(getCompilerTaskTagsKey());
+			PREF_COMPILER_TASK_TAGS = asKey(getCompilerTaskTagsKey());
 		}
 		return PREF_COMPILER_TASK_TAGS;
 	}
 	
 	protected Key getPrefCompilerTaskPrioritiesKey() {
 		if(PREF_COMPILER_TASK_PRIORITIES == null) {
-			PREF_COMPILER_TASK_PRIORITIES = getJDTCoreKey(getCompilerTaskPrioritiesKey());
+			PREF_COMPILER_TASK_PRIORITIES = asKey(getCompilerTaskPrioritiesKey());
 		}
 		return PREF_COMPILER_TASK_PRIORITIES;
 	}
 	
 	protected Key getPrefCompilerTaskCaseSensitiveKey() {
 		if(PREF_COMPILER_TASK_CASE_SENSITIVE == null) {
-			PREF_COMPILER_TASK_CASE_SENSITIVE = getJDTCoreKey(getCompilerTaskCaseSensitiveKey());
+			PREF_COMPILER_TASK_CASE_SENSITIVE = asKey(getCompilerTaskCaseSensitiveKey());
 		}
 		return PREF_COMPILER_TASK_CASE_SENSITIVE;
 	}
@@ -400,5 +400,7 @@ public abstract class TodoTaskConfigurationBlock extends OptionsConfigurationBlo
 	protected abstract String getCompilerTaskTagsKey();
 	protected abstract String getCompilerTaskPrioritiesKey();
 	protected abstract String getCompilerTaskCaseSensitiveKey();
+	
+	protected abstract Key asKey(String keyStr);
 }
 
