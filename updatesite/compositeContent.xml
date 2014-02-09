@@ -6,12 +6,14 @@
 	<properties size='2'>
 		<property name='p2.compressed' value='true' />
 		<!-- get new time w/ date +%s000 -->
-		<property name='p2.timestamp' value='1386537499692' />
+		<property name='p2.timestamp' value='1391986225284' />
 	</properties>
 	<children size='2'>
 		<child
 			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312082218.zip!/' />
 		<child
 			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312291423.zip!/' />
+		<child
+			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201402092350.zip!/' />
 	</children>
 </repository>
