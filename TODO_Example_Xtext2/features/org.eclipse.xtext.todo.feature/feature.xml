@@ -18,20 +18,6 @@
    </license>
 
    <plugin
-         id="org.eclipse.xtext.todo"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.xtext.todo.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.xtext.todo.fragment"
          download-size="0"
          install-size="0"
