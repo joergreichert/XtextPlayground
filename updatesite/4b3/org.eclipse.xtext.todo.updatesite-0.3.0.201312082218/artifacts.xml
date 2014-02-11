@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<repository name='org.eclipse.xtext.todo.updatesite Artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1386537499676'/>
+    <property name='p2.compressed' value='true'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='5'>
+    <artifact classifier='org.eclipse.update.feature' id='org.eclipse.xtext.todo.feature' version='0.3.0.201312082118'>
+      <properties size='4'>
+        <property name='artifact.size' value='2149'/>
+        <property name='download.size' value='2149'/>
+        <property name='download.md5' value='7b829cb8fa8727b576ad1ac8b7a89802'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.xtext.todo.ui' version='0.1.1.201205071151'>
+      <properties size='3'>
+        <property name='artifact.size' value='44096'/>
+        <property name='download.size' value='44096'/>
+        <property name='download.md5' value='246b266b9dc9ce04a0a8889eca9a701f'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.xtext.todo' version='0.3.0.201312082105'>
+      <properties size='3'>
+        <property name='artifact.size' value='121360'/>
+        <property name='download.size' value='121360'/>
+        <property name='download.md5' value='31156ad8922eb1ecab29c514410242e8'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.eclipse.xtext.todo.fragment' version='0.3.0.201312082105'>
+      <properties size='3'>
+        <property name='artifact.size' value='14646'/>
+        <property name='download.size' value='14646'/>
+        <property name='download.md5' value='5012fd43296a9299202fb27f5052f002'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.eclipse.xtext.todo.example.feature' version='0.3.0.201312082118'>
+      <properties size='4'>
+        <property name='artifact.size' value='2251'/>
+        <property name='download.size' value='2251'/>
+        <property name='download.md5' value='878e3cdfeb6ff33192c127bbad31aa88'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>

@@ -10,10 +10,10 @@
 	</properties>
 	<children size='3'>
 		<child
-			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312082218.zip!/' />
+			location='http://joergreichert.github.io/XtextPlayground/updatesite/4b3/org.eclipse.xtext.todo.updatesite-0.3.0.201312082218/' />
 		<child
-			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312291423.zip!/' />
+			location='http://joergreichert.github.io/XtextPlayground/updatesite/4b3/org.eclipse.xtext.todo.updatesite-0.3.0.201312291423/' />
 		<child
-			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201402092350.zip!/' />
+			location='http://joergreichert.github.io/XtextPlayground/updatesite/4b3/org.eclipse.xtext.todo.updatesite-0.3.0.201402092350/' />
 	</children>
 </repository>
