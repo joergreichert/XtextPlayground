@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:aggregator="http://www.eclipse.org/b3/2011/aggregator/1.1.0" label="TODO Fragment" buildRoot="D:/build">
+  <validationSets label="TODO Fragment">
+    <contributions label="TODO Fragment">
+      <repositories location="http://joergreichert.github.io/XtextPlayground/updatesite/4b3">
+        <features name="org.eclipse.xtext.todo.feature.feature.group" categories="//@customCategories[identifier='todo201402092350']"/>
+      </repositories>
+    </contributions>
+    <validationRepositories location="http://download.eclipse.org/releases/kepler"/>
+    <validationRepositories location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+    <validationRepositories location="http://download.itemis.com/updates/releases/2.1.0/"/>
+  </validationSets>
+  <configurations/>
+  <customCategories identifier="todo201402092350" label="Xtext Task Generator Fragment" features="//@validationSets[label='TODO%20Fragment']/@contributions[label='TODO%20Fragment']/@repositories.0/@features.0"/>
+</aggregator:Aggregation>

@@ -23,7 +23,7 @@ public class XtextTodoTest extends AbstractUITest {
 		createFolder(sourceFolder);
 		createFirstXtextFile(getProjectName(), sourceFolder, dslFile);
 		SWTBotEclipseEditor dslEditor = getBot().activeEditor().toTextEditor();
-		dslEditor.setText("// TODO change name!\nHallöchen Jörg!");
+		dslEditor.setText("// TODO change name!\nHallÃ¶chen JÃ¶rg!");
 		dslEditor.save();
 		openView("Tasks", "General");
 		SWTBotView view = getBot().viewById("org.eclipse.ui.views.TaskList");
