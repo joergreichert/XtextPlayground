@@ -232,16 +232,6 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 		}
 	}
 
-	protected void openView(String view, String... path) {
-		getBot().menu("Window").menu("Show View").menu("Other...").click();
-		getBot().shell("Show View").activate();
-		SWTBotTree tree = getBot().tree();
-		SWTBotTreeItem expandNode = tree.expandNode(path);
-		expandNode.select(view).click();
-		getBot().button("OK").click();
-		getBot().viewByTitle(view).show();
-	}
-
 	public void destroy() {
 		UIThreadRunnable.syncExec(new VoidResult() {
 			public void run() {
