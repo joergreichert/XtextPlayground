@@ -34,46 +34,48 @@ public class XtextTaskCalculator implements IXtextBuilderParticipant {
 
 	@Inject
 	@Named(Constants.FILE_EXTENSIONS)
-	private String dslFileExtension;
+	private String dslFileExtensions;
 
 	@Override
 	public void build(IBuildContext context, IProgressMonitor monitor)
 			throws CoreException {
 		for (IResourceDescription.Delta delta : context.getDeltas()) {
 			URI uri = delta.getUri();
-			if (dslFileExtension.equals(uri.fileExtension())) {
-				IResource resource;
-				if (uri.isPlatformResource()) {
-					IPath path = new Path(uri.toPlatformString(true));
-					resource = ResourcesPlugin.getWorkspace().getRoot()
-							.getFile(path);
-				} else {
-					IStatus status = new Status(IStatus.WARNING,
-							activatorProvider.getActivator().getBundle()
-									.getSymbolicName(), "Unexpected URI: "
-									+ uri);
-					Activator.getDefault().getLog().log(status);
-					continue;
-				}
+			for (String dslFileExtension : dslFileExtensions.split(",")) {
+				if (dslFileExtension.equals(uri.fileExtension())) {
+					IResource resource;
+					if (uri.isPlatformResource()) {
+						IPath path = new Path(uri.toPlatformString(true));
+						resource = ResourcesPlugin.getWorkspace().getRoot()
+								.getFile(path);
+					} else {
+						IStatus status = new Status(IStatus.WARNING,
+								activatorProvider.getActivator().getBundle()
+										.getSymbolicName(), "Unexpected URI: "
+										+ uri);
+						Activator.getDefault().getLog().log(status);
+						continue;
+					}
 
-				if (resource.exists()) {
-					resource.deleteMarkers(MarkerCreator.getMarkerType(), true,
-							IResource.DEPTH_INFINITE);
-				}
+					if (resource.exists()) {
+						resource.deleteMarkers(MarkerCreator.getMarkerType(),
+								true, IResource.DEPTH_INFINITE);
+					}
 
-				XtextResource xtextResource = (XtextResource) xtextResourceFactory
-						.createResource(delta.getUri());
-				try {
-					xtextResource.load(Collections.EMPTY_MAP);
-					new MarkerCreator(resource, objElementChecker,
-							activatorProvider, monitor).exec(xtextResource);
-				} catch (IOException e) {
-					IStatus status = new Status(IStatus.ERROR,
-							activatorProvider.getActivator().getBundle()
-									.getSymbolicName(),
-							"Could not create marker for Xtext resource "
-									+ delta.getUri(), e);
-					Activator.getDefault().getLog().log(status);
+					XtextResource xtextResource = (XtextResource) xtextResourceFactory
+							.createResource(delta.getUri());
+					try {
+						xtextResource.load(Collections.EMPTY_MAP);
+						new MarkerCreator(resource, objElementChecker,
+								activatorProvider, monitor).exec(xtextResource);
+					} catch (IOException e) {
+						IStatus status = new Status(IStatus.ERROR,
+								activatorProvider.getActivator().getBundle()
+										.getSymbolicName(),
+								"Could not create marker for Xtext resource "
+										+ delta.getUri(), e);
+						Activator.getDefault().getLog().log(status);
+					}
 				}
 			}
 		}

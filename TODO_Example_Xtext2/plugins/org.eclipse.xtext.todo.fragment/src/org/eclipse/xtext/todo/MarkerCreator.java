@@ -8,12 +8,15 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.BidiIterator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -76,11 +79,19 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
 		if (varIgnorePrefix != null) {
 			IMarker varMarker = argRresource.createMarker(getMarkerType());
 			String text = argNode.getText();
+			IScopeContext projectScope = new ProjectScope(
+					argRresource.getProject());
+			IEclipsePreferences todoPreferences = projectScope
+					.getNode(activatorProvider.getActivator().getBundle()
+							.getSymbolicName());
 			String caseSensitiveStr = activatorProvider
 					.getActivator()
 					.getPreferenceStore()
 					.getString(
 							activatorProvider.getCompilerTaskCaseSensitiveKey());
+			caseSensitiveStr = todoPreferences.get(
+					activatorProvider.getCompilerTaskCaseSensitiveKey(),
+					caseSensitiveStr);
 			boolean caseSensitive = Boolean.valueOf(caseSensitiveStr)
 					.booleanValue();
 			// match from including varIgnorePrefix until end of line
@@ -106,6 +117,8 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
 			String tagsStr = activatorProvider.getActivator()
 					.getPreferenceStore()
 					.getString(activatorProvider.getCompilerTaskTagsKey());
+			tagsStr = todoPreferences.get(
+					activatorProvider.getCompilerTaskTagsKey(), tagsStr);
 			int priority = IMarker.PRIORITY_NORMAL;
 			if (tagsStr != null) {
 				if (!caseSensitive) {
@@ -121,6 +134,9 @@ public class MarkerCreator implements IUnitOfWork<Void, XtextResource> {
 							.getString(
 									activatorProvider
 											.getCompilerTaskPrioritiesKey());
+					prioritiesStr = todoPreferences.get(
+							activatorProvider.getCompilerTaskPrioritiesKey(),
+							prioritiesStr);
 					if (prioritiesStr == null) {
 						prioritiesStr = TodoTaskConfigurationBlock.DEFAULT_TASK_PRIORITIES;
 						activatorProvider
