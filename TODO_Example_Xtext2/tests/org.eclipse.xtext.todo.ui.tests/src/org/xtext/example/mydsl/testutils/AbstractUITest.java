@@ -2,6 +2,9 @@ package org.xtext.example.mydsl.testutils;
 
 import java.util.Arrays;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -231,6 +234,58 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 			bot.waitUntil(Conditions.waitForEditor(withPartName));
 		}
 	}
+	
+	protected void openTaskTagsPreferencePageForDsl(String dslName) {
+		getBot().menu("Window").menu("Preferences").click();
+		getBot().waitUntil(Conditions.shellIsActive("Preferences"));
+		navigateToTaskTagsPage(dslName);
+	}
+
+	protected void openTaskTagsPropertiesPageForDsl(String dslName) {
+		SWTBotTreeItem projectNode = selectFolderNode(getProjectName());
+		projectNode.contextMenu("Properties").click();
+		getBot().waitUntil(Conditions.shellIsActive("Properties for " + getProjectName()));
+		navigateToTaskTagsPage(dslName);
+		bot.checkBox().select();
+	}
+	
+	protected void addNewTaskEntry(String taskStr, String priorityStr) {
+		bot.button("&New...").click();
+		bot.text().setText(taskStr);
+		bot.comboBox().setSelection(priorityStr);
+		bot.button("OK").click();
+		bot.button("OK").click();
+	}
+
+	protected void changeTaskEntryPriority(String taskStr, String priorityStr) {
+		bot.table().select(taskStr);
+		bot.button("&Edit...").click();
+		bot.comboBox().setSelection(priorityStr);
+		bot.button("OK").click();
+		bot.button("OK").click();
+	}
+
+	protected void changeTaskEntryNameAndPriority(String oldTaskStr, String newTaskStr, String priorityStr) {
+		bot.table().select(oldTaskStr);
+		bot.button("&Edit...").click();
+		bot.text().setText(newTaskStr);
+		bot.comboBox().setSelection(priorityStr);
+		bot.button("OK").click();
+		bot.button("OK").click();
+	}
+
+	protected void changeTaskEntryName(String oldTaskStr, String newTaskStr) {
+		bot.table().select(oldTaskStr);
+		bot.button("&Edit...").click();
+		bot.text().setText(newTaskStr);
+		bot.button("OK").click();
+		bot.button("OK").click();
+	}
+
+	private void navigateToTaskTagsPage(String dslName) {
+		SWTBot bot = (SWTBot) getBot().activeShell().bot();
+		bot.tree().expandNode(dslName, "Compiler", "Task Tags").select();
+	}
 
 	public void destroy() {
 		UIThreadRunnable.syncExec(new VoidResult() {
@@ -261,6 +316,24 @@ public abstract class AbstractUITest extends SWTBotEclipseTestCase {
 					+ e);
 		}
 	}
+	
+	protected void waitForAutoBuild() {
+		boolean wasInterrupted = false;
+		do {
+			try {
+				Job[] foundJobs = Job.getJobManager().find(ResourcesPlugin.FAMILY_AUTO_BUILD);
+				if (foundJobs.length > 0) {
+					Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD,
+							null);
+				}
+				wasInterrupted = false;
+			} catch (OperationCanceledException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				wasInterrupted = true;
+			}
+		} while (wasInterrupted);
+	}	
 
 	@After
 	public void tearDown() throws Exception {
