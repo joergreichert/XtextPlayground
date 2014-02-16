@@ -1,19 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <?compositeArtifactRepository version='1.0.0'?>
-<repository name='Xtext TODO Marker Fragment Update Site'
+<repository name='Xtext Task Tags Generator Fragment Update Site'
 	type='org.eclipse.equinox.internal.p2.artifact.repository.CompositeArtifactRepository'
 	version='1.0.0'>
 	<properties size='2'>
 		<property name='p2.compressed' value='true' />
 		<!-- get new time w/ date +%s000 -->
-		<property name='p2.timestamp' value='1391986225284' />
+		<property name='p2.timestamp' value='1392558786422' />
 	</properties>
-	<children size='3'>
+	<children size='4'>
 		<child
 			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312082218.zip!/' />
 		<child
 			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201312291423.zip!/' />
 		<child
 			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201402092350.zip!/' />
+		<child
+			location='jar:http://joergreichert.github.io/XtextPlayground/updatesite/org.eclipse.xtext.todo.updatesite-0.3.0.201402161349.zip!/' />
 	</children>
 </repository>
