@@ -2,15 +2,15 @@ TargetDefinition "Xtext TODO Platform - Eclipse 4.3"
 	targetFile = org.eclipse.xtext.todo.targetplatform
 
 	"Kepler" http://download.eclipse.org/releases/kepler {
-		org.eclipse.sdk 4.3.1.v20130911-1000,
-		org.eclipse.pde 3.9.1.v20130911-1000,
-		org.eclipse.swt noFeature 3.102.1.v20130827-2021
+		org.eclipse.sdk 4.3.2.v20140221-1852,
+		org.eclipse.pde 3.9.1.v20140221-1700,
+		org.eclipse.swt noFeature 3.102.1.v20140206-1334
 	}
 
 	"Xtext & Xtend" http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/ {
 		org.eclipse.emf.sdk 2.9.2.v20140203-1126,
-		org.eclipse.xtext.sdk 2.5.2.v201402120812,
-		org.eclipse.xtend.sdk 2.5.2.v201402120812,
+		org.eclipse.xtext.sdk 2.5.3.v201402240820,
+		org.eclipse.xtend.sdk 2.5.3.v201402240820,
 		org.eclipse.emf.mwe2.language.sdk 2.5.1.v201402030750,
 		org.eclipse.emf.mwe2.runtime.sdk 2.5.1.v201402030544
 	}
@@ -25,6 +25,6 @@ TargetDefinition "Xtext TODO Platform - Eclipse 4.3"
 	}
 	
 	"SWTBot" http://download.eclipse.org/technology/swtbot/releases/latest/ {
-		org.eclipse.swtbot.eclipse 2.2.0.201401081015,
-		org.eclipse.swtbot.eclipse.gef 2.2.0.201401081015
+		org.eclipse.swtbot.eclipse 2.2.1.201402241301,
+		org.eclipse.swtbot.eclipse.gef 2.2.1.201402241301
 	}	
