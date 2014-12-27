@@ -30,7 +30,7 @@
     <setupTask
         xsi:type="setup:EclipseIniTask"
         option="-Doomph.redirection.xtext.playground.setup"
-        value="=https://raw.githubusercontent.com/joergreichert/XtextPlayground/${scope.project.stream.name}/releng/de.abg.jreichert.repositorytarget.config.parent/oomph.setup->${git.clone.rtg.location|uri}/releng/org.eclipse.xtext.todo.config.parent/oomph.setup"
+        value="=https://raw.githubusercontent.com/joergreichert/XtextPlayground/${scope.project.stream.name}/releng/org.eclipse.xtext.todo.config.parent/oomph.setup->${git.clone.todo.location|uri}/releng/org.eclipse.xtext.todo.config.parent/oomph.setup"
         vm="true">
       <description>redirect changes to Oomph configuration triggered within the Eclipse instance to the setup file within the locally cloned repository, so it can be checked in</description>
     </setupTask>
