@@ -1782,7 +1782,7 @@
   </setupTask>
   <stream name="master"/>
   <logicalProjectContainer
-      xsi:type="setup:ProjectCatalog"
-      href="index:/org.eclipse.setup#//@projectCatalogs[name='com.github']"/>
+      xsi:type="setup:Project"
+      href="index:/org.eclipse.setup#//@projectCatalogs[name='org.eclipse']/@projects[name='GitHubContainer']"/>
   <description>Playground for Xtext</description>
 </setup:Project>
