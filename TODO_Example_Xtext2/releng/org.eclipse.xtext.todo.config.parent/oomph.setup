@@ -81,8 +81,7 @@
         label="TMF Xtext Releases"
         licenseConfirmationDisabled="true">
       <requirement
-          name="org.eclipse.emf.sdk.feature.group"
-          versionRange="[2.9.0,2.10.0)"/>
+          name="org.eclipse.emf.sdk.feature.group"/>
       <requirement
           name="org.eclipse.xtext.sdk.feature.group"
           versionRange="[2.5.0,2.6.0)"/>
@@ -1652,8 +1651,7 @@
       <requirement
           name="org.eclipse.sdk.feature.group"/>
       <requirement
-          name="org.eclipse.emf.sdk.feature.group"
-          versionRange="[2.9.0,2.10.0)"/>
+          name="org.eclipse.emf.sdk.feature.group"/>
       <requirement
           name="org.eclipse.xtext.sdk.feature.group"
           versionRange="[2.5.0,2.6.0)"/>
@@ -1676,37 +1674,9 @@
       <sourceLocator
           rootFolder="${git.clone.todo.location}"/>
       <repositoryList
-          name="Mars">
-        <repository
-            url="http://download.eclipse.org/eclipse/updates/4.5milestones"/>
-        <repository
-            url="http://download.eclipse.org/modeling/emf/emf/updates/releases/"/>
-        <repository
-            url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
-        <repository
-            url="http://download.itemis.com/updates/releases/2.1.1/"/>
-        <repository
-            url="http://www.xpect-tests.org/updatesite/nightly/"/>
-        <repository
-            url="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
-      </repositoryList>
-      <repositoryList
-          name="Luna">
-        <repository
-            url="http://download.eclipse.org/eclipse/updates/4.4"/>
-        <repository
-            url="http://download.eclipse.org/modeling/emf/emf/updates/releases/"/>
-        <repository
-            url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
-        <repository
-            url="http://download.itemis.com/updates/releases/2.1.1/"/>
-        <repository
-            url="http://www.xpect-tests.org/updatesite/nightly/"/>
-        <repository
-            url="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
-      </repositoryList>
-      <repositoryList
           name="Kepler">
+ 	    <repository
+            url="http://download.eclipse.org/releases/kepler"/>
         <repository
             url="http://download.eclipse.org/eclipse/updates/4.3"/>
         <repository
@@ -1722,6 +1692,8 @@
       </repositoryList>
       <repositoryList
           name="Juno">
+ 	    <repository
+            url="http://download.eclipse.org/releases/juno"/>
         <repository
             url="http://download.eclipse.org/eclipse/updates/4.2"/>
         <repository
