@@ -36,317 +36,305 @@ import org.junit.Assert;
 import org.junit.Before;
 
 public abstract class AbstractUITest extends SWTBotEclipseTestCase {
-	private static final String NEW = "New";
-	private static final String FILE_MENU = "File";
-	private static final int ONE_SECOND = 1000;
-	private static final int TWO_MINUTES = 120 * ONE_SECOND;
-	private SimpleProjectWizardTestHelper wizardTestHelper = null;
+    private static final String NEW = "New";
+    private static final String FILE_MENU = "File";
+    private static final int ONE_SECOND = 1000;
+    private static final int TWO_MINUTES = 120 * ONE_SECOND;
+    private SimpleProjectWizardTestHelper wizardTestHelper = null;
 
-	@Before
-	public void setUp() throws Exception {
-		SWTBotView view = getBot().activeView();
-		if (view != null && view.getTitle().equals("Welcome")) {
-			view.close();
-		}
-	}
+    @Override
+    @Before
+    public void setUp() throws Exception {
+        SWTBotView view = getBot().activeView();
+        if (view != null && view.getTitle().equals("Welcome")) {
+            view.close();
+        }
+    }
 
-	protected SWTWorkbenchBot getBot() {
-		return bot;
-	}
+    protected SWTWorkbenchBot getBot() {
+        return bot;
+    }
 
-	protected SimpleProjectWizardTestHelper getWizardTestHelper() {
-		if (wizardTestHelper == null) {
-			wizardTestHelper = new SimpleProjectWizardTestHelper(getBot());
-		}
-		return wizardTestHelper;
-	}
+    protected SimpleProjectWizardTestHelper getWizardTestHelper() {
+        if (wizardTestHelper == null) {
+            wizardTestHelper = new SimpleProjectWizardTestHelper(getBot());
+        }
+        return wizardTestHelper;
+    }
 
-	protected void createNewProject() {
-		SWTBotShell shell = startCreateNewProject("General", "Project");
-		executeProjectWizard(shell);
-		finishWizard(shell);
-	}
+    protected void createNewProject() {
+        SWTBotShell shell = startCreateNewProject("General", "Project");
+        executeProjectWizard(shell);
+        finishWizard(shell);
+    }
 
-	protected void openPerspective(final String perspectiveLabel) {
-		final SWTBotPerspective perspective = getBot().perspectiveByLabel(
-				perspectiveLabel);
-		Assert.assertNotNull(perspectiveLabel + "Perspective", perspective);
-		perspective.activate();
-		getBot().waitUntil(new DefaultCondition() {
+    protected void openPerspective(final String perspectiveLabel) {
+        final SWTBotPerspective perspective = getBot().perspectiveByLabel(perspectiveLabel);
+        Assert.assertNotNull(perspectiveLabel + "Perspective", perspective);
+        perspective.activate();
+        getBot().waitUntil(new DefaultCondition() {
 
-			public boolean test() {
-				return perspective.isActive();
-			}
+            public boolean test() {
+                return perspective.isActive();
+            }
 
-			public String getFailureMessage() {
-				return "Perspective '" + perspectiveLabel
-						+ "' was not activated";
-			}
-		});
-		getBot().waitUntil(new DefaultCondition() {
+            public String getFailureMessage() {
+                return "Perspective '" + perspectiveLabel + "' was not activated";
+            }
+        });
+        getBot().waitUntil(new DefaultCondition() {
 
-			public boolean test() throws Exception {
-				return getBot().activeShell() != null;
-			}
+            public boolean test() throws Exception {
+                return getBot().activeShell() != null;
+            }
 
-			public String getFailureMessage() {
-				return "No active shell not found";
-			}
-		});
-	}
+            public String getFailureMessage() {
+                return "No active shell not found";
+            }
+        });
+    }
 
-	protected void executeProjectWizard(SWTBotShell shell) {
-		getWizardTestHelper().setText(0, getProjectName());
-	}
+    protected void executeProjectWizard(SWTBotShell shell) {
+        getWizardTestHelper().setText(0, getProjectName());
+    }
 
-	protected void finishWizard(SWTBotShell shell) {
-		getBot().button("Finish").click();
-		getBot().waitUntil(Conditions.shellCloses(shell), TWO_MINUTES);
-	}
+    protected void finishWizard(SWTBotShell shell) {
+        getBot().button("Finish").click();
+        getBot().waitUntil(Conditions.shellCloses(shell), TWO_MINUTES);
+    }
 
-	protected SWTBotShell startCreateNewProject(String... path) {
-		SWTBot bot = (SWTBot) getBot().activeShell().bot();
-		SWTBotMenu fileMenu = bot.menu(FILE_MENU);
-		SWTBotShell shell = null;
-		if (fileMenu == null) {
-			getBot().activeShell().pressShortcut(SWT.CTRL, 'N');
-			bot.waitUntil(Conditions.shellIsActive(NEW));
-			shell = bot.shell(NEW);
-			shell.activate();
-		} else {
-			Assert.assertNotNull("fileMenu", fileMenu);
-			SWTBotMenu newMenu = fileMenu.menu(NEW);
-			Assert.assertNotNull("newMenu", newMenu);
-			final SWTBotMenu projectMenu = newMenu.menu("Project...");
-			Assert.assertNotNull("projectMenu", projectMenu);
-			// SWTBot JUnit tests have to be run as non-UI JUnit tests, as otherwise projectMenu.click() hangs
-			// see http://osdir.com/ml/java.swtbot.user/2008-05/msg00014.html
-			projectMenu.click();
-			bot.waitUntil(Conditions.shellIsActive("New Project"));
-			shell = bot.shell("New Project");
-			shell.activate();
-		}
-		bot = shell.bot();
-		bot.tree().expandNode(path).select();
-		// press "Next >"
-		bot.button("Next >").click();
-		return shell;
-	}
+    protected SWTBotShell startCreateNewProject(String... path) {
+        SWTBot bot = getBot().activeShell().bot();
+        SWTBotMenu fileMenu = bot.menu(FILE_MENU);
+        SWTBotShell shell = null;
+        if (fileMenu == null) {
+            getBot().activeShell().pressShortcut(SWT.CTRL, 'N');
+            bot.waitUntil(Conditions.shellIsActive(NEW));
+            shell = bot.shell(NEW);
+            shell.activate();
+        } else {
+            Assert.assertNotNull("fileMenu", fileMenu);
+            SWTBotMenu newMenu = fileMenu.menu(NEW);
+            Assert.assertNotNull("newMenu", newMenu);
+            final SWTBotMenu projectMenu = newMenu.menu("Project...");
+            Assert.assertNotNull("projectMenu", projectMenu);
+            // SWTBot JUnit tests have to be run as non-UI JUnit tests, as otherwise projectMenu.click() hangs
+            // see http://osdir.com/ml/java.swtbot.user/2008-05/msg00014.html
+            projectMenu.click();
+            bot.waitUntil(Conditions.shellIsActive("New Project"));
+            shell = bot.shell("New Project");
+            shell.activate();
+        }
+        bot = shell.bot();
+        bot.tree().expandNode(path).select();
+        // press "Next >"
+        bot.button("Next >").click();
+        return shell;
+    }
 
-	protected SWTBotTreeItem selectFolderNode(String... folder) {
-		SWTBotView packageExplorer = getBot().viewByTitle("Package Explorer");
-		SWTBotTree treeViewer = packageExplorer.bot().tree();
-		return openNodePathFromTree(treeViewer, folder).select();
-	}
+    protected SWTBotTreeItem selectFolderNode(String... folder) {
+        SWTBotView packageExplorer = getBot().viewByTitle("Package Explorer");
+        SWTBotTree treeViewer = packageExplorer.bot().tree();
+        return openNodePathFromTree(treeViewer, folder).select();
+    }
 
-	protected SWTBotTreeItem openNodePathFromTree(SWTBotTree treeViewer,
-			String... path) {
-		int length = path.length;
-		SWTBotTreeItem item = null;
-		if (length > 0) {
-			SWTBotTreeItem rootItem = getNodeUnderTree(treeViewer, path[0]);
-			String[] childPath = Arrays.copyOfRange(path, 1, length);
-			item = openNodePathFromNode(rootItem, childPath);
-		}
-		return item;
-	}
+    protected SWTBotTreeItem openNodePathFromTree(SWTBotTree treeViewer, String... path) {
+        int length = path.length;
+        SWTBotTreeItem item = null;
+        if (length > 0) {
+            SWTBotTreeItem rootItem = getNodeUnderTree(treeViewer, path[0]);
+            String[] childPath = Arrays.copyOfRange(path, 1, length);
+            item = openNodePathFromNode(rootItem, childPath);
+        }
+        return item;
+    }
 
-	protected SWTBotTreeItem openNodePathFromNode(SWTBotTreeItem startItem,
-			String... path) {
-		return openNode(startItem, path, 0, path.length);
-	}
+    protected SWTBotTreeItem openNodePathFromNode(SWTBotTreeItem startItem, String... path) {
+        return openNode(startItem, path, 0, path.length);
+    }
 
-	private SWTBotTreeItem openNode(SWTBotTreeItem item, String[] path, int i,
-			int max) {
-		SWTBotTreeItem node = null;
-		if (i < max) {
-			SWTBotTreeItem childItem = expandParentNodeAndGetChildNode(item,
-					path[i]);
-			node = openNode(childItem, path, i + 1, max);
-		} else {
-			node = item;
-		}
-		return node;
-	}
+    private SWTBotTreeItem openNode(SWTBotTreeItem item, String[] path, int i, int max) {
+        SWTBotTreeItem node = null;
+        if (i < max) {
+            SWTBotTreeItem childItem = expandParentNodeAndGetChildNode(item, path[i]);
+            node = openNode(childItem, path, i + 1, max);
+        } else {
+            node = item;
+        }
+        return node;
+    }
 
-	protected SWTBotTreeItem getNodeUnderTree(SWTBotTree tree,
-			String childNodeName) {
-		return tree.getTreeItem(childNodeName);
-	}
+    protected SWTBotTreeItem getNodeUnderTree(SWTBotTree tree, String childNodeName) {
+        return tree.getTreeItem(childNodeName);
+    }
 
-	protected SWTBotTreeItem expandParentNodeAndGetChildNode(
-			SWTBotTreeItem parentNode, String childNodeName) {
-		expandNode(parentNode);
-		return parentNode.getNode(childNodeName);
-	}
+    protected SWTBotTreeItem expandParentNodeAndGetChildNode(SWTBotTreeItem parentNode, String childNodeName) {
+        expandNode(parentNode);
+        return parentNode.getNode(childNodeName);
+    }
 
-	protected void expandNode(SWTBotTreeItem item) {
-		item.expand();
-		getBot().sleep(ONE_SECOND);
-	}
+    protected void expandNode(SWTBotTreeItem item) {
+        item.expand();
+        getBot().sleep(ONE_SECOND);
+    }
 
-	protected void createSourceFolder(String sourceFolder) {
-		createFolder(sourceFolder, "Source Folder");
-	}
+    protected void createSourceFolder(String sourceFolder) {
+        createFolder(sourceFolder, "Source Folder");
+    }
 
-	protected void createFolder(String folder) {
-		createFolder(folder, "Folder");
-	}
+    protected void createFolder(String folder) {
+        createFolder(folder, "Folder");
+    }
 
-	private void createFolder(String folder, String folderLabel) {
-		SWTBotMenu newMenu = getBot().menu(FILE_MENU).menu(NEW);
-		if (newMenu == null) {
-			getBot().activeShell().pressShortcut(SWT.ALT | SWT.SHIFT, 'R');
-		}
-		SWTBotMenu folderMenu = newMenu.menu(folderLabel);
-		folderMenu.click();
-		getBot().waitUntil(Conditions.shellIsActive("New " + folderLabel));
-		getWizardTestHelper().setText(1, folder);
-		finishWizard(getBot().activeShell());
-	}
+    private void createFolder(String folder, String folderLabel) {
+        SWTBotMenu newMenu = getBot().menu(FILE_MENU).menu(NEW);
+        if (newMenu == null) {
+            getBot().activeShell().pressShortcut(SWT.ALT | SWT.SHIFT, 'R');
+        }
+        if (newMenu != null) {
+            SWTBotMenu folderMenu = newMenu.menu(folderLabel);
+            folderMenu.click();
+            getBot().waitUntil(Conditions.shellIsActive("New " + folderLabel));
+            getWizardTestHelper().setText(1, folder);
+            finishWizard(getBot().activeShell());
+        }
+    }
 
-	protected void createFile(String... segments) {
-		int count = segments.length - 1;
-		if (count < 2) {
-			throw new IllegalArgumentException(
-					"To create file at least one folder and one file have to be passed.");
-		}
-		String[] pathSegements = new String[count];
-		System.arraycopy(segments, 0, pathSegements, 0, count);
-		String fileSegment = segments[count];
-		selectFolderNode(pathSegements);
-		getBot().menu(NEW).menu(FILE_MENU).click();
-		getBot().waitUntil(Conditions.shellIsActive("New File"));
-		getWizardTestHelper().setText(1, fileSegment);
-		getBot().button("Finish").click();
-	}
+    protected void createFile(String... segments) {
+        int count = segments.length - 1;
+        if (count < 2) {
+            throw new IllegalArgumentException("To create file at least one folder and one file have to be passed.");
+        }
+        String[] pathSegements = new String[count];
+        System.arraycopy(segments, 0, pathSegements, 0, count);
+        String fileSegment = segments[count];
+        selectFolderNode(pathSegements);
+        getBot().menu(NEW).menu(FILE_MENU).click();
+        getBot().waitUntil(Conditions.shellIsActive("New File"));
+        getWizardTestHelper().setText(1, fileSegment);
+        getBot().button("Finish").click();
+    }
 
-	protected void createFirstXtextFile(String projectName,
-			String sourceFolder, String dslFile) {
-		createFile(projectName, sourceFolder, dslFile);
-		getBot().waitUntil(Conditions.shellIsActive("Add Xtext Nature"));
-		getBot().button(0).click();
-		Matcher<IEditorReference> withPartName = WithPartName
-				.withPartName(Matchers.containsString(dslFile));
-		try {
-			bot.waitUntil(Conditions.waitForEditor(withPartName));
-		} catch (TimeoutException toe) {
-			bot.waitUntil(Conditions.waitForEditor(withPartName));
-		}
-	}
-	
-	protected void openTaskTagsPreferencePageForDsl(String dslName) {
-		getBot().menu("Window").menu("Preferences").click();
-		getBot().waitUntil(Conditions.shellIsActive("Preferences"));
-		navigateToTaskTagsPage(dslName);
-	}
+    protected void createFirstXtextFile(String projectName, String sourceFolder, String dslFile) {
+        createFile(projectName, sourceFolder, dslFile);
+        getBot().waitUntil(Conditions.shellIsActive("Add Xtext Nature"));
+        getBot().button(0).click();
+        Matcher<IEditorReference> withPartName = WithPartName.withPartName(Matchers.containsString(dslFile));
+        try {
+            bot.waitUntil(Conditions.waitForEditor(withPartName));
+        } catch (TimeoutException toe) {
+            bot.waitUntil(Conditions.waitForEditor(withPartName));
+        }
+    }
 
-	protected void openTaskTagsPropertiesPageForDsl(String dslName) {
-		SWTBotTreeItem projectNode = selectFolderNode(getProjectName());
-		projectNode.contextMenu("Properties").click();
-		getBot().waitUntil(Conditions.shellIsActive("Properties for " + getProjectName()));
-		navigateToTaskTagsPage(dslName);
-		bot.checkBox().select();
-	}
-	
-	protected void addNewTaskEntry(String taskStr, String priorityStr) {
-		bot.button("&New...").click();
-		bot.text().setText(taskStr);
-		bot.comboBox().setSelection(priorityStr);
-		bot.button("OK").click();
-		bot.button("OK").click();
-	}
+    protected void openTaskTagsPreferencePageForDsl(String dslName) {
+        getBot().menu("Window").menu("Preferences").click();
+        getBot().waitUntil(Conditions.shellIsActive("Preferences"));
+        navigateToTaskTagsPage(dslName);
+    }
 
-	protected void changeTaskEntryPriority(String taskStr, String priorityStr) {
-		bot.table().select(taskStr);
-		bot.button("&Edit...").click();
-		bot.comboBox().setSelection(priorityStr);
-		bot.button("OK").click();
-		bot.button("OK").click();
-	}
+    protected void openTaskTagsPropertiesPageForDsl(String dslName) {
+        SWTBotTreeItem projectNode = selectFolderNode(getProjectName());
+        projectNode.contextMenu("Properties").click();
+        getBot().waitUntil(Conditions.shellIsActive("Properties for " + getProjectName()));
+        navigateToTaskTagsPage(dslName);
+        bot.checkBox().select();
+    }
 
-	protected void changeTaskEntryNameAndPriority(String oldTaskStr, String newTaskStr, String priorityStr) {
-		bot.table().select(oldTaskStr);
-		bot.button("&Edit...").click();
-		bot.text().setText(newTaskStr);
-		bot.comboBox().setSelection(priorityStr);
-		bot.button("OK").click();
-		bot.button("OK").click();
-	}
+    protected void addNewTaskEntry(String taskStr, String priorityStr) {
+        bot.button("&New...").click();
+        bot.text().setText(taskStr);
+        bot.comboBox().setSelection(priorityStr);
+        bot.button("OK").click();
+        bot.button("OK").click();
+    }
 
-	protected void changeTaskEntryName(String oldTaskStr, String newTaskStr) {
-		bot.table().select(oldTaskStr);
-		bot.button("&Edit...").click();
-		bot.text().setText(newTaskStr);
-		bot.button("OK").click();
-		bot.button("OK").click();
-	}
+    protected void changeTaskEntryPriority(String taskStr, String priorityStr) {
+        bot.table().select(taskStr);
+        bot.button("&Edit...").click();
+        bot.comboBox().setSelection(priorityStr);
+        bot.button("OK").click();
+        bot.button("OK").click();
+    }
 
-	private void navigateToTaskTagsPage(String dslName) {
-		SWTBot bot = (SWTBot) getBot().activeShell().bot();
-		bot.tree().expandNode(dslName, "Compiler", "Task Tags").select();
-	}
+    protected void changeTaskEntryNameAndPriority(String oldTaskStr, String newTaskStr, String priorityStr) {
+        bot.table().select(oldTaskStr);
+        bot.button("&Edit...").click();
+        bot.text().setText(newTaskStr);
+        bot.comboBox().setSelection(priorityStr);
+        bot.button("OK").click();
+        bot.button("OK").click();
+    }
 
-	public void destroy() {
-		UIThreadRunnable.syncExec(new VoidResult() {
-			public void run() {
-				resetWorkbench();
-			}
-		});
-	}
+    protected void changeTaskEntryName(String oldTaskStr, String newTaskStr) {
+        bot.table().select(oldTaskStr);
+        bot.button("&Edit...").click();
+        bot.text().setText(newTaskStr);
+        bot.button("OK").click();
+        bot.button("OK").click();
+    }
 
-	private void resetWorkbench() {
-		try {
-			IWorkbench workbench = PlatformUI.getWorkbench();
-			IWorkbenchWindow workbenchWindow = workbench
-					.getActiveWorkbenchWindow();
-			IWorkbenchPage page = workbenchWindow.getActivePage();
-			Shell activeShell = Display.getCurrent().getActiveShell();
-			if (activeShell != null
-					&& activeShell != workbenchWindow.getShell()) {
-				activeShell.close();
-			}
-			page.closeAllEditors(false);
-			String defaultPerspectiveId = workbench.getPerspectiveRegistry()
-					.getDefaultPerspective();
-			workbench.showPerspective(defaultPerspectiveId, workbenchWindow);
-			page.resetPerspective();
-		} catch (WorkbenchException e) {
-			throw new IllegalStateException("Workbench could not be reset:\n"
-					+ e);
-		}
-	}
-	
-	protected void waitForAutoBuild() {
-		boolean wasInterrupted = false;
-		do {
-			try {
-				Job[] foundJobs = Job.getJobManager().find(ResourcesPlugin.FAMILY_AUTO_BUILD);
-				if (foundJobs.length > 0) {
-					Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD,
-							null);
-				}
-				wasInterrupted = false;
-			} catch (OperationCanceledException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				wasInterrupted = true;
-			}
-		} while (wasInterrupted);
-	}	
+    private void navigateToTaskTagsPage(String dslName) {
+        SWTBot bot = getBot().activeShell().bot();
+        bot.tree().expandNode(dslName, "Compiler", "Task Tags").select();
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		// SWTBotTreeItem projectNode = selectFolderNode(getProjectName());
-		// projectNode.contextMenu("Delete");
-		// try {
-		// bot.checkBox().select();
-		// bot.button("OK").click();
-		// } catch(WidgetNotFoundException e) {
-		// e.printStackTrace();
-		// }
-		destroy();
-	}
+    public void destroy() {
+        UIThreadRunnable.syncExec(new VoidResult() {
+            public void run() {
+                resetWorkbench();
+            }
+        });
+    }
 
-	protected abstract String getProjectName();
+    private void resetWorkbench() {
+        try {
+            IWorkbench workbench = PlatformUI.getWorkbench();
+            IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+            IWorkbenchPage page = workbenchWindow.getActivePage();
+            Shell activeShell = Display.getCurrent().getActiveShell();
+            if (activeShell != null && activeShell != workbenchWindow.getShell()) {
+                activeShell.close();
+            }
+            page.closeAllEditors(false);
+            String defaultPerspectiveId = workbench.getPerspectiveRegistry().getDefaultPerspective();
+            workbench.showPerspective(defaultPerspectiveId, workbenchWindow);
+            page.resetPerspective();
+        } catch (WorkbenchException e) {
+            throw new IllegalStateException("Workbench could not be reset:\n" + e);
+        }
+    }
+
+    protected void waitForAutoBuild() {
+        boolean wasInterrupted = false;
+        do {
+            try {
+                Job[] foundJobs = Job.getJobManager().find(ResourcesPlugin.FAMILY_AUTO_BUILD);
+                if (foundJobs.length > 0) {
+                    Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
+                }
+                wasInterrupted = false;
+            } catch (OperationCanceledException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                wasInterrupted = true;
+            }
+        } while (wasInterrupted);
+    }
+
+    @Override
+    @After
+    public void tearDown() throws Exception {
+        // SWTBotTreeItem projectNode = selectFolderNode(getProjectName());
+        // projectNode.contextMenu("Delete");
+        // try {
+        // bot.checkBox().select();
+        // bot.button("OK").click();
+        // } catch(WidgetNotFoundException e) {
+        // e.printStackTrace();
+        // }
+        destroy();
+    }
+
+    protected abstract String getProjectName();
 }

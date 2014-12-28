@@ -7,9 +7,8 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class UTF8Provider implements IEncodingProvider {
-	
-	@Override
-	public String getEncoding(URI uri) {
-		return "UTF-8";
-	}
+
+    public String getEncoding(URI uri) {
+        return "UTF-8";
+    }
 }
