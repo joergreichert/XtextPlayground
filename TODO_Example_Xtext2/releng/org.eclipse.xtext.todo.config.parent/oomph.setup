@@ -1619,7 +1619,7 @@
   <setupTask
       xsi:type="launching:LaunchTask"
       id="de.abg.jreichert.repositorytarget.dsl.mwe2"
-      launcher="Generate Language Infrastructure (de.abg.jreichert.repositorytarget.dsl)">
+      launcher="Generate Language Infrastructure (org.xtext.example.mydsl)">
     <description>Repository Target DSL Grammar Workflow</description>
   </setupTask>
   <setupTask

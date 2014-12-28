@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.6"?>
-
-<target includeMode="feature" name="Xtext TODO Platform - Eclipse 4.3" sequenceNumber="67">
-	<locations>
-		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.sdk.feature.group" version="4.3.2.v20140221-1852"/>
-			<unit id="org.eclipse.pde.feature.group" version="3.9.1.v20140221-1700"/>
-			<unit id="org.eclipse.swt" version="3.102.1.v20140206-1334"/>
-			<repository location="http://download.eclipse.org/releases/kepler"/>
-		</location>
-		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.emf.sdk.feature.group" version="2.9.2.v20140203-1126"/>
-			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.5.3.v201402240820"/>
-			<unit id="org.eclipse.xtend.sdk.feature.group" version="2.5.3.v201402240820"/>
-			<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.5.1.v201402030750"/>
-			<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.5.1.v201402030544"/>
-			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
-		</location>
-		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="de.itemis.xtext.antlr.sdk.feature.group" version="2.1.0.v201308291703"/>
-			<unit id="de.itemis.xtext.antlr.feature.feature.group" version="2.1.0.v201308291703"/>
-			<repository location="http://download.itemis.com/updates/releases/2.1.0/"/>
-		</location>
-		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.xpect.sdk.feature.group" version="0.1.0.201401101421"/>
-			<repository location="http://www.xpect-tests.org/updatesite/nightly/"/>
-		</location>
-		<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.2.1.201402241301"/>
-			<unit id="org.eclipse.swtbot.eclipse.gef.feature.group" version="2.2.1.201402241301"/>
-			<repository location="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
-		</location>
-	</locations>
-	<environment>
-		<nl>en</nl>
-	</environment>
-	<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<launcherArgs>
-		<vmArgs>-Xmx512m -XX:MaxPermSize=128m</vmArgs>
-	</launcherArgs>
+<?pde version="3.8"?>
+<target name="Generated from Xtext Playground" sequenceNumber="68">
+  <locations>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+      <unit id="org.eclipse.sdk.feature.group" version="4.3.2.v20140221-1852"/>
+      <repository location="http://download.eclipse.org/releases/kepler"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+      <unit id="org.eclipse.sdk.feature.group" version="4.3.2.v20140221-1852"/>
+      <repository location="http://download.eclipse.org/eclipse/updates/4.3"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+      <unit id="org.eclipse.emf.sdk.feature.group" version="2.10.2.v20141013-0308"/>
+      <repository location="http://download.eclipse.org/modeling/emf/emf/updates/releases/"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+      <unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.5.1.v201402030750"/>
+      <unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.5.1.v201402030544"/>
+      <unit id="org.eclipse.emf.sdk.feature.group" version="2.10.2.v20141013-0308"/>
+      <unit id="org.eclipse.xtext.sdk.feature.group" version="2.5.4.v201404100756"/>
+      <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+      <unit id="de.itemis.xtext.antlr" version="2.1.1.v201405091103"/>
+      <repository location="http://download.itemis.com/updates/releases/2.1.1/"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+      <unit id="org.eclipse.jdt.junit.runners.feature.feature.group" version="0.1.0.201411181552"/>
+      <unit id="org.xpect.sdk.feature.group" version="0.1.0.201409041611"/>
+      <repository location="http://www.xpect-tests.org/updatesite/nightly/"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+      <unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.2.1.201402241301"/>
+      <repository location="http://download.eclipse.org/technology/swtbot/releases/latest/"/>
+    </location>
+  </locations>
 </target>
