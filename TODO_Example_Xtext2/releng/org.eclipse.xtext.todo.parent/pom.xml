@@ -75,7 +75,19 @@
                               </goals>
                            </pluginExecutionFilter>
                            <action>
-                              <execute />
+							  <!-- http://wiki.eclipse.org/M2E_compatible_maven_plugins -->
+							  <!-- 
+								 put ignore here because executing Mwe2Launcher with 
+								 exec-maven-plugin should not happen at every project
+								 build and more relevant it is causing an Eclipse shutdown
+								 because org.codehaus.mojo.exec.ExecJavaMojo during 
+								 execution joinNonDaemonThreads is called an this is calling
+								 joinThread for each found non daemon thread. When it tries
+								 to join the org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher
+								 thread this kills the running Eclipse instance without
+								 leaving any hint why.
+							   -->
+							  <ignore />
                            </action>
                         </pluginExecution>
                      </pluginExecutions>
