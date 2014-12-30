@@ -3,7 +3,7 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"  
-script: cd TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.distribution && mvn clean -B -V deploy -Pmodules-default,modules-assembly -DskipUITests
+script: cd TODO_Example_Xtext2/releng/org.eclipse.xtext.todo.distribution && mvn clean -B -V install -Pmodules-default,modules-assembly -DskipUITests
 env:
   global:
     secure: axvjtAqhdh32g9zmUaxd4mu7+iR/ZJaj/hw+Ss5XMJDcCKUSR/BUvqvo7ZFeHN2YGwS8DzCS0Fsr6Axop5mqfzyjVvHDKd4zE+Lm7HW+NUJVoV8khlLeEVX/KYcqWkKNkChxRRbIB3xnqim1H4T2ThKNlzl3wHgFRXdzK/gl57c=
